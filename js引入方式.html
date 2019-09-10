@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>js引入方式</title>
+</head>
+<body>
+    <ol>
+        <li>行内式：通过向html元素行内添加一些 js 代码，如给div绑定点击事件</li>
+        <div onclick="alert('这是js代码')">这是一个div</div>
+        <li>内嵌式：在html文档中写一个script标签，把外面的 js 写在 script 标签内</li>
+        <script>
+            alert('这是内嵌式js代码')
+        </script>
+        <li>外链式：在html文档中写一个 script 标签，并且设置 src 属性，src 的属性值引用一个 js 文件资源，而 js 代码写在 js 文件中</li>
+        <p>使用外链式引入 js 文件时，script 标签里面不能再写 js 代码了，即使写了也不会执行</p>
+        <script src="js/1.js"></script>
+    </ol>
+</body>
+</html>

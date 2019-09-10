@@ -1,0 +1,26 @@
+<html>
+    <body>
+        <script>
+            // alert方法(函数)：在浏览器中通过弹窗的方式输出（浏览器提示框）
+            var num=12;
+            alert(num); //alert()读作：alert方法执行【写在方法名后面的“()”读作“执行”，就是把alert函数里面的代码执行一遍】。把想输出的东西放在小括号里；
+
+
+            //console.log方法：在浏览器控制台输出日志。console是浏览器的开发者工具的一个页卡
+            //console.log()读作 console.log 方法执行
+            var name="js";
+            console.log(name);
+
+
+            // innerHTML/innerText属性；修改元素中的HTML或者文本；
+
+            var box =document.getElementById("box"); //=>在document(整个HTML文档中)下面查找 id 为 box 的元素
+            //语法：元素对象.innerHTML/innerText = '想要显示的内容'；【想要显示的内容必须是一个字符串类型的值】
+            box.innerHTML = "<h1>innerHTML</h1>";
+            box.innerText = "<h1>innerText</h1>";
+
+            //box.innerHTML/box.innerText = '字符串'读作：将 box 的 innerHTML 或 innerText 修改为 "字符串"
+            //=>同样是包在字符串里面的内容，通过 innerHTML 的方法浏览器会将<h1>识别成 HTML 内容；但是 innerText 不能识别，而是你字符串里面写什么，页面就输出什么
+        </script>
+    </body>
+</html>
