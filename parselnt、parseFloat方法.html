@@ -1,0 +1,17 @@
+<html>
+    <body>
+        <h4>数据类型转换（parseInt、parseFloat方法）</h4>
+        <p>作用和Number方法相似，都是把非数字类型值转换为数字，区别在于Number方法是强制转换，即要求被转换字符串必须都是数字，如果不满足这一条件直接得到NaN,而parselnt和parseFloat则是非强制转换</p>
+        <p>parseInt:把一个字符串中的整数解析出来</p>
+        <p>parseFloat:把一个字符串中整数和小数包含小数点都解析出来</p>
+        <script>
+            parentInt('13.5');//13
+            parentFloat('13.5')//13.5
+
+            parseInt('width:13.5px');//NaN
+            parseFloat('width:13.5px')//NaN
+
+            //无论是 parseInt 还是 paseFloat 都是从字符串的最左边开始查找有效数字，直到遇到第一个非有效数字字符串就停止查找，如果第一个就不是有效数字，那么直接返回 NaN ，并且停止查找
+        </script>
+    </body>
+</html>

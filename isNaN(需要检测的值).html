@@ -1,0 +1,18 @@
+<html>
+    <body>
+        <script>
+            var num=12;
+            var result1=isNaN(12);//->检测 num 变量存储的值是否为非有效数字，12是数字，所以isNaN执行后得到一个false;
+            var result2=("中文");//-> true 因为汉字不是数字
+            var result3=isNaN("13");//->false
+            var result4=isNaN(false);//->false
+            var result5=isNaN(null);//->false
+            var result6=isNaN(undefined);//->true
+            var result7=isNaN({name:"中文"});//->true
+            var result8=isNaN([12,23]);//->true
+            var result9=isNaN([12]);//->false
+            var result10=isNaN(/^$/);//->true
+            var result11=isNaN(function(){});//->true
+        </script>
+    </body>
+</html>

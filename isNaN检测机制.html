@@ -1,0 +1,47 @@
+<html>
+    <body>
+        <script>
+            //1.首先要验证当前要检测的值是否为数字类型的，如果不是，浏览器会默认把值转换为数字类型
+
+        //     把非数字类型的值转换为数字：
+        //     -其他基本类型转换为数字：内部隐式调用Number方法
+
+        // Number(需要转换的值)；是强制转换
+        // [字符串转数字]：如果字符串里面都是数字，那么返回这个数字，如果有非数字的因素会返回NaN.
+        ```javascript
+            Number('13')//->13
+            NUmber('13px')//NaN字符串中 px 不是数字
+            Number('13.5')//13.5可以识别小数点
+        ```
+
+        // [布尔值转数字]
+        Number(true);//-> 1
+        Number(false);//->0
+
+        // [null、undefined转数字]
+        Number(null);//0
+        Number(undefined);//NaN
+
+        // -引用数据类型转数字：先强调引用数据类型值的 toString 方法将引用数据类型转化为字符串，然后再将字符串转换为数字。
+
+        // [数组转数字]
+        Number([12,23])//NaN;内部机制：[12,23].toString() ->'12,23' ->Number('12,23') ->NaN
+
+        // [对象转数字]
+        Number({})//NaN;其内部机制：({}).toString()->'[object Object]' -> Number('[object Object]')->NaN
+
+        // [正则]
+        Number(/^\d/)//NaN;内部机制：/^d$/.toString() ->'/^\d/' ->Number('/^\d/')->NaN
+        </script>
+
+        <script>
+            // 2.当前检测的值已经是数字类型，是有效数字就得到一个false，不是就会得到一个 true；（再数字类型中只有NaN 不是有效数字，其余的都是有效数字）
+            Number(1);//false
+            Number(NaN);//true
+
+            // 3 NaN 的比较
+            NaN == NaN//返回false；（ == 是比较运算符，一个等号是赋值） NaN只是表示非数字
+            
+        </script>
+    </body>
+</html>
