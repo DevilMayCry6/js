@@ -1,0 +1,40 @@
+<html>
+    <body>
+        <p>for 循环（for loop）语句：按照一定的规律，重复取做某一件事情，此时就需要使用循环语句。</p>
+        <script>
+            var ary= [1,2,3,4,5,6,7,8,9,10,11,12];
+            /*[
+                0:1,
+                1:2,
+                2:3,
+                ...
+                11:12
+                length :12 //length属性的值表示数组有多少项
+            ]
+            */
+
+            //把数组里面的每一项都输出出来：
+            console.log(ary[0]);
+            console.log(ary[1]);
+            console.log(ary[2]);
+            console.log(ary[3]);
+            console.log(ary[4]);
+            console.log(ary[5]);
+            console.log(ary[6]);
+            console.log(ary[7]);
+            console.log(ary[8]);
+            console.log(ary[9]);
+            console.log(ary[10]);
+            console.log(ary[11]);
+            
+            for (var i = 0;i <ary.length;i++){
+                //第一次循环：i=0 i<12 所以 ary[i] 是 ary[0]
+                //第二次循环：i=1 i<12 所以 ary[i] 是 ary[1]
+                //...
+                //i=12 i <12 =>false 不再执行循环体，循环结束
+                console.log(arr[i]);
+            }
+            console.log(i); //在for 的小括号里面声明的变量可以在外面使用
+        </script>
+    </body>
+</html>

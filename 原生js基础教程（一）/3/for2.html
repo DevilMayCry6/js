@@ -1,0 +1,60 @@
+<html>
+    <body>
+        <script>
+            // for 循环语法
+            //1.定义初始值 var i=0
+            //2.设定循环成立的条件 i<ary.length (如果条件成立执行循环，不成立则结束循环)
+            //3.条件成立会执行循环体中的内容（循环体就是花括号中的代码）
+            //4.执行累加 i++
+
+            //var i = 0; 和i++ 可以不放到括号里，但是你写在括号里的这个变量和写在外面是一样的，在循环里i++更改的就是外面声明的这个i；
+
+            var k=0;
+            for(;k<5;){
+                console.log(k);
+                k++;
+            }
+            console.log(k);//在外面的 k 也被更改了，已经变成了5 ，接着上面的
+
+
+            //道者输出一个数组
+
+            //把i的初始值设置为 ary.length-1,然后条件是 i>=0;i--;
+
+            var ary=[12,23,34];
+            for(var i = ary.length -1;i >=0 ;i--){
+                console.log(ary[i])
+            }
+
+            //输入数组中的奇偶数
+
+            //输入数组中的奇数项
+            
+            for(var j=0;j<ary.length;j++){
+                if(j%2 === 0){
+                    // % 是取模运算符 ，就是取余数
+                    console.log(ary[j]);
+                }
+            }
+
+
+            // continue 跳出某一轮的循环，继续后面的循环
+
+            for(var i=0;i<10;i++){
+                if(i===5){
+                    continue;//跳出 i=5 的那一次循环。结束本轮循环（循环体中的continue后面的代码将不再执行，继续执行下一轮循环）
+                }
+                console.log(i)
+            }
+
+            // break 结束整个循环
+
+            for(var i=0;i<10;i++){
+                if(i === 5){
+                    break;//结束i = 5 及以后所有的循环。break是强制结束整个循环，不做任何处理，同时循环体中的break 后面的代码也不会执行
+                }
+                console.log(i);
+            }
+        </script>
+    </body>
+</html>

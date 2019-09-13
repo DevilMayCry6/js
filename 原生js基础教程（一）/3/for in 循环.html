@@ -1,0 +1,18 @@
+<html>
+    <body>
+        <script>
+            //for in 循环是专门用来遍历对象的，可以把对象里面的属性一个一个的遍历出来
+                //for in 只能遍历对象的可枚举属性。一般浏览器默认添加的都是不可枚举的属性。例如_proto_
+            
+            var obj ={
+                name:'中文',
+                age: 5000
+            };
+            for(var k in obj){
+                //k 代表每次遍历时的属性名
+                console.log('k',k);
+                console.log('obj[k]',obj[k]);
+            }
+        </script>
+    </body>
+</html>

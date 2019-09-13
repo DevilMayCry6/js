@@ -1,0 +1,52 @@
+<html>
+    <head>
+        <style>
+            *{
+                margin:0;
+                padding: 0;
+            }
+            ul,li{
+                list-style: none;
+            }
+            .li-wrapper{
+                margin:30px auto;
+                border:1px solid #00b38a;
+                width: 500px;
+            }
+            .li-wrapper li{
+                height: 50px;
+                line-height: 50xp;
+                text-align: center;
+                border-bottom: 1px darkblue dashed;
+            }
+        </style>
+    </head>
+    <body>
+        <ul id="liWrapper" class="li-wrapper">
+            <li>litem</li>
+            <li>litem</li>
+
+            <li>litem</li>
+            <li>litem</li>
+            <li>litem</li>
+            <li>litem</li>
+
+        </ul>
+        <script>
+            // 获取元素 liWrapper 下的 li
+            var  liWrapper = document.getElementById('liWrapper');
+            var liList = liWrapper.getElementsByTagName('li');
+            for (let i =0;i<liList.length;i++){
+                //循环遍历元素对象，然后取出每一项
+                if(i%2 == 0){
+                    //如果是  i 是偶数
+                    liList[i].style.backgroundColor = 'pink';
+                }else{
+                    //否则 i 是 奇数
+                    liList[i].style.backgroundColor = "yellow";
+                }
+            }
+            
+        </script>
+    </body>
+</html>

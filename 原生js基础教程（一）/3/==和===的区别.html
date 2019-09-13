@@ -1,0 +1,27 @@
+<html>
+    <body>
+        <p>==在比较时等号左右两侧数据类型不同时会先转成相同数据类型，再比较</p>
+        <p>1. == 是相对比较； === 是绝对比较</p>
+        <script>
+            // 1.1 字符串 == 数字; 字符串转化为数字
+            console.log(1 == '1'); //true
+            // 1.2 布尔值 == 数字; 布尔值转为数字
+            console.log(1==true); //true;
+            //1.3 布尔值 == 字符串; 布尔值转为数字，字符串也转为数字，然后进行比较;
+            console.log(false == '0');//true
+            //1.4 null == undefined//true,null 和 undefined 和其他数据类型比较都是false
+            //1.5 对象 == 对象; 比较的是空间地址，地址相同返回true
+            console.log({} == {}); //false
+            //1.6 对象 == 字符串; 对象转为字符串，然后和字符串比较
+            console.log({} == '[object Object]'); //true
+            //1.7 对象 == 布尔值; 对象先转为字符串，再转数字，布尔值也转为数字，再比较这两个数字
+            console.log({} == true); //false
+            console.log([]== false); //true
+            //1.8 对象 == 数字; 对象先转为字符串，然后再转成数字
+            console.log({} == 1); //false
+            console.log([] == 0); //true
+            //特殊: NaN 和 NaN 永远不相等
+            console.log(NaN == NaN);
+        </script>    
+    </body>
+</html>

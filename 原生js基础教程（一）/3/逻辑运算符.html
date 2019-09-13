@@ -1,0 +1,43 @@
+<html>
+    <body>
+        <p>|| 表示或者，两者中有一个为 true，就返回 true</p>
+        <script>
+            if(0||1){
+                console.log('true')
+            }
+            if(0||false){
+                console.log('false')
+            }
+            if(true||0){
+                console.log(true);
+            }
+        </script>
+        <p>&&是并且，两个值中必须都是 true，才返回 true</p>
+        <script>
+            if(0&&1){
+                console.log(1,"0 && 1")
+            }
+            if(0 && false){
+                console.log(2,"0&& false")
+            }
+            if(true && 0){
+                console,log(3, "true&& 0")
+            }
+        </script>
+        <p>|| 和 && 也是有返回值的</p>
+        <script>
+            //  ||如果第一个为 true 就返回第一个，如果第一个不为 true 就返回第二个
+            var r1= 1||0;
+            console.log(r1);
+            var r2 = 0||false;
+
+
+            //  && 如果第一个为 true 返回第二个，如果第一个为 false 返回第一个
+            var r3 =1 && 0;
+            var r4 = false && 0;
+            console.log(r3);
+            console.log(r4);
+
+        </script>
+    </body>
+</html>
