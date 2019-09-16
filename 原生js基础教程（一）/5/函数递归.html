@@ -1,0 +1,26 @@
+<html>
+    <body>
+        <p>函数递归：在函数体内部，调用函数自身，达到重复某一行为的目的</p>
+        <script>
+            function rSum(num){
+                if(num ==10){
+                    return 10
+                }
+                return num + rSum(num + 1)
+            }
+            console.log(rSum(1));
+
+            function rSum2(num){
+                if(num==10){
+                    return 0
+                }
+                if(num %3 == 0){
+                    return num + rSum2(num +1)
+                }else{
+                    return rSum2(num + 1);
+                }
+            }
+            console.log(rSum2(1));
+        </script>
+    </body>
+</html>

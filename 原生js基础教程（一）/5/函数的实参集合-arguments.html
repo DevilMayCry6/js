@@ -1,0 +1,59 @@
+<html>
+    <body>
+        <script>
+            // arguments 被称为实参集合
+            function sum2(n,m){
+                console.log(n,m);
+                console.log(arguments);
+            }
+            sum2(1,2,3,4,5);
+
+
+            // ES6不定参数
+                // ES6中提供了一个功能和 arguments 的功能相识的功能--不定参数
+            function sum(...arg){
+                // ...叫做展开运算符
+                //arg 是一个形参变量
+                console.log(arg); //arg 是一个数组
+            }
+            sum(1,2,3,4)
+
+
+
+            // 基础版
+            function sum3(){
+                // 1.设立初始值
+                var total = 0;
+
+                //2.遍历 arguments
+                for(var i = 0;i < arguments.length;i++){
+                    var item = arguments[i];
+                    total +=item;
+                }
+                //3.把计算结果返回
+                return total;
+            }
+            var result = sum3(1,2,3,4,5);
+            console.log(result);
+
+            // 升级版：为了提高代码的健壮性，我们累加的时候需要判断一下我们传进来的实参是不是一个数字，
+            // 如果不是数字，我们先给它转成数字，然后再看转换后是不是有效数字，如果是再加，如果不是就不加了。
+            function sum4(){
+                //1.设立初始值
+                var total =0;
+                //2.遍历 arguments 对象，取出每一项
+                for (var i=0;i<arguments.length;i++){
+                    //3.不管你传进来的是不是数字，都转一次
+                    var item = Number(arguments[i]);
+                    //4判断转换后的结果是不是有效数字累加.非有效数字直接跳过
+                    if(!isNaN(item)){
+                        //如果不是NaN就让 total加等于 item
+                        total +=item;
+                    }
+                }
+                return total;
+            }
+            console.log(sum4(10,'20','aa'));//30
+        </script>
+    </body>
+</html>

@@ -1,0 +1,44 @@
+<html>
+    <body>
+        <script>
+            // 把函数当成一个值赋值给变量或者对象的属性
+            var fn = function(){
+                console.log('我是一个函数表达式');
+            }
+            fn();//fn 是一个变量名，它代表的也是一个函数
+
+            // 赋值给元素对象的事件属性：
+            // oBox.onclick = function(){};
+
+            //普通对象的属性值：
+            var obj= {
+                getName:function(){
+                    console.log('中午')
+                }
+            }
+            obj.getName();//因为 obj.getName 是一个函数，因此也可以执行
+
+            
+
+
+            //自执行函数：函数的定义和声明都放在一起了
+            (function(i){
+                // 第一部分是函数定义
+                console.log('i 是',i)
+            })(10);//后面的小括号放在函数后面就是让函数执行的
+
+            // 以下都是自执行函数
+            ~function(i){
+                console.log(i);
+            }(20);
+
+            +function(i){
+                console.log(i);
+            }(100)
+
+            -function(i){
+                console.log(i);
+            }(1)
+        </script>
+    </body>
+</html>

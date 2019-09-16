@@ -1,0 +1,116 @@
+<html>
+    <body>
+        <script>
+            //数组的删除和追
+            // 1 push
+                // 作用：项数组末尾追加项（可以多项，多项直接用逗号分隔）
+                //参数：需要添加到数组的项
+                // 返回值：数组追加项之后的长度
+                // 原数组是否改变：是
+                var ary1=[1,2,3];
+                var r1=ary1.push(4,5);
+                console.log(ary1,r1);
+            // 2 pop
+                //作用:删除数组末尾一项
+                //参数：无
+                //返回值：被删除的数组项
+                //原数组是否改变：是
+            var ary2=[1,2,3];
+            var r2=ary2.pop();
+            console.log(ary2,r2)
+            //3 unshift
+                //作用：向数组开头添加项
+                //参数：需要追加到开头的项
+                //返回值：追加完内容后的数组新长度
+                //原数组是否改变：是
+                var ary3=[1,2,3];
+                var r3=ary3.unshift(3,4);
+                console.log(ary3,r3)
+            //4 shift
+                //作用：删除数组起始一项
+                //参数：无
+                // 返回值：被删除的项
+                //原数组是否改变：是
+                var ary4=[1,3,4];
+                var r4=ary4.shift();
+                console.log(ary4,r4);
+            // 5 splice(n.m)
+                //作用：从索引为 n 开始删除  m 个
+                //参数：起始索引 n ，要删除的个数
+                //返回值：有删除的项组成新数组
+                //原数组是否改变：是
+                var ary5=[1,23,3];
+                var r5=ary5.splice(1,2);
+                console.log(ary5,r5);
+            // 6 splice(n,m,x)
+                //作用：从索用 n 开始删除 m 个，用 x 替换删除的部分
+                //参数：起始索引，删除个数，用来替换的数组项 x
+                //原数组是否改变：是
+                var ary6=[1,2,3];
+                var r6=ary6.splice(0,1,4);
+                console.log(ary6,r6);
+            //7 splice(n,0,x)
+                //作用：从索引 n 开始删除0个，把x插入到n的前面
+                //参数：起始索引，删除个数 0 ，x
+                // 返回值：空数组
+                // 原数组是否改变:是
+                var ary7=[1,3,4];
+                var r7=ary7.splice(0,0,2);
+                console.log(ary7,r7)
+        </script>
+        <script>
+            //2 数组复制、拼接
+                //slice(n,m)
+                //作用:从索引 n 开始复制索引到 m (不包括m)
+                /*参数:起始索引 n ,终点索引 m;m不写就是复制到最后一项,如果n 和
+                     m 都不写也是开头复制到末尾*/
+                //返回值：复制的项组成的新数组
+                //原数组是否改变：否
+            var ary8=[1,2,4,5];
+            var r8=ary8.slice(1,3);
+            var r9=ary8.slice();
+            var r10=ary8.slice(0);
+            var r11=ary8.slice(1);
+            console.log(r8);
+            console.log(r9);
+            console.log(r10);
+            console.log(r11);
+
+                // concat()
+                //作用：将数组拼接起来
+                //参数：需要拼接的数组或者数组项
+                // 返回值：拼接过后的新数组
+                //原数组是否改变：否
+                var ary12=[1,3,4,5];
+                var r12 = ary12.concat([9,11]);//参数传递一个数组
+                console.log(ary12,r12);
+
+                var r13=ary12.concat(9,11)//参数传递数组项
+                console.log(ary12,r13);
+                
+                var r14=ary12.concat();//一个参数不传相当于把数组复制一份
+                console.log(r14);
+                console.log(r13 === ary12);//false
+        </script>
+        <script>
+            // 三 数组转换成字符串
+                // 1 join()
+                // 作用：根据参数指定的分隔符把数组链接成为字符串
+                // 参数：分隔符，不指定时默认空字符串
+                // 返回值：拼接过后的字符串
+                // 原数组是否改变：否
+                var ary15=[1,3,5,7];
+                var str15=ary15.join('+');
+                console.log(ary15,str15)
+
+                //2 toString()
+                // 作用：把数组转换成字符串
+                // 参数：无
+                // 返回值：字符串
+                //原数组是否改变：否
+                var ary16=[1,3,4,6];
+                var str16=ary16.toString();
+                console.log(ary16,str16);
+        </script>
+    </body>
+</html>
