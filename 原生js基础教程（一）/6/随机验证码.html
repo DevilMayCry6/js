@@ -26,6 +26,7 @@
         </ul>
         <div id="codeBox"></div>
         <div id="codeBox2"></div>
+        <div id="codeBox-while"></div>
         <script>
             var a='',b=" ", c='';
             for(var i=0;i<26;i++){
@@ -95,5 +96,42 @@
             var codeBox=document.getElementById('codeBox2');
             codeBox.innerHTML=ranCode;
         </script>
+        <h3>不重复验证码 while 循环版</h3>
+        <p>while 循环</p>
+        <p>js中还有一种循环，就是while循环，while单词的意思是当...的时候一直做某件事情，一直到条件不成立。</p>
+        <p>所以while循环表示只要条件成立就会执行循环体里面的代码。</p>
+        <pre>
+            while(循环的条件){
+                循环体
+            }
+        </pre>
+        <code><p><span>所以停止的条件是 code.length < 4 即只要code的字符串个数小于4就该接着随机</span></p></code>
+        <script>
+            function validateCode(){
+                var a='',b='',c='';
+                for(var i=0;i<26;i++){
+                    a=a+String.fromCharCode(65+i);
+                    b=b+String.fromCharCode(97+i);
+                }
+                for(var i=0;i<10;i++){
+                    c=c+i;
+                }
+                var strbase=a+b+c;
+                var code='';
+                while(code.length<4){
+                    var ran = Math.round(Math.random()*(strbase.length-0)+0);
+                    var char = strbase[ran];
+                    var upperChar = char.toUpperCase();
+                    var upperCode = code.toUpperCase();
+                    if(upperCode.indexOf(upperChar)==-1){
+                        code+=char;
+                    }
+                }
+                return code;
+            }
+            var codeBox = document.getElementById("codeBox-while");
+            codeBox.innerHTML=validateCode();
+        </script>
+        
     </body>
 </html>
