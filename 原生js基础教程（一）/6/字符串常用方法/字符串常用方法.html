@@ -1,0 +1,71 @@
+<html>
+    <body>
+        <script>
+            var str="js.基础教程";
+
+            //一 通过指定索引获取字符串或 Unicode
+                //1.1 charAt(index)获取字符串中索引为index的字符
+                var s=str.charAt(3);
+                console.log(s);
+
+                //1.2 charCodeAt(index)获取字符串中指定索引位置的字符的 Unicode 编码值，返回的是一个 0-65535的整数
+
+                var code = str.charCodeAt(5);//
+                console.log(code);
+
+            //二 复制和截取字符串
+                //2.1 substr(n,m);从n开始截取 m 个，若不写 m ，则截取到末尾。如果 n 和 m 都不写，则截取全部;
+                var s1=str.substr(3,1);
+                var s2=str.substr(3);
+                var s3=str.substr();
+                console.log(s1,s2,s3);
+
+                //2.2 substring(n,m);从索引n开始截取，截取到索引为m 结束（不包含m），如果只写 n，是从n 开始截取到末尾;如果一个都不写，那就是截取全部;
+                var s4 = str.substring(3,4);
+                var s5 =  str.substring(3);
+                var s6 = str.substring();
+                console.log(s4,s5,s6);
+
+            // 三 转换大小写（只能装换英文字母）
+                // 3.1大写转为小写 toLowerCase()
+                    var s7="A".toLowerCase();
+                    console.log(s7);
+
+                //3.2 小写转为大写 toUpperCase();
+
+                var s8='a'.toUpperCase();
+                console.log(s8);
+            
+            //四 获取指定字符在字符串中出现的位置
+                //4.1 indexOf()获取字符在字符串中首次出现的位置，如果字符串中不包含这个字符，则返回-1
+                var idx1=str.indexOf('j');
+                console.log(idx1);
+
+                //4.2 lastIndexOf()获取字符在字符串中最后一次出现的位置，如果字符串中不包含这个字符，则返回-1
+                 var idx2=str.indexOf('E');
+                 console.log(idx2);
+                 
+                //五 split()按照指定的分割符把字符串拆分成数组（数组中的join方法与这个相反，join是根据分隔符数组拼接成字符串）
+                var str2="1 . 2 3 4-1";
+                var ary=str2.split(' ');//根据空格把str2拆分成一个数组
+                console.log(ary);
+
+                //六 replace()字符串替换
+                    var str3 = "js基教程";
+                    // replace(old,new)
+                    var s9 = str3.replace('基',"基础");
+                    console.log(s9);
+
+                    //replace(old,function(){return new})
+                    var s10 = str3.replace("基",function(){
+                        return '基础'
+                    });
+                    console.log(s10);
+
+                //七 match()匹配，如果匹配到，就返回一个数组，如果匹配不到就返回null
+                    var str4 = "abcde";
+                    var ary2=str4.match('abc');
+                    console.log(ary2);
+        </script>
+    </body>
+</html>
