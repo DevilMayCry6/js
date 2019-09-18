@@ -1,0 +1,99 @@
+<html>
+    <body>
+        <h3>基础板</h3>
+        <ul>
+            <li>需求</li>
+            <ol>
+                <li>生成一个4位的随机验证码</li>
+                <li>把验证码插入到页面中展示出来 <br>
+                    原理:<br>
+                    分析需求：
+                </li>
+                <li>而字符串和数字有关联的就是索引和 length ,而字符串和索引数字是一一对应的，我们要生成一个随机数字，<br>
+                然后通过字符串索引取得这个随机数对应的字符，就可以达到随机字符的目的</li>
+                <li>我们需要4个，就是说上面的事情需要执行4回，显然需要一个for循环</li>
+                </ol>
+        </ul>
+        <ul>
+            <li>具体步骤：</li>
+            <ol>
+                <li>准备随机范围 A-Z a-z 0-9</li>
+                <li>设置一空字符串，后面得到的字符都拼接到这个空字符串上</li>
+                <li>设置for循环，循环四次</li>
+                <li>获取页面中的div元素对象</li>
+                <li>通过设置div的 innerHTML 属性，把验证码插入到页面中</li>
+            </ol> 
+        </ul>
+        <div id="codeBox"></div>
+        <div id="codeBox2"></div>
+        <script>
+            var a='',b=" ", c='';
+            for(var i=0;i<26;i++){
+                 a=a + String.fromCharCode(65+i);//输出A-Z
+                 b=b+String.fromCharCode(97+i);
+            }
+            for(var i=0;i<10;i++){
+                 c=i+c;
+            }
+            var strbase=a+b+c;
+
+            var code='';
+            for(var i=0;i<4;i++){
+                var ran = Math.round(Math.random()*(strbase.length-0)+0);
+                var char = strbase[ran];
+                code+=char;
+            }
+            var codeBox = document.getElementById('codeBox');
+            codeBox.innerHTML=code;
+        </script>
+        <h3>不重复验证码</h3>
+        <ul>
+            <li>需求：不重复验证码</li>
+            <li>分析：</li>
+        </ul>
+        <ul>
+            <ol>我们之所以会重复，是因为随机出字符串后拼接之前没有检查在已有的验证码中是否已经存在相同字符;所以
+                我们需要在拼接之前检查当前字符串在已有的验证码字符串中是否出现过（indexOf）
+            </ol>
+            <ol>
+                如何解决大小写也算重复？我们把已经有的验证码全部转成大写，然后把本次获得字符串也转成大写（toUpperCase）
+                然后再判断是否出现过。如果没有出现再拼接，如果出现过就不拼接
+            </ol>
+            <ol>
+                如果出现过了，对于 for 循环来说已经跑过一轮了，此时不能给 i ，因为本轮没有获得有效的字符。
+                如果获得了就会导致出现重复了，有一次的字符没拼接，最后循环四次只有三个字符。
+            </ol>
+            <ol>为了解决3中的问题，我们不是直接再for循环中i了，我们在满足拼接条件，成功拼接后i</ol>
+        </ul>
+        <script>
+              
+            function a(){
+            var a='',b=" ", c='';
+                for(var i=0;i<26;i++){
+                    a=a + String.fromCharCode(65+i);//输出A-Z
+                    b=b+String.fromCharCode(97+i);
+                }
+                for(var i=0;i<10;i++){
+                    c=i+c;
+                }
+                var strbase=a+b+c;
+
+                var code='';
+                for(var i=0;i<4;){
+                    var ran = Math.round(Math.random()*(strbase.length-0)+0);
+                    var char = strbase[ran];
+                    var upperChar=char.toUpperCase();
+                    var upperCode=code.toUpperCase();
+                    if(upperCode.indexOf(upperChar)==-1){
+                        code+=char;
+                        i++;
+                    }
+                }
+                return code;
+            }
+            var ranCode=a();
+            var codeBox=document.getElementById('codeBox2');
+            codeBox.innerHTML=ranCode;
+        </script>
+    </body>
+</html>
