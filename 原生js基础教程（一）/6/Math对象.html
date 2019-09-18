@@ -1,0 +1,51 @@
+<html>
+    <body>
+        <p>Math对象，是浏览器中内置的专门处理数学计算的对象，Math内置了很多的数学方法</p>
+        <script>
+            //1.Math.abs();获取绝对值
+            var m1 = Math.abs(-12.5);
+            var m2 = Math.abs(12.5);
+            console.log(m1,m2);
+
+            //2 Math.floor();向下取整
+            var m3 = Math.floor(12.5);
+            console.log(m3);
+
+            //3 Math.ceil();向上取整
+            var m3=Math.ceil(12.1);
+            console.log(m3);
+
+            //4 Math.round();四舍五入
+            var m5=Math.round(2.35);
+            var m6=Math.round(2.5);
+                //负数是四舍六入
+            var m7=Math.round(-2.5);
+            var m8=Math.round(-2.6);
+            console.log(m5,m6,m7,m8);
+
+            //5 Math.random()生成一个0-1之间的随机小数；
+            var m9=Math.random();
+            console.log(m9);
+                //生成一个n-m之间的随机数
+                // var n,m;
+            // var ran = Math.round(Math.random() * (10 - 1) + 1);
+            // console.log(ran);
+                // var ran = Math.round(Math.random()*(m-n)+n);
+
+            //6 Math.sqrt(n)获取的n的算术平方根
+            var m10=Math.sqrt(9);
+            console.log(m10);//3
+
+
+            //7 Math.PI获取圆周率
+            // var pi = Math.PI();
+            // console.log(pi);
+            // console.log(pi.toFixed(2));//Math.PI()保留2位小数; toFixed(x)是number的方法，作用：保留x位小数
+            
+        </script>
+        <script type="text/javascript">
+            var property_value = Math.PI
+            document.write("Property Value is : " + property_value); 
+          </script>
+    </body>
+</html>
