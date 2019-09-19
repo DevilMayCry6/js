@@ -1,0 +1,28 @@
+<html>
+    <body>
+        <p>js中的定时器分为两种：</p>
+        <ul>
+            <li>window.setTimeout()设置一个时间间隔，等到了这个时间间隔执行一次</li>
+            <li>window.setInterval()每隔时间间隔执行一次</li>
+        </ul>
+        <script>
+            //1 设置定时器
+            // 1.1 setTimeout(function(){时间到了就要执行的代码},时间间隔)，返回定时器id
+            var timer1= setTimeout(function(){
+                console.log("1s到了")
+            },1000);
+
+            // 1.2 setInterval(function{时间到了要执行的代码},时间间隔),返回定时器id
+            var timer2=setInterval(function(){
+                console.log('一个2秒到了')
+            },2000);
+
+            // 2 清除定时器：停止定时器的办法就是清除定时器
+            // 2.1 clearTimeout(定时器id)清除 setTimeout 定时器
+            clearTimeout(timer1);
+
+            //2.2 clearInterval(定时器id)清除 setInterval 定时器
+            clearInterval(timer2); 
+        </script>
+    </body>
+</html>
