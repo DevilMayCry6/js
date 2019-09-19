@@ -1,0 +1,58 @@
+<html>
+    <body>
+        <p>1 js中获取日期时间</p>
+        <script>
+            var date = new Date();//Date 是一个类型，我们通过 new操作符获取2 Date 的实例
+            console.log(date);//这个 date 是标准的时间格式
+
+            console.log(typeof date); //date 实例是一个对象数据类型的值
+        </script>
+    </body>
+    <p>2 Date实例方法</p>
+    <script>
+        // 2.1 getFullYear()获取4位年份，返回4位年份
+        var year = date.getFullYear();
+        console.log(year);
+
+        //2.2 getMonth()获取月份，返回 0-11 的数字，0代表1月份，11代表12月份
+        var month = date.getMonth();
+        console.log(month);
+
+        //2.3 getDay()获取星期几，返回0-6的数字 0代表周日 6代表周六
+        var weekday = date.getDay();
+        console.log(weekday);
+
+        //2.4 getDate()获取今天是几号 今天几号就返回几
+        var today = date.getDate();
+        console.log(today);
+
+        //2.5 getHours()获取当前几点的小时数，返回 0-23 的数字，代表0点到23点
+        var hour = date.getHours();
+        console.log(hour);
+
+        //2.6 getMinutes()获取当前几点的分钟数，现在是几分就返回几
+        var min = date.getMinutes();
+        console.log(min);
+
+        //2.7 getSeconds()获取当前几点的秒数，是几秒就返回几
+        var sec = date.getSeconds();
+        console.log(sec);
+
+        //2.8 getMilliseconds()获取当前时间的毫秒数，是几毫秒就返回几
+        var mills = date.getMilliseconds();
+        console.log(mills);
+
+        //2.9 getTime() 获取时间戳，时间戳是当前时刻距离1970年1月1日0分0秒的毫秒数
+        var timeStamp = date.getTime();
+        console.log(timeStamp);
+    </script>
+
+    <p>Date 格式化时间</p>
+    <p>字符串转时间对象：Date 的另一个作用是可以把时间格式的字符串转换为时间对象，转换时间格式对象后就可以调用 getFullYear 等方法</p>
+    <script>
+        var str = '2019-10-1 1:17:11'
+        var date2 = new Date(str);
+        console.log(date2);
+        console.log(typeof date2);
+    </script>
+</html>
