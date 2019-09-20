@@ -1,0 +1,62 @@
+<html>
+    <body>
+        <script>
+            //1 document.getElementById()根据id获取dom元素对象
+            //参数：元素id
+            // 返回值：根据元素id获取到的 DOM 对象，如果获取不到返回 null
+            //注意：
+                //如果 ID 名字相同，那么获取第一个
+                //getElementById的上下文必须的document
+                var parent = document.getElementById('parent');
+                console.log(parent);
+            
+            // 2 context.getElementsByTagName()
+                //参数：标签名
+                // 返回值：从 context 下获取的指定标签名的 dom 集合，获取不到时是空集合
+                // 注意
+                    // dom 集合是类数组，有length有索引
+                    // context 不是指定的，当你想获取哪个元素下的所有的指定标签，哪个元素就是 context
+                var lis = parent.getElementsByTagName('li');//此时要获取 id 为 parent 的ul下的所有 li ，此时 context 就是 parent
+                console.log(lis);
+
+            //3 context.getElementsByClassName()在上下文中，根据元素class 名获取元素集合
+                // 参数：元素class 名字
+                //返回值：带有指定的class 的元素集合，如果获取不到则返回空集合
+                // context：想要在哪个元素下查找某些class 类名的元素，哪个元素就是context
+                var someBox = document.getElementsByClassName('some-box');
+                console.log(someBox);
+                var child = parent.getElementsByClassName('child');
+                console.log(child);
+
+            // 4 document.getElementsByName 通过name 属性获取元素对象，一般用于表单元素集合
+                // 参数：元素name 属性
+                //返回值：带有指定那么属性值的元素集合，获取不到就是空集合
+                var input = document.getElementsByName('inputField');
+                console.log(input);
+
+            // 5 document.documentElement 获取html 元素对象
+                console.log(document.documentElement);
+
+            //6 document.body 获取 body 元素对象
+                console.log(document.body);
+
+                // 获取浏览器可视窗口的宽度和高度
+                //宽度
+                var winW = document.documentElement.clientWidth||document.body.clientWidth;
+                console.log(winW);
+                // 高度
+                var winH = document.documentElement.clientHeight||document.body.clientHight;
+                console.log(winH);
+
+            //7 根据选择器获取（可以在移动端使用，在pc端有兼容性问题）
+            // context.querySelector(css选择器)获取一个
+            //context.querySelector(css选择器)获取所有
+
+            var single = document.querySelector('.some-box');
+            console.log(single);
+
+            var multi = document.querySelectorAll('.some-box');
+            console.log(multi);
+        </script>
+    </body>
+</html>
