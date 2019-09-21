@@ -1,0 +1,42 @@
+<html>
+    <h5>1.节点</h5>
+    <p>在 html 中所有的内容都成为节点（node）。节点是通过节点属性描述节点间关系的，并且根据节点关系获取元素对象</p>
+    <p>注意：换行和空格都是文本节点</p>
+    <script>
+        var parent = document.getElementById('parent');
+        var second = document.getElementById('second');
+    </script>
+    <h5>节点属性</h5>
+    <script>
+        // 2.1 childNodes 获取当前元素节点的所有子节点，属性值是集合
+        console.log(parent.childNodes);
+        //2.2 children 获取当前元素的所有元素子节点，属性值是集合
+        console.log(parent.children);
+        //2.3 firstChild 获取当前元素的第一个子节点
+        console.log(parent.firstChild);
+        //2.4 firstElementChild 获取当前元素的第一个元素子节点
+        console.log(parent.firstElementChild);
+        //2.5 lastChild 获取当前元素的最后一个子节点
+        console.log(parent.lastChild);
+        //2.6 lastElementChild 获取当前元素的最后一个元素子节点
+        console.log(parent.lastElementChild);
+        //2.7 parentNode 获取当前元素的父亲节点，属性值是对象
+        console.log(second.parentNode);
+        //2.8 previousSibling 获取上一个节点
+        console.log(second.previousSibling);
+        //2.9 previousElementSibling 获取上一个元素节点
+        console.log(second.previousElementSibling);
+        //2.10 nextSibling 获取下一个节点
+        console.log(second.nextSibling);
+        //2.11 nextElementSibling 获取下一个元素节点
+        console.log(second.nextElementSibling);
+    </script>
+    <h5>3.根据节点关系获取到的节点集合或者节点都是DOM集合或者DOM元素对象。我们可以操作这些集合或者对象，和操作DOM集合或者对象一模一样</h5>
+    <script>
+        parent.lastElementChild.firstElementChild.innerHTML = '我是通过dom节点属性添加的';
+        parent.lastElementChild.firstElementChild.style.backgroundColor = 'red';
+        parent.lastElementChild.firstElementChild.onClick = function(){
+            alert('这是通过DOM节点属性关系绑定的事件')
+        };
+    </script>
+</html>
