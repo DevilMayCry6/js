@@ -1,0 +1,24 @@
+<html>
+    <body>
+        <script>
+            // 1 setAttribute()给当前元素设置 html 行内属性
+            /* 语法：元素对象 .setAttribute(attr,value)
+            参数：属性名，属性值*/
+            var attributeBox = document.querySelector('#attributeBox')
+            attributeBox.setAttribute('name','珠峰培训');
+            attributeBox.setAttribute('age','10');
+
+            // 2 getAttribute()获取当前 html 某个行内属性的属性值
+            /* 语法：元素对象 .getAttribute(attr)
+            参数：属性名
+            返回值：属性值*/
+            var name =attributeBox.getAttribute('name');
+            console.log(name);
+
+            // 3 removeAttribute()删除指定的属性
+            /*语法：元素对象 .removeAttribute(attr)
+            参数：要删除的属性*/
+            attributeBox.removeAttribute('age');
+        </script>
+    </body>
+</html>
