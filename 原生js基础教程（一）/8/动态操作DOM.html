@@ -1,0 +1,47 @@
+
+<html>
+    <body>
+        <script>
+            //1 动态创建DOM元素对象 document.createElement()
+            /* 语法：document.createElement()
+            参数：html标签名
+            返回值：新创建的DOM对象
+            注意：新建的DON对象和我们从页面中获取的DOM对象操作起来没有任何区别*/
+            var newDiv = document.createElement('div');
+            newDiv.innerHTML = '我是新建的div';
+            newDiv.style.backgroundColor = 'red';
+            newDiv.style.width = '100px';
+            newDiv.style.height= '100px';
+            newDiv.onclick= function(){
+                alert('我是新建div的点击事件');
+            }  
+            //这是我们动态创建的，并没有把这个新建的div插入到html文档中
+
+            // 2 appendChild 向元素容器的末尾添加一个元素
+            /*语法：父级容器 .appendChild(元素对象)
+            参数：元素对象（新建的也行、之前已经存在的也行）
+            返回值：插入到容器中的元素对象*/
+            var wrapper = document.getElementById('wrapper');
+            var obj = wrapper.appendChild(newDiv);
+
+            //3 父级容器 .removeChild()
+            var originExist = document.getElementById('originExist');
+            wrapper.removerChild(originExist);
+
+            //4 insertBefore 把一个元素插入到指定容器中某一个元素标签之前
+            /*语法：父级容器 .insertBefore(newEle,oldEle);
+            参数：要插入的新元素，已经存在于容器的老元素
+            返回值： newEle*/
+
+            var insertResult = wrapper.insertBefore(newDiv,originExist);
+            console.log(insertResult);
+
+            //5 cloneNode() 把一个节点进行克隆
+            /* 语法：curEle.cloneNode(false)
+            参数：true表示深度克隆，把当前节点的子孙节点都克隆;false表示只克隆当前节点
+            返回值：克隆出来的节点（） */
+            var cloneWrapper = wrapper.cloneNode();
+            console.log(cloneWrapper == wrapper); // false克隆出来的和原来的节点没有关系
+        </script>
+    </body>
+</html>
