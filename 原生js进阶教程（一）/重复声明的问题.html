@@ -1,0 +1,38 @@
+<html>
+    <body>
+        <script>
+            //1 同名变量只会声明一次，代表的值就是最后一次的值
+
+            var num;
+            var num;
+            var num;//这些语句没有赋值操作，当代码执行时会略过
+            var num = 100; //num 虽然 var 了4 次 ，但是并不会声明4次，只会声明一次，同时只有这一次才会将 num 的值赋值成100 
+
+            function fn(){
+                console.log(1)
+            }
+            function fn(){
+                console.log(2)
+            }
+            function fn(){
+                console.log(3)
+            }
+            fn();//3
+
+            //2 变量提升时，function 的优先级高于普通变量
+            console.log(fe);//函数
+            function fe(){ //当代码执行到这里时，直接忽略，因为函数变量赋值已经在变量
+                console.log('这。。')
+            }
+            var fe = 123;//代码执行到这一段时，将变量 fe 的值修改为123
+            console.log(fe);
+
+            //3. 如果变量名和函数名同名，在执行到变量的赋值语句之前时，这个名字代表函数，但是当执行过变量赋值语句后
+            function fe(){
+                console.log('FE')
+            }
+            var fe = 1;
+            //fe(); //报错，因为执行到这里的时候 fe 不再代表一个函数了，而是一个数字
+        </script>
+    </body>
+</html>

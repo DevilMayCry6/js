@@ -1,0 +1,27 @@
+<html>
+    <body>
+        <script>
+            console.log(num);//undefined
+
+            var num = 12; //赋值操作，只在执行到这一行时，num才被赋值为12；
+            var obj = {
+                name:"j",
+                age:'1000'
+            };
+            console.log(jj);
+            function jj(str){
+                var age = 10;
+                console.log(str,age);
+            }
+            jj('j')
+
+
+            //预解释只发生在当前作用域，如果函数不执行，函数中的变量不会进行变量提升
+            function fn(){
+                var num = 13;
+            }
+            console.log(num);//报错：因为预解释发生在当前作用域中，而当前作用域没有num 的变量， num 是 fn 的私有变量
+            
+        </script>
+    </body>
+</html>
