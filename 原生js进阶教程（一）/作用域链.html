@@ -1,0 +1,53 @@
+<html>
+    <body>
+        <h4>js中作用域</h4>
+        <ul>
+            <li>全局作用域</li>
+            <li>私有作用域</li>
+            <li>块级作用域</li>
+        </ul>
+        <script>
+            function fn(){
+                console.log(15);
+            }
+            fn();//15
+
+            function fn2(){
+                console.log(x)
+            }
+            fn3();
+
+            function fn3(){
+                x=16;
+            }
+            fn2();
+        </script>
+        <script>
+            //作用域链：变量的查找机制
+            /*当在作用域中查找一个变量的时候，先看当前作用域中是否声明过这个变量，如果声明过，就使用这个变量，如果
+            没有声明过，那么就去上级作用域（上级作用域就是函数声明时所在的作用域）查找，找到就使用，如果没有就一直向
+            上查找，一直找到window 为止，如果本次使用变量是赋值，那么就相当于给window 上面增加一个属性，如果是引用变量，就会报错；*/
+
+            function fe(){ //fe 是在全局中定义的，所以 fe 的上级作用域就是全局作用域
+                var n = 200;
+                return function f(){ //这个 function 就是在fe 的作用域中定于的，所以该函数的上级作用域就是 fe 的作用域
+                console.log(n) //200
+
+                }
+            }
+            var fn = fe();
+            fn();
+
+            //上级作用域的确定
+             //如何查找上级作用域，就看这个函数是在哪里定于的
+                function fe(){ // fe是在全局中定义的，所以 fe 的上级作用域就是全局作用域
+                    var n =200;
+                    return function f(){// 这个 function 就是在 fe 的作用域中定义的，所以该函数的上级作用域就是fe 的作用域
+                        console.log(n) //200
+                    }
+                }
+                var fn = fe();
+                fn();
+        </script>
+    </body>
+</html>

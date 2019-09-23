@@ -1,0 +1,29 @@
+<html>
+    <body>
+        <script>
+            //在全局中，用var 和 function 声明的变量，也相当于给 window上添加一个同名属性
+                //全局作用域是一个内置对象 window
+                console.log(window);
+            var num = 2019
+            console.log(window.num);//2019
+            window.num = 2020;
+            console.log(num); // 2020 num 和 window.num是绑定在一起的
+            console.log('num' in window);//in 运算符 检测对象是否有某个属性，有返回true，否则 false
+
+            function fe(){
+                console.log('FE')
+            }
+            window.fe();
+            fe();
+
+
+            //不带 var 的不会参与变量提升
+            console.log(a); //undefined
+            var a = 1;
+            
+            // console.log(b);// 报错
+            b = 2;//不带 var 不会参与变量提升，所以不会提前声明和赋值
+            console.log(b);
+        </script>
+    </body>
+</html>
