@@ -1,0 +1,191 @@
+<html>
+    <body>
+        <script>
+            //一 闭包
+            //闭包定义
+                //形成一个不销毁的私有作用域（私有栈内存）才是闭包
+            //闭包应用:
+                //1 柯里化函数
+                //柯里化函数思想：把多参数的函数变成单参数的函数
+                function fn(a,b,b){
+                    return a + b + c;
+                }
+                function fn1(a){
+                    return function(b){ //这种在函数中return 函数的做法是市面中认为的闭包
+                        return function(c){
+                            return a+b+c;
+                        }
+                    }
+                }
+                fn(1)(2)(3);
+
+
+                // 2 利用闭包机制隔离全局命名空间
+                (function(){
+                    //自执行函数执行也是闭包
+                    let a = 100; // a是一个私有变量，不会影响全局作用域中的变量命名
+                })();
+
+                //3.惰性封装
+                    var utils = (function(){
+                        var version = '1.0.1';
+                        function sum(a,b){
+                            return a+b
+                        }
+                        function minus(a,b){
+                            return a - b;
+                        }
+                        return {
+                            sum:sum,
+                            minus:minus
+                        }
+                    })();
+
+                //4.利用闭包的不销毁作用域保存数据：累加计数、选项卡闭包版本
+                
+            //二 this
+            //this 是 js 的关键字，代表当前代码执行的环境对象。一般在函数中使用，并且是在函数执行时，根据函数的不同执行方式确定不同的值。目前阶段有以下情况：
+
+            // 1 事件函数中的this 是绑定该事件的元素
+            let box = document.getElementById('box');
+            box.onclick = function(){
+                console.log(this);// box 元素对象
+            }
+
+            // 2 自执行函数中的 this 是 window
+            (function(){
+                console.log(this);
+            })();
+
+            // 3 setTimeout/setInterval定时器回调函数中的this 指向 window
+            setTimeout(function(){
+                console.log(this);
+            },0);//定时器写 0 也不会立刻执行，也需要等待其他同步代码执行完才会执行;
+
+            //4 方法调用时，看方法前面是否有点. 如果有点前面是谁，this就是谁，如果没有，方法中的this就是window
+                var num =13;
+                var obj= {
+                    num:!2,
+                    fn:function(){
+                        console.log(this,num);
+                    }
+                }
+                obj.fn();//12
+                obj['fn']();//12 obj['fn']等效于 obj.fn 所以，this 仍然指向 obj
+
+                var fn = obj.fn;
+                fn();//13; window.num
+
+                //6 箭头函数中的 this 指向函数定义时所在作用域中的 this
+
+                // 箭头函数：
+                    // ES6 新增的语法：省略 function 关键字，在形参入口后增加 =>箭头，后面紧跟函数体
+                    let f = (a,b) =>{
+                        return a+b;
+                        console.log(this)
+                    }
+                    f();
+                    // 箭头函数的简化语法：
+                    // 1只有一个形参时，可以省略形参入口的小括号
+                    let f2 = a =>{
+                        var x = 10;
+                        x += a;
+                        return x;
+                    };
+
+                    // 2 如果函数只有一行代码，或者 return 指定返回值，可以省略函数体的花括号和 return关键字
+                    let transfer = (a,b) =>a+b;
+                    //等效于:
+                    let  transfer = function (a,b){
+                        return a+b;
+                    }
+                
+                // 7 全局作用域中的 this 是 window
+                console.log(this);
+
+                //this在运行时不可以赋值
+                this = {}; // 报错
+
+                // 三 i和1
+                // ++i 和 i++ 都是给 i 累加 1，但是加的时机不同
+                    /* ++i 是先累加自身，然后再取累加后的值和其他值运算
+                       i++ 是先取当前值和其他值运算，再累加自身 */
+                
+                var i = 0;
+                console.log(++i);//1;
+                console.log(i++); //0
+
+                var a =12; 
+                var b =13;
+
+                console.log(++a + a++ + b++ + ++b + a +b); //13 + 13 + 13 + 15 + 14 + 15 =83
+                
+
+                // 四 面向对象
+                // 面向过程
+                /* 面向过程：以过程为核心，研究现在要解决的问题，既不考虑以前，也不考虑将来，这段代码就解决现在的问题。
+                如果以后再有相同的功能，就再写一遍相同的代码*/
+
+                //面向对象
+                /*面向对象：是一种对现实世界的理解和抽象的方法。面向对象关心现在的功能分类解决，现在解决过的问题，
+                    我们过往有没有类似的代码可以复用，我们现在写的代码能不能改将来用*/
+                
+                // js 中的内置类
+                // Object Array Date RegExp Function
+                    // 这些内置类都是函数数据类型的
+                    console.log(typeof Array); // function
+                    console.log(typeof Object); //function
+
+                //对于面向对象要求我们掌握 封装、类的继承和多态
+
+                //五 单例模式
+                var name = "张三";
+                var age = 18;
+                var sex ="boy";
+
+                var name = "李四";
+                var age = 19;
+                var sex = 'girl';
+                // 因为变量只能代表一个值，全局变量后面的会覆盖前面的。导致前面的数据丢失
+
+                var stu1 = {
+                    name:'张三',
+                    age:18,
+                    sex:'boy'
+                };
+
+                var stu2={
+                    name:'李四',
+                    age:19,
+                    sex:'girl'
+                };
+                //把描述一个事物的属性放到一个对象内这种封装方式成为单例模式.
+                //单例模式的优点是解决了全局变量互相覆盖的问题，这样的 stu1 的 name 和 stu2 的name 没有关系，因为 stu1 和 stu2 是两个不同的对象，此时 stu1 和 stu2 代表的对象叫做单例，而 stu1 和 stu2 这两个变量名称为命名空间;
+
+                //高级单例
+
+                //高级单例模式不再是直接将一个对象赋值给命名空间，而是先执行一个自执行函数，在函数执行结束时返回一个对象;
+                var person = (function(){
+                    function eat(food){
+                        console.log(`I like eating${food}`)
+                    }
+                    function hobby(h){
+                        console.log(`I like playing ${h}`)
+                    }
+                    var account = "$100000";
+                    var name = "j";
+                    var age = 21;
+                    return {
+                        name:name,
+                        age:age,
+                        eat:eat,
+                        hobby:hobby
+                    }
+                })();
+                /*这样写，有一个优势，我们可以在自执行函数的作用域中声明变量和函数，这个作用域不会销毁，我们可以在最后返回对象里面选择导出哪些变量和方法给外界使用，
+                不导出，外界拿不到;*/
+
+                //单例模式虽然好用，但是有一个问题，有一个对象，我们就需要写一个对象，很繁琐.
+        </script>
+    </body>
+</html>
