@@ -1,0 +1,33 @@
+<html>
+    <body>
+        <script>
+             //6.工厂模式
+             function reg(name,age,sex){
+                        var obj = {}; //原材料
+                        obj.name = name; //加工
+                        obj.age = age; //加工
+                        obj.sex = sex; //加工
+                        return obj; //出厂
+                    }
+
+                    let s1 = reg('张三',19,'boy');
+                    let s2 = reg('李四',18,'girl');
+                    
+                    console.log(s1 == s2); //false
+                    //工厂模式：像上面这样，把实现相同的函数封装成一个函数，当我们需要创建一个实例的时候，我们就执行这个函数即可，并且每个对像都是单例
+                    //优势：高内聚，低耦合
+
+                    //工厂模式虽然解决了批量生产的问题，但是我们说面向对象还要有类的概念，但是这种方式生产的对象都是同一类，没有分类
+
+                    //js有两种创建数据的方式，一种是字面量，另一种是实例的方式
+                    var obj = new Object();
+                    obj.name = '李四';
+                    obj.age = 19;
+                    obj.sex = 'girl';
+                    console.log(obj);
+
+                    var obj2= new reg('li',13,'g');
+                    console.log(obj2);//同样获取了一个实例对象，但是没有发现类型
+        </script>
+    </body>
+</html>
