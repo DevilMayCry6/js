@@ -1,0 +1,51 @@
+<html>
+    <body>
+        <p>前面的工厂模式已经可以批量生产了，但是还是没有我们所说的面向对象中类型的概念。为了有类型的概念，我们需要构造函数模式</p>
+        <p>构造函数：构造函数也是一个函数，但是调用方式有别于工厂函数：</p>
+        <ul>
+            <li>调用方式不同，构造函数只能通过 new 操作符调用</li>
+            <li>工厂函数内需要手动创建对象实例，而构造函数模式不需要手动创建对象，在构造函数被 new 执行时，构造函数中的this
+                自动和实例绑定，所以我们所有的加工都发生在this上;
+            </li>
+            <li>工厂函数需要手动返回对象实例，而构造函数在被 new 操作符调用时不需要手动返回实例</li>
+        </ul>
+        <script>
+            //够着函数模式：
+            // 通过 new 调用一个函数，此时这个函数不再是普通函数，而是成为一个类，函数名称为类名，而通过 new 调用，自动返回这个类的一个实例。在构造函数中，我们需要抽象这个类型的属性和功能;
+            function Teacher(name,age,subject,from){
+                this.name = name;
+                this.mission = "传道授业解惑";
+                this.age = age;
+                this.subject = subject;
+                this.from = from;
+                this.teach = function(){
+                    console.log(`${name}老师教${subject}学科`);
+                }//Teacher 是一个类，这里类型抽象了老师的属性，一个老师有的属性有姓名，年龄，教授学科，哪个学校的老师，以及老师会讲课的功能
+            }
+                //创建一个实例：
+                let mrZhang= new Teacher('张三',18,'js','测试');
+                console.log(mrZhang);
+
+                let mrLi = new Teacher('李四',19,'JS','教学');
+                console.log(mrLi);
+                console.log(typeof mrZhang);//object
+                console.log(typeof mrLi);//object
+            
+            //通过浏览器控制台查看，这两个实例（对象）的前面出现了Teacher，此时说明 mrZhang 和 MrLI 都属于Teacher类的实例
+
+
+            //instanceof 运算符
+                //如何检测当前对象是否是当前类型的实例：
+                // instanceof 运算符：检测对象是否是某个类型的实例，如果是 true ，否则返回 false
+                console.log(mrZhang instanceof Teacher);
+                console.log(mrLi instanceof Teacher);
+                console.log([] instanceof Teacher);
+                console.log([] instanceof Object);
+                console.log([] instanceof Object);
+                console.log(mrZhang instanceof Object);
+                console.log(mrLi instanceof Object);
+
+                //但是因为 Object 是基类，所有实例都是对象数据类型的，所以用 instanceof 检测是否是 Object 的实例，都会返回 true;
+        </script>
+    </body>
+</html>
