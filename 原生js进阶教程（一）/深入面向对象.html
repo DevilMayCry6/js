@@ -1,0 +1,194 @@
+<html>
+    <body>
+        <script>
+        //一 字面量创建数据和实例的方式创建数据
+            // 1 实例的创建方式，通过 new 操作符调用当前类型的函数构造，会得到当前类型的一个实例
+                //创建引用数据类型
+            //     var ary2 = new Array(1,2,3,4); //用实例的方式创建一个数组
+            //     ary2.push(5);
+
+            //     var ary = [1,2,3,4]; //字面量创建数组
+            //     ary.push(5);
+
+            //     //创建引用基本类型
+            //     var str1 = new String('javascript');
+            //     console.log(str1.toUpperCase());
+                
+            //     var str2 = 'javascript';
+            //     console.log(str2.toUpperCase());
+            //     console.log(typeof str1);//'object'
+            //     console.log(typeof str2);//'string'
+                
+            //     //基本数据类型只能通过字面量的方式创建，如果用实例的方式创建，这个实例将会是变成一个对象，而对象不是基本数据类型
+
+            // //2 字面量创建方式：
+            //     //创建引用数据类型：字面量创建的引用该数据类型和实例的方式创建的引用数据类型没有区别
+
+            //     // 1.对象：{}
+            //     var obj = {};
+
+            //     //2 .数组：[]
+            //      var ary = [1,3,5];
+
+            //      //3.正则 /^\d$/
+            //      var reg =  /^\d$/
+
+            //      //创建基本数据类型：
+                 
+            //      var num = 1;
+            //      var str = 'abc';
+            //      var bool = true;
+            //      var empty = null;
+            //      var notDefined = undefined;
+            //      var sym = Symbol('cbd');
+
+
+
+            //      //new 调用构造函数和普通调用的区别
+            //     function Teacher(name,age,subject,from){
+            //         this.name = name;
+            //         this.mission = '传道授业解惑';
+            //         this.age = age;
+            //         this.subject = subject;
+            //         this.from = from;
+            //         this.teach = function(){
+            //             console.log(`${name}老师教${subject}学科`);
+            //         }
+            //         //上面这种通过 this.xxx = xxx 的方式直接向实例上添加的属性成为私有属性
+            //         var career = '前端';//这只是一个私有变量，不会和实例产生联系 
+            //     }
+
+            //     //普通函数执行：
+            //     let t1 = Teacher('张三',18,'js');
+            //     console.log(t1);//undefined
+
+            //     let t2 = new Teacher('李四',19,'js');
+            //     console.log(t2); //Teacher{......}
+            //     //因为 new 调用和普通调用有着本质的区别;
+
+            //     /* 函数的普通调用过程
+            //      1.新开辟栈内存作为执行的作用域
+            //        2.形参赋值
+            //        3.私有作用域变量提升
+            //        4.代码从上到下执行
+            //        5.释放栈内存 */
+
+            //     /* new 调用时
+            //     1.开辟栈内存
+            //     2.形参赋值
+            //     3.变量提升
+            //     4.隐式创建一个实例对象,并且把当前构造函数中的this指向这个实例对象
+            //     5.执行函数体中的代码,当遇到 this.xxx = xxx 时就是在向实例对象上增加属性
+            //     6.隐式返回实例对象
+            //     7.释栈内存 */
+
+
+            //     // 显示设置返回值
+            //     // 返回基本数据类型
+            //     function Teacher(name,age,subject,from){
+            //         this.name = name;
+            //         this.mission = '传道授业解惑';
+            //         this.age = age;
+            //         this.subject = subject;
+            //         this.from = from;
+            //         this.teach = function(){
+            //             console.log(`${name}老师教${subject}学科`);
+            //         }
+            //         return 61; //返回基本类型值
+            //     }
+            //     let t1 = new Teacher("王五",18,'js','code');
+            //     console.log(t1);//Teacher{...}
+
+            //     //返回引用数据类型
+            //     function Teacher(name,age,subject,from){
+            //         this.name = name;
+            //         this.mission = '传道授业解惑';
+            //         this.age = age;
+            //         this.subject = subject;
+            //         this.from = from;
+            //         this.teach = function(){
+            //             console.log(`{name}老师教${subject}学科`);
+            //         }
+            //         return {haha:'哈哈'}
+            //     }
+            //     let t2 = new Teacher('赵六',19,'js','code');
+            //     console.log(t2); //{haha:"哈哈"}
+
+            //     // 如果我们手动修改构造函数的返回值时：
+            //         /*如果 return 一个基本数据类型的值，没有任何影响，不会覆盖原有实例;
+            //         如果 return 引用数据类型，原有的实例就会被这个引用类型值覆盖 */
+
+            //         // 慎重修改够着函数的返回值
+                
+            //     //原型模式
+
+                // function Teacher(name,age,subject,from){
+                //     this.name = name;
+                //     this.mission = "传道授业解惑";
+                //     this.age = age;
+                //     this.subject = subject;
+                //     this.from = from;
+                //     this.teach = function(){
+                //         console.log(`${name}老师教${subject}学科`);
+                //     }
+                // }
+                // // let t1 = new Teacher('zhangsan',18,'js','code');
+                // // let t2 = new Teacher('zhangsan',19,'架构','code');
+
+                // // t1.teach();
+                // // t2.teach();
+                // // console.log(t1.teach === t2.teach); //false 因为t1 和 t2 是两个实例。而 teach 又是t1 和 t2 的私有方法
+                
+
+                // //数组的 push 方法
+                // var ary1= [1,2,3];
+                // var ary2= [1,3,4];
+                // console.log(ary1.push == ary2.push)//true
+                // console.log(ary1);
+                // console.log(ary2);
+
+
+                //原型对象：
+                /*原型prototype: 每一个函数（普通函数、构造函数【类】）都天生自带一个属性prototype（原型）。‘
+                这个属性的值是一个对象，用来存储当前类型的共有的属性和方法。保存在原型上面的属性和方法称为
+                公有属性或公有方法*/
+
+                //所以改造 Teacher 类型：
+                function Teacher(name,age,subject,from){
+                    this.name = name;
+                    this.mission = "传道授业解惑";
+                    this.age = age;
+                    this.subject = subject;
+                    this.from = from;
+                }
+                Teacher.prototype.teach = function(){
+                    console.log(`${this.name}老师教${this.subject}学科`);
+                };
+
+                console.log(Teacher.prototype);
+
+                let t1 = new Teacher("张三",18,'js','code');
+                let t2 = new Teacher('李四',19,'js','code');
+
+                t1.teach();
+                t2.teach();
+                console.log(t1.teach == t2.teach);//true
+
+                //t1 和 t2 是怎么找到的
+
+                console.log(t1);
+                console.log(t2);
+                console.log(Teacher.prototype);
+
+                /*在私有属性中没有发现 teach 方法。我们发现这个 t1 和 t2中有一个 _proto_ 属性，
+                这个属性值里面有teach方法。
+
+                原型链：对象的属性查找机制
+
+                每个实例都有一个属性 _proto_ 属性，它指向当前实例所属类的prototype 对象。当我们访问对象的一个属性时，
+                如果有，就使用私有属性，如果没有就通过实例 _proto_ 找到实例所属类的 prototype(原型)上查找，
+                如果找到就使用 prototype 上的属性，如果还没找到，就通过 prototype 的 _proto_继续向上查找，
+                一直找到Object就停止查找。如果还没找到就返回 undefined */
+        </script>
+    </body>
+</html>
