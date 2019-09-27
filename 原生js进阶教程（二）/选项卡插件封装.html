@@ -1,0 +1,62 @@
+<html>
+    <body>
+        <ul>
+            <li>插件封装需要简化构造函数</li>
+            <li>确保是由new操作符调用</li>
+        </ul>
+        <script>
+            //创建选项卡类
+            function Tab(options){
+                //1 确保如何通过 new 操作调用
+                if(!(this instanceof Tab)){
+                    console.error("Tab是一个构造函数，应该用 new")
+                    return;
+                }
+
+                //2 参考合法校验
+                if(!options || !options.el){
+                    console.error('缺少el元素');
+                    return;
+                }
+                //3 将传进来的参数对象保存到实例上
+                this._options = options;
+
+                //4. 执行初始化
+                this.init();
+            }
+
+            //为 tab 增加 init 方法
+            Tab.prototype.init = function(){
+                this.queryEle();
+                this.bindEvent();
+            };
+
+            //为 Tab 增加公用的获取元素的方法
+            Tab.prototype.queryEle = function(){
+                //1. 从 this 中的 options 中的 el 获取最外层元素
+                const container = document.querySelector(this._options.el);
+
+                //2. 获取选项卡头，并挂载到实例上
+                this.headerList = container.querySelectorAll('.header > li');
+
+                //3 获取所有的卡片并挂载到实例上
+                this.cardList = container.querySelectorAll('div');
+
+                //为Tab增加公用的绑定事件的元素
+                Tab.prototype.bindEvent = function(){
+                    const HEADER_LIST = this.headerList; //用一个常量缓存 headerList
+                    //变量 headerList 给每个 li 绑定点击事件
+                    for (let i = 0;i<HEADER_LIST.length;i++){
+                        HEADER_LIST[i].onclick = () =>{
+                            //这里使用箭头函数，是因为我们希望这里的 this 是 Tab 的实例，如果不使用箭头函数，点击事件函数中的this就是选项卡头了
+                            this.clearClass();
+                            this.addClass(i);
+                        }
+                    }
+                }
+                //为 Tab 类增加移除类名的方法
+                //为Tab 类舔加类名的方法
+            }
+        </script>
+    </body>
+</html>
