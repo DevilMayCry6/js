@@ -1,0 +1,54 @@
+<html>
+    <body>
+        <script>
+            console.log("面向过程")
+
+            var name = "张三";
+            var age = 26;
+            function eat(){
+                console.log("张三eat")
+            }
+            function drink(){
+                console.log('张三drink')
+            }
+            function sleep(){
+                console.log("张三sleep")
+            }
+            eat();
+            drink();
+            sleep();
+        </script>
+
+        <script>
+            console.log("面向对象")
+
+            function People(name,age){
+                this.name = name;
+                this.age = age;
+            }
+            People.prototype.eat = function(){
+                console.log(this.name +'eat')
+            };
+            People.prototype.drink = function(){
+                console.log(this.name + "drink")
+            };
+            People.prototype.sleep = function(){
+                console.log(this.name + 'sleep')
+            };
+
+            //描述一个主题
+            let lisi = new People('李四',20);
+            lisi.eat();
+            lisi.drink();
+            lisi.sleep();
+
+            let wangwu = new People('王五',15);
+            wangwu.eat();
+            wangwu.drink();
+
+            /*当我们以后再描述一个人的时候,我们把这个问题划分到解决描述人的问题,需要 People 这个类来完成
+            只需要 new 一下 People 这个类就可以得到一个对象,而且这个对象自带了 eat、drink、sleep方法 */
+            
+        </script>
+    </body>
+</html>
