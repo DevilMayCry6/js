@@ -1,0 +1,105 @@
+<html>
+    <body>
+        <p>this 是js 代码执行时的环境对象，一般在函数中使用，在函数执行时，根据函数的调用方式不同而不同，在运行时不能通过赋值的方式修改;</p>
+        <h4> this 的常见情况</h4>
+        <p>1 事件中的this 是绑定当前事件的元素</p>
+        <p>2 自执行函数中的this 指向 window</p>
+        <p>3 定时器回调函数中的 this 指向 window</p>
+        <p>4 全局作用域的 this 指向 window</p>
+        <p>5 方法调用时看方法执行前有没有点，如果有点前面是谁 this 就是谁，没有就是 window</p>
+        <p>6 箭头函数中的 this 是箭头函数声明时所在作用域中的 this</p>
+        <p>7 构造函数中的 this 指向当前实例</p>
+
+        <script>
+            //Function.prototype 上的三个方法 call、apply、bind 供 Function 的实例用来修改函数中的this 指向
+            console.log(Function.prototype);
+
+
+            //1 call Function.prototype.call
+
+            function fe(a,b){
+                console.log(a,b);
+                console.log(this);
+            }
+            fe(1,2); // this -> window
+
+            /* 使用 call 方法修改 this
+               语法：函数名.call(ctx,实参1，实参2...)
+               参数：ctx 将函数中的this 修改为ctx;从第二个参数开始，后面的参数都是传递给函数执行的实参
+               作用：修改方法中的关键字为 call 方法的第一个实参 ctx，并且把后面的参数当做实参传给函数，最后让函数执行; */
+
+            var obj = {
+                id:"12345"
+            }
+            fe.call(obj,2,0);
+
+            //特殊情况：
+            fe.call(null,1,2);
+            fe.call(undefined,1,2);
+            fe.call();
+            //call的第一个参数传递 null、undefined、或者不传时函数的 this 是 window
+
+
+            //2  apply修改函数中的this关键字
+            /* 语法：函数名.apple(ctx,[实参1，实参2.。。])
+               参数：ctx 将函数中的this修改为 ctx; 第二个参数是一个数组，数组项都是传递给函数的实参
+               作用：修改函数中的 this 关键字，并且把接收一个由实参组成的数组，最后把这个数组项作为实参传给函数，并且让函数执行 */
+
+            fe.apply(obj,[12,13]);//虽然这里传递了一个数组给函数，但是函数接收到的仍然是一个一个的实参
+
+            /* call 和 apply 的区别：二者都是用来修改函数中的this关键字的;但是二者最后给函数传递的实参的方式不同，
+            call 是一个一个的传递，apply是把实参放到一个数组中打包传递给函数 */
+
+            //bind 修改函数中的 this 关键字（绑定 this 关键字）：
+            // Function.prototype.bind
+                //语法：函数 .bind(ctx,实参1，实参2...)
+                //作用：绑定函数中的this 关键字，并且返回一个绑定了 this 的新函数; 注意：bind 不会让函数执行
+            function f(a,b,c){
+                console.log(a,b,c);
+                console.log('ff',this);
+                return a+b+c;
+            }
+
+            let obj2 = {
+                college:'x'
+            };
+            let f2 = f.bind(obj2);
+            console.log(f2 === f);//false
+            f2(1,2,3);
+            f2(1,3,5);
+            console.log(f2);
+
+            //bind 还有一个作用：绑定函数的参数
+            let f3 = f.bind(obj2,10,20);
+            f3(13);//10 20 30
+            f3(14);//10 20 14
+
+            let f4 = f.bind(obj2,12);//x= 12
+            let f5 = f4.bind(obj2,13);//x=12 y=13
+            let f6 = f5.bind(obj2,14);//x= 12 y=13 z=14
+            f6();//12 13 14
+
+            //bind 方法实现函数柯里化
+            function sum(a,b,c,d){
+                return a+b+c+d;
+            }
+            function curingSum(a){
+                return function(b){
+                    return function(c){
+                        return function(d){
+                            return a+b+c+d;
+                        }
+                    }
+                }
+            }
+            curingSum(1)(2)(3);
+
+            let c1 = sum.bind(null,1);
+            let c2 = c1.bind(null,2);
+            let c3 = c2.bind(null,3);
+            let c4 = c3.bind(null,4);
+            let r = c4();
+            console.log(r);
+        </script>
+    </body>
+</html>
