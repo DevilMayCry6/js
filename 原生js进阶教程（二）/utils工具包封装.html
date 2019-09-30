@@ -1,0 +1,23 @@
+<html>
+    <body>
+        <script>
+            window.utils = (function(){
+                function arrLikeToAry(args){
+                    try{
+                        return Array.from(args);
+                    }catch(e){
+                        var arr = [];
+                        for(var i=0;i<arg.length;i++){
+                            arr.push(args[i])
+                        }
+                        return arr;
+                    }
+                }
+
+                return {
+                    arrLikeToAry //arrLikeToAry:arrLikeToAry
+                }
+            })();
+        </script>
+    </body>
+</html>
