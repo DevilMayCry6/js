@@ -1,0 +1,127 @@
+<html>
+    <body>
+        <p>类数组：有索引有 length 的对象</p>
+        <p>常见的类数组：argument、DOM集合 </p>
+        <script>
+            //1 准备一个空数组，遍历类数组，把类数组中的每一项 push 到新数组
+            function sum(){
+                let ary = []; //准备一个新数组
+                //遍历 arguments
+                for(let i = 0;i<arguments.length;i++){
+                    ary.push(arguments[i]);
+                }
+                console.log(ary);
+            }
+            sum(1,23,3,4);
+
+            //2 扩展运算符（将 arguments 中的内容展开到一个新的数组中）
+            function sum2(){
+                let ary = [...arguments];
+                console.log(ary)
+            }
+            sum2(1,3,4,5);
+
+            //3 slice.call()使用 call 借用数组 slice 方法复制一个数组
+             // Array.prototype.slice.call()
+             //[].slice.call()这种写法在 IE 低级版本会报错
+             function sum3(){
+                 var ary = Array.prototype.slice.call(arguments);// 借用数组中的 slice 方法，在slice 方法执行的时候把 slice 方法中的 this 修改成 arguments
+                 //var ary = [].slice.call(arguments); //利用[].slice 找到数组原型上的 slice 方法中的this修改成 arguments
+                 console.log(ary);
+             }
+             sum3(2,3,1,3)
+
+             //4 Array.from() ES6 新增的方法，将类数组结构（类数组、iterator对象）转换成数组
+             function sum4(){
+                 let ary = Array.from(arguments);
+                 console.log(ary);
+             }
+             sum4(1,3,4,5);
+
+
+             //方法封装与容错处理
+                //封装一个将类数组转换成数组的方法
+                //版本1
+                function arrLikeToAry(arg){
+                    return Array.from(arg);
+                }
+
+
+                //Array.from 是 ES6 新的方法 ，IE低版本不兼容，而js单线程，一旦报错后面的代码就不执行了，因此要做容错处理：
+
+                //js的容错处理
+                //try-cath语句，会先 try ，如果 try 过程中报错了，会捕获错误继续执行容错处理，而不会停止执行;
+                try{
+                    //这里是尝试执行的语句;
+                    //通常这里是第一方案
+                }catch(e){
+                    //这里是异常情况的处理，如果上面
+                    //catch 是捕获异常，异常信息
+                    //上代码执行报错后会执行这里的代码，所以这里一般设置方案二
+                    console.log(e);
+                }
+                
+                //版本2 改写方法
+                function arrLikeToAry(ary){
+                    //使用 try-catch 语句
+                    try{
+                        //首先执行到这里，如果浏览器支持 ES6，不会报错正常执行，下面的 catch 语句就不会执行了
+                        return Array.from(arg)
+                    }catch(e){
+                        //如果浏览器不支持 es6，就执行到这里的代码，我们使用最原始的方法转数组
+                        console.warn(e);
+                        var ary  = [];
+                        for(var i = 0;i<arg.length;i++){
+                            ary.push(arg[i])
+                        }
+                        return ary;
+                    }
+                }
+
+
+
+                //箭头函数
+                //箭头函数：ES6的新语法
+                function fe(a,b){
+                    return a + b;
+                }
+                let addd =(a,b)=>{
+                    return a+b;
+                };
+
+                //注意事项:
+                //1 函数体里面只有一行代码时，可以省略 return 和花括号
+                //如果函数需要 return 一个对象时，对象需要用小括号包裹
+                let sum = (a,b) => a+b;
+                let getObj = (a,b) =>({a:a,b:b});
+                // 2 只有一个形参时，可以省略小括号
+                let say = msg=>console.log(msg);
+
+                //3 箭头函数里面就没有 arguments ,但是可以使用不定参数（剩余参数）;
+                let allIn = (...arg)=>{
+                    let total = 0;
+                    for(let i = 0;i<arg.length;i++){
+                        total += arg[i];
+                    }
+                    return total;
+                };
+
+                //不定参数（剩余参数）: 在函数形参中 ...形参名
+                    //1 不定参数是一个数组，可以使用数组方法
+                    //2 不定参数可以用作非必传参数
+                let fn = (a,b,...arg)=>{
+                    console.log(arg);
+                };
+                fn(1,2);// arg = []
+                fn(1,2,3);//arg = [3]
+                fn(1,3,5,7,9,11);//arg = [5,7,9,11]
+
+                //4 箭头函数中的 this 指向其声明时所在作用域中的 this;
+                    //原理：箭头函数没有自己的 this;
+
+                // this 和 arguments 是两个特殊的变量，是在函数执行时 js 解析引擎传入给函数的，但是箭头函数执行时，解析引擎给箭头函数;
+                //箭头函数没有自己的 this ，所以不能用作构造函数;
+                //箭头函数不能用 call、apply、bind修改 this
+        </script>
+    </body>
+</html>
