@@ -1,0 +1,27 @@
+<html>
+    <body>
+        <script>
+            let ulList = document.getElementById("ulWrapper");
+            let liList = document.getElementsByTagName('li');
+            //需求：按照页面内列表的数字升序排列这些li
+
+            //因为数组才能排序，所以我们需要先把获取回来的类数组集合转变成数组
+
+            let ary = utils.arrLikeToAry(liList);
+
+            ary.sort(function(a,b){
+                return a.innHTML -b.innerHTML;
+            });
+            console.log(ary);
+
+            //需要把这些li重新插入到页面中，页面中的li的顺序才会发生改变
+
+            for (let i = 0;i<ary.length;i++){
+                ulLis.appendChild(ary[i]);
+            }
+
+            //页面中的 html 元素和我们通过 js 相关方法取的元素对象或者元素集合存在映射关系（一个改另一个跟着改）；
+            
+        </script>
+    </body>
+</html>
