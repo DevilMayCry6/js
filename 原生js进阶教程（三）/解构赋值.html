@@ -1,0 +1,161 @@
+<html>
+    <body>
+        <p>利用数据结构的对应关系快速对数组和对象进行取值</p>
+        <p>1 数组解构赋值</p>
+        <p>等号左边的变量的位置和等号右边的数组中值位置相同时，变量可以取得数组中该位置的值;</p>
+        <script>
+            // 1.1 顺序解构
+            let ary = [10,50,100,200];
+            //没有解构赋值时
+            let  a = ary[0];
+
+            let b = ary[1];
+
+            let c = ary[2];
+            
+            console.log(a,b,c);
+
+            //使用解构赋值
+            // let [a,b,c] = ary;//等号左边是变量等号右边是数组，要求变量在等号边的位置和想取出的值的索引位置相同
+            // console.log(a,b,c);
+
+            //1.2 取数组中的某一个：
+            let[,,d] = ary;//如果只想得到第三个，前面两个空着，但是需写两个 ,
+            console.log(d);
+
+            //1.3取出第一项和第二项，剩余的统一放一个数组中;
+            let [e,f,...arr] = ary;
+            console.log(e);//10
+            console.log(f);//50
+            console.log(arr);//[100,200]
+
+            //1.4进一步解构
+            let ary2 = [10,["a","b"]];
+            let [g,[h,i]] = ary2;
+            console.log(g);//10
+            console.log(h);//"a"
+            console.log(i);//"b"
+
+            //1.5 数组解构默认值:只有解构出来的值是 undefined 时默认值才会生效
+            let ary3 = [1,3];
+
+            let [j = 2,k = 3,l = 100] = ary3;//j的默认值是2，k的默认值是3，l的默认值是100
+            console.log(j);//1
+            console.log(k);//3
+            console.log(l);//100
+
+            //把a当做b的默认值
+            let [a, b = a] = [1];
+            console.log(a); //1
+            console.log(b);//1
+        </script>
+        <script>
+            // 2 对象的解构赋值
+                //通常情况下获取一个对象的属性值是通过对象.属性名 或者 对象["属性名"]
+                //而对象的解构赋值就是通过变量和对象的属性对应时，就可以取得对象的改属性名的值
+            let obj = {
+                name :"j",
+                age:1
+            }
+
+            //2.1 解构赋值
+            let{name,age} = obj;
+            console.log(name);
+            console.log(age);
+
+            //2.2如果只想要对象的某一个属性值
+            let obj2 = {
+                name:"1",
+                age:2,
+                courses:["0","1","2"]
+            };
+            let{courses} = obj2;
+
+            //2.3 进一步解构
+            let obj3 = {
+                name:"name",
+                teacher:{
+                    js:["张三","李四","...","?"],
+                    architect:[""]
+                }
+            };
+            let {teacher:{js}} = obj3;
+            console.log(js);//获取 obj3.teacher.js 的值
+
+            //2.4 重命名：为了避免重复声明
+            let obj4 = {
+                title:"高级前端工程师"
+            };
+            let title = 100;
+            //let {title} = obj4; //如果直接这样解构，相当于重复声明了 title 变量
+            let {title:title2} = obj4;//从 obj4 中解构 title 属性，并且重命名为 title2
+            console.log(title2);
+
+
+            //2.5 解构赋值的默认值：只有解构出来的值是 undefined 时默认值才会生效
+            let obj5 = {
+                name :"zhangsan",
+                age:189,
+                job:"FE",
+                //address:undefined
+            };
+            let {address = "河北"} = obj5 ;//设置 address 解构赋值的默认值是 "河北";
+            console.log(address);
+
+            //3 字符串解构赋值
+            let [x,y,z,a] = "hello";
+            console.log(x,y,z,a);
+
+            //4 函数参数的解构赋值
+            function fe({name:nike,id,num = "1234556"}){
+                //把fe 执行时传递过来的实参进行解构
+                console.log(nike,id,num);
+            }
+            fe({
+                name:"zhangsan",
+                id:10
+            });
+
+
+            //5 对象的简洁语法
+            let config = "9?";
+            let pwd = "123345";
+
+            let obj6 = {
+                config:config,
+                pwd:pwd
+            };
+            //当你的属性名和变量名一样时，就可以简写为一个变量名
+
+            let obj7 = {
+                config,
+                pwd,
+            };
+        </script>
+        <script>
+            let response = {
+                code:0,
+                data:{
+                    list:[
+                        {
+                            name:"a",
+                            age:1
+                        },
+                        {
+                            name:"b",
+                            age:2
+                        }
+                    ],
+                    page:1,
+                    total:100
+                }
+            };
+            //使用解构赋值取出 response,list ,response.page,response.total
+            let {data:{list,page,total}} = response;
+                        console.log("list page total")
+            console.log(list);
+            console.log(page);
+            console.log(total);
+        </script>
+    </body>
+</html>
