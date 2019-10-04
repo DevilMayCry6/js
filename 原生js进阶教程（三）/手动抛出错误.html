@@ -1,0 +1,20 @@
+<html>
+    <body>
+        <p> throw关键字 用于手动抛出错误</p>
+        <script>
+            throw "hello world";
+            console.log(123);//不会输出，因为 throw 关键字抛出的是错误，js 一旦抛出就会停止后面的代码执行
+        </script>
+        <p>常见的错误</p>
+        <script>    
+            //1 ReferenceError 引用错误，引用了不存在的变量
+            throw new ReferenceError("某个变量未找到");
+            //2 TypeError 类型错误，错误使用类型
+            throw new TypeError('你搞错了类型');
+            //3 SyntaxError 语法错误
+            throw new SyntaxError('你的语法错误');
+            //4 Error普通错误
+            throw new Error('这是一个普通错误');
+        </script>
+    </body>
+</html>
