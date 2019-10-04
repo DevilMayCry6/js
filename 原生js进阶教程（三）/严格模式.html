@@ -1,0 +1,53 @@
+<html>
+    <body>
+        <h4>严格模式</h4>
+        <p>js的默认执行模式是松散模式，为了规范 js 这门语言，所以引入了严格模式，目的是为了消除 js 的一些怪异行为</p>
+        <p>使用严格模式：在js 脚本中的第一行增加 字符串 "use strict"</p>
+
+
+
+        <p>1  严格模式下形参 和 arguments 没有映射关系</p>
+
+        <p>在松散模式下，形参和 arguments 有映射关系，如果在函数中修改形参，那么 arguments 中的对应的值也会跟着修改</p>
+
+        <script>
+            function sum(a,b){
+                b = 100;//普通松散模式中
+                console.log(arguments); //1 100
+            }
+            sum(1,3);
+        </script>
+        <script>
+            //严格模式中，形参和 arguments 不存在映射关系
+            "use strict"
+            function sum2(a,b){
+                b = 100;
+                console.log(arguments); //1 3
+            }
+            sum2(1,3); 
+        </script>
+        <p>项目中使用 webpack 工具打包编译时，会在 js 脚本头部指定严格模式</p>
+        <p>2 严格模式下的 this 问题</p>
+        <p>非严格模式下的 call：</p>
+        <script>
+            function f0(){
+                console.log(this);
+            }
+            var obj = {
+                id:1
+            };
+            f0.call(obj); // this -> obj
+            f0.call(); // this -> window
+            f0.call(undefined);// -> window
+            f0.call(null);//window
+        </script>
+        <p>严格模式下，call方法不指定 this 时函数中的this 就是 undefined</p>
+        <p>严格模式下 call 指定谁，谁就是 this</p>
+        <script>
+            "use strict"
+            aa = 123;//非严格模式下给 window 增加属性
+            aa = 123;//严格模式下报错： Uncaught Reference： aa is not defined
+            
+        </script>
+    </body>
+</html>
