@@ -1,0 +1,139 @@
+<html>
+    <body>
+        <h4>正则:(RefExp:Regliar Expression)</h4>
+        <p>专门用来处理字符串的规则，这个处理包含两个方面的：</p>
+        <li>
+            <li>正则匹配，判断某一个字符串是否符合规则</li>
+            <li>正则捕获,把符合规则的字符串捕获到</li>
+        </li>
+        <script>
+            //学习正则学习编写一个正则
+            let reg = /\d/img;//字面量方式创建
+            let reg0 = new RegExp("\\d+","img");//实例的方式创建
+        </script>
+        <h4>正则的构成:元字符和修饰符</h4>
+        <p>元字符</p>
+        <ul>
+            <li>特殊元字符</li> 
+        <ul>
+            
+            <li>\d 匹配0-9中任意一位数字</li>
+            <li>\D 匹配除了 0-9 数字以外的任意字符</li>
+            <li>\w 匹配数字、字母、_中的任意一个字符串</li>
+            <li>\s 匹配一个空白符（空格、\t制表符）</li>
+            <li>\b 匹配单词的边界 'java-script' j的左侧，a的右侧，s左侧，t的右侧都是边界</li>
+            <li>\n 匹配一个换行符</li>
+            <li>. 不是小数点，是匹配除 \n 以外的任意字符串</li>
+            <li>\ 转义符，将普通的字符串转义成特殊的元字符，例如\d 就表示 0-9 之间的字符串;还可以将特殊的元字符转义成普通字符串。
+                如 . 不再表示除 \n 以外的任意字符，而是表示普通小数点
+            </li>
+            <li>^（读作caret符）表示以某个元字符开头</li>
+            <li>$ 表示以某个元字符结尾</li>
+            <li>x|y 表示x或者y中的任意一个</li>
+            <li>[xyz]表示x/y/z中的任意一个</li>
+            <li>[a-z] a-z 中的任意一个字母</li>
+            <li>[0-9] 0-9中的任意一个数字</li>
+            <li>[^a-z]除了 a-z 以外的任意字符</li>
+            <li>()正则分组</li>
+            <li>(?:)当前分组值匹配不捕获</li>
+            <li>(?=)正向预查</li>
+            <li>(?!)负向预查</li>
+            
+        </ul>
+        <li>
+            量词元字符:表示出现次数的元字符
+        </li>
+        <ul>
+            <li>*出现 0次到多次</li>
+            <li>?出现0次到1次</li>
+            <li>{n}出现n次</li>
+            <li>{n,m}出现n次到 m 次</li>
+            <li>{n,}至少出现n次</li>
+        </ul>
+        <li>普通元字符：只要在正则中出现，（基于字面量的方式创建），除了有特殊元字符和量词元字符以外，其余的都是普通元字符</li>
+        <li>修饰符:</li>
+            <ul>
+                <li>i:ignorecase 忽略大小写</li>
+                <li>m:multline 多行匹配</li>
+                <li>g:global 全局匹配</li>
+            </ul>
+        </ul>
+    </body>
+    <script>
+        let reg2 = /\D/;
+        console.log(reg2.test('2'));//false
+        console.log(reg2.test('a'));//true
+        console.log(reg2.test('_'));//true
+
+        let reg3 = /\w/;
+        console.log(reg3.test('1'));//true
+        console.log(reg3.test('a'));//true
+        console.log(reg3.test('_'));//true
+        console.log(reg3.test('A'));//true
+
+        let reg4 = /\n/;
+        console.log(reg4.test(`
+  `)); // true 模板字符串中输出了一个回车
+
+        let reg5 = /\s/;
+        console.log(reg5.test(" "));//true
+        console.log(reg5.test(" "));//true
+
+        let reg6 = /\b/;
+        console.log(reg6.test("java-script"));
+
+        let reg7 = /./;
+        console.log(reg7.test('我'));//true
+        console.log(reg7.test('s'));//true
+        console.log(reg7.test('12'));//true
+        console.log(reg7.test("\n"));//false
+
+        let reg8 = /^\d/;
+        console.log(reg8.test("1abc我"));//true
+        console.log(reg8.test("x2c"));//false
+
+        let reg9 = /\d$/;
+        console.log(reg9.test('hello1'));//true
+        console.log(reg9.test('123hello'));//false
+
+        let reg10 = /^\d$/;//匹配一个数字，这个数字既是开头也是结尾;就是说这个字符串只能有一个数字
+        console.log(reg10.test("9"));//true
+        console.log(reg10.test('99'));//false
+        console.log(reg10.test('abc1'));//false
+        console.log(reg10.test('1xyz'));//false
+
+        let reg11 = /a|b/;
+        console.log(reg11.test('a'));//true
+        console.log(reg11.test('b'));//true
+        console.log(reg11.test('ab'));//true
+
+        let reg12 = /[a-z]/;
+        console.log(reg12.test("reg12"));//true
+        console.log(reg12.test('a'));//true
+        console.log(reg12.test('z'));//true
+        console.log(reg12.test("xyz xyz"));//true 
+        console.log(reg12.test("A"));//false
+        console.log(reg12.test("1"));//false
+
+        let reg13 = /[^0-9]/;
+        console.log(reg13.test('8'));//false
+        console.log(reg13.test("Abc"));//true
+        console.log(reg13.test("ABC"));//true
+        console.log(reg13.test('\n'));//true
+        console.log(reg13.test("_"));//true
+
+        let reg14 = /\d*/;
+        console.log(reg14.test('abc'));//true
+        console.log(reg.test('123abc'));//true
+
+        let reg15 = /\d?/;
+        console.log(reg15.test('1abas12+3c我'));//true
+
+        let reg16 = /\d{3}/;
+        console.log("至出现3次");
+        console.log(reg16.test('666'));//true
+        console.log(reg16.test('22'));//false
+        console.log(reg16.test('abc'));//false
+        console.log(reg16.test("1234"));//true
+    </script>
+</html>
