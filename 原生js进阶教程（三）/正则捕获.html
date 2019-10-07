@@ -1,0 +1,79 @@
+<html>
+    <body>
+        <p>正则的捕获: 把正则匹配到内容捕获到：</p>
+        <p>RegExp.prototype.exec()方法</p>
+        <script>
+            let str = "hello2019 JavaScript2019 JavaScript9021";
+            let reg =/JavaScript\d+/;
+            let execs = reg.exec(str);
+            console.log(execs);
+            /*
+            
+                ["JavaScript2019", index: 10, input: "hello2019 JavaScript2019 JavaScript9021", groups: undefined]
+                0: "JavaScript2019"     //捕获到的位置
+                groups: undefined       //命名匹配
+                index: 10               //捕获的起始索引位置
+                input: "hello2019 JavaScript2019 JavaScript9021"   //原始字符串
+                length: 1
+                __proto__: Array(0)
+            */
+            let reg2 = /xxxxx/;
+            console.log(reg2.exec(str));//null
+            //如果捕获不到就返回 null
+        </script>
+        <script>
+            //正则捕获的懒惰性
+            console.log(reg.exec(str));//
+            console.log(reg.exec(str));
+
+            //如果不做特殊处理，正则每次捕获的时候都是从索引0开始，捕获到第一个符合条件的就停止捕获，后面有多少都不去捕获
+            //解决方案: 在正则后加修饰符 g
+
+            let reg3 = /JavaScript\d+/g;
+            console.log(reg3.exec(str));
+            console.log(reg3.lastIndex);//24
+
+            console.log(reg3.exec(str));
+            console.log(reg3.lastIndex);//39
+
+            console.log(reg3.exec(str));
+            console.log(reg3.lastIndex);//0
+
+            console.log(reg3.exec(str));
+            console.log(reg3.exec(str));
+            console.log(reg3.exec(str));
+            console.log(reg3.exec(str));
+
+            //lastIndex属性
+            //正则对象有一个 lastIndex 的属性，纪录着下一次匹配或者捕获的起始位置，下一次再匹配或者捕获，它会从这个索引位置开始往后查找
+            //上面之所以是最后一次，是因为最后一场从索引39开始查找，后面没有了，所以会返回null
+
+
+            //lastIndex属性纪录着下一场匹配的开始位置。当匹配或者捕获到达末尾后，下一次再匹配或者捕获会从头再来
+            let str2 = "hello javascript2019 javascript9210";
+            let reg5 = /javascript\d+/g;
+            console.log(reg5.test(str2));//true
+            console.log(reg5.lastIndex);//20
+            console.log(reg5.test(str2));//true
+            console.log(reg5.lastIndex);//35
+            console.log(reg5.test(str2));//false
+            console.log(reg5.lastIndex);//0
+
+            //使用匹配时，也是从 lastIndex 开始的位置去匹配；最后一次是false 是因为从索引35向后查找时没有查找到符合规则的字符串，所以返回false;
+
+
+            // match 方法配合正则
+            // String.prototype.match()
+            let mstr = str.match(reg);
+            console.log(mstr); //
+            let  mstrs = str.match(/xxxx/); //null
+            //match 方匹配不到是返回 null 而不是空数组
+            
+            let reg6 = /JavaScript\d+/;
+            console.log(str.match(reg6));
+            console.log(str.match(reg6));
+
+            //match 使用的正则不加 g 时返回值和exec是一样的。但是如果有g时，match 方法会一次性把所有符合条件的都匹配，而exec每次只能匹配到一个
+        </script>
+    </body>
+</html>
