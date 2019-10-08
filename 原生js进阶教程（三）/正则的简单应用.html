@@ -1,0 +1,73 @@
+<html>
+    <body>
+        <script>
+            // 1 验证中国大陆手机号 以1开头的11位数
+            let reg1 = /^1\d{10}$/;
+            console.log(reg1.test("12345678911"));
+            
+            //2 验证某些号码的手机号验证 ，例如 188 170 156
+            let reg2 = /^1(88|70|56)\d{8}$/;
+            console.log(reg2.test("18812331111"));
+
+            //匹配尾号是连续的三位豹子号 666 777 111
+            let reg3 = /^1\d{7}(\d)(\1{2})$/;
+            // let reg3 =/^1\d{7}(666|777|111)$/;
+            console.log(reg3.test('12345676111'));
+
+            //靓号 中间四位相同，后面四位相同
+            let reg5 = /^1\d{2}(\d)\1{3}(\d)\2{3}$/;
+            console.log(reg5.test("12333331111"))
+
+            //5 有效数字验证：
+            /* 10+10-10 0.12 10.02
+                +或-最多出现一次
+                如果是一位数字可以是0-9
+                多为数不能以0开头
+                如果有小数点，后面必须跟至少一位小数点
+            */
+                let reg6 = /^[+-]?(\d|[1-9]\d+)(\.\d+)?$/;
+
+            // 验证数字在某个范围内 18-60
+            /* 18-19 1[89]
+               20-59 [2-5][0-9]
+               60     60
+            */
+            let reg7 = /^(1[89]|[2-5]\d|60)$/;
+
+            //匹配中文姓名
+            /* 
+                中文的 Unicode 编码范围 \u4e00-\u9fa5
+                出现 2 位到 6 位
+            */
+            let reg8 = /^[\u4d00-\u9fa5]{2,6}$/;
+            console.log(reg8.test("张三"));//true
+            console.log(reg8.test("hello"));//false
+
+            //邮箱验证（简单验证）
+            /*
+                雅虎邮箱： xxx@yahoo.com.cn
+                google：xxx@gmain.com
+                qq邮箱：xxx@qq.com
+                网易：xxx@163.com  xxx@163.com
+                开头部分 [a-zA-z\d]+
+                中间部分 [-\w]+
+                结尾部分 [a-zA-Z\d]
+            */
+            let reg9 = /^[a-zA-Z\d]+@[a-zA-Z\d]+(\.[a-z]+){1,2}$/;
+            console.log(reg9.test("12@gmain.com"));
+            console.log(reg9.test("11@yahoo.com.cn"));
+            console.log(reg9.test("1@qq.com"));
+            console.log(reg9.test("ww@163.com"));
+            console.log(reg9.test("sr@126.com"));
+
+            //数据类型检测
+            Object.isTypeOf = function (val){
+                let res = Object.prototype.toString.call(val);//"[object Xxxx]"
+                let reg = /^\[object([a-zA-Z]+)\]$/; //在正则使用某些特殊元字符的原义时需要转义
+                let exec = reg.exec(res)[1];
+                return exec.toLowerCase();
+            }
+            console.log(Object.isTypeOf(1));
+        </script>
+    </body>
+</html>
