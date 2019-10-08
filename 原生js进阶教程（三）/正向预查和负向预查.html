@@ -1,0 +1,16 @@
+<html>
+    <body>
+        <p>正向预查：（?=元字符）不发生分组捕获</p>
+        <p>负向预查：（?!元字符）不发生分组捕获</p>
+        <script>
+            //正向预查： /x(?=y)/ 匹配x, 仅当 x 后面紧跟着 y （匹配后面跟着 y 的 x）；
+            let reg1 = /[a-z](?=3|4)/g;
+            let str1  = "a1 b2 c4 d4";
+            console.log(str1.match(reg1)); //["c","d"]
+
+            //负向预查：/x(?!y)/ 匹配x，仅当 x 后面表不是 y （匹配后面不是 y 的 x）;
+            let reg2 = /[a-z](?!3|4)/g;
+            console.log(str1.match(reg2));
+        </script>
+    </body>
+</html>
