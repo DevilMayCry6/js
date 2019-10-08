@@ -1,0 +1,31 @@
+<html>
+    <body>
+        <p>正则捕获：正则除了匹配还可以把符合·条件的捕获到</p>
+        <script>
+            let str = "hello2019 zhufeng2019 zhufeng9021";
+            let reg = /zhufeng(\d+)/g; // () 是分组，相当于小正则
+
+            //正则捕获方法： RegExp.prototype.exec()方法
+
+            console.log(reg.exec(str));
+            
+            console.log(reg.exec(str));//
+        </script>
+        <p>捕获到的内容是一个数组，数组的第一项是大正则匹配到的内容，如果有分组的话从第二项开始就是分组正则捕获到内容;
+            所以捕获的内容返回值: ["大正则捕获到的","分组1捕获内容","分组2捕获内容"……]
+        </p>
+        <p>字符串 match 方法, 匹配符合规则的字符串，但是 match 方法不能进行分组匹配</p>
+        <script>
+            console.log(str.match(reg));//
+        </script>
+
+        <script>
+            //取消分组：(?:)表示当前小括号改变优先级，而不用作用分组捕获    
+            let reg2 = /zhufeng(?:\d+)/;
+            console.log(reg2.exec(str));
+        </script>
+        <p>?的作用</p>
+        <p>? 表示量词元字符 出现0次到1次 可以有可以没有</p>
+        <p>(?:)取消分组捕获</p>
+    </body>
+</html>
