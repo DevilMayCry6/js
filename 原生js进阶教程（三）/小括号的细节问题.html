@@ -1,0 +1,39 @@
+<html>
+    <body>
+        <script>
+            //1 分组捕获
+            let str = "hello2019 q2019 9102";
+            let reg = /hello(\d+)/g; //()是分组,相当于小正则
+            console.log(reg.exec(str));//使用 exec 方法符合条件的字符串捕获到
+
+            // 分组引用 \ 数字 表示引用前面分组某个分组的内容
+            let reg2 = /^(\d)\1$/; //匹配一个数字，个位数和十位数相同; \1表示引用第一个分组中的内容
+            console.log(reg2.test("11"));//true
+            console.log(reg2.test('99'));//true
+            console.log(reg2.test('12'));//false
+        </script>
+        <script>
+            let reg3 = /[a-z]([a-z])[a-z]\1/;
+            console.log(reg3.test('tara'));
+            console.log(reg3.test('abcd'));
+        </script>
+        <script>
+            //3 改变优先级
+
+            //写一个正则匹配 18 或者 19
+            let reg4 = /^18|19$/;
+            console.log(reg4.test('1291281'));
+            console.log(reg4.test("19232318"));//false
+            console.log(reg4.test("18wserw19"));//true
+            console.log(reg4.test('181918'))//true
+            console.log(reg4.test('18191'));//true
+            console.log(reg4.test('21918191'));//false
+            console.log(reg4.test("19181919"));//true
+
+
+            let reg5= /^(18|19)$/;
+            console.log(reg5.test("18"));//true
+            console.log(reg5.test('1819'));//false
+        </script>
+    </body>
+</html>
