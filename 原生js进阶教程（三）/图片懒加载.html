@@ -1,0 +1,106 @@
+<html>
+    <head>
+        <style>
+            *{
+                margin:0;
+                padding:0;
+            }
+            .top{
+                width: 500px;
+                margin: 0 auto;
+                height: 1000px;
+                border: 10px solid #00B38a;
+            }
+            .img-wrapper{
+                width: 500px;
+                min-height: 200px;
+                border: 1px solid #000;
+                margin: 100px auto;
+            }
+        </style>
+    </head>
+    <body>
+        <h4>图片延时加载（图片懒加载）</h4>
+        <p>真实项目中，为了提升页面的加载速度，我们一般将图片处理成延时加载</p>
+        <p>效果：</p>
+        <p>页面中的图片在刚刚打开时，浏览器会立刻去请求 这张图片资源。但是延时加载是页面打开时，不是立刻去加载图片<hr>
+        而是在某个合适的时机去加载这张图（一般是图片进入浏览器可视区或者即将进入可视区2域）</p>
+        <p>原理：</p>
+        <p>img 标签有一个 src 属性，值是这张图片的资源路径;只要浏览器检测到 img 有这个属性就会立刻去加载，为了实现延时加载，<hr>
+        不直接给img 标签设置 src 属性，而是选择自定义其他属性保存其图片资源路径;<hr>
+        等到合适的时机，再获取这个自定义属性值，再赋值给图片的scr 属性，此时，浏览器会根据这个src去加载图片</p>
+
+        <p>1 单张图片延时加载</p>
+        <p>时机：图片即将进入浏览器可视窗口</p>
+        <p>监听页面的滚动事件，当页面滚动时，计算图片什么时候可以进入可视窗口</p>
+        <p>进入浏览器可视窗口条件：（图片上外边距离页面顶端的距离-浏览器的可视窗口的高度-页面纵向滚动条卷去的距离）<=0</p>
+
+        <div id="top" class="top">
+            这个盒子就是用来占位的，一个很长很长的盒子
+        </div>
+        <div class="img-wrapper">
+            <img data-src="" alt="" id="first">
+        </div>
+        <div class="img-wrapper">
+            <img data-src="" alt="">
+        </div>
+        <div class="img-wrapper">
+            <img data-src="" alt="">
+        </div>
+        <script>
+            //1 获取该图片
+            let singImg = document.querySelector('#first');
+            //2 获取浏览器可视窗口的高度
+            let winH = utils.win('clientHeight');
+            //3 监听 window 的 onscroll 事件，在事件函数中计算图片是否进入浏览器的可视窗口
+
+
+            window.onscroll = function(){
+                //1 获取图片的自定义属性保存的图片资源路径
+                let dataSrc = singleImg.getAttribute('data-src');
+                //2 获取当前页面滚动条卷去的高度
+                let winScrollTop = utils.win('scrollTop');
+                //3 获取图片的上外边框距离页面顶部的距离
+                let imgOffsetTop = utils.offset(singleImg).top;
+                //4 判断图片是否进入浏览器的可视窗口
+                if(imgOffsetTop - winH -winScrollTop <=0){
+                    //满足这个条件说明图片即将或者已经进入了可视窗口,此时给 img 的 src 赋值
+                    singleImg.src = dataSrc;
+                }
+            };
+
+
+
+            //优化
+            //真实项目中，因为网络或者其他因素可能导致图片加载失败，所以一般不是直接给图片赋值，而是先动态创建一个img 标签，用动态创建的 img 去尝试加载，如果加载成功就再给页面中的图片 src 属性赋值
+
+            //1 获取该图片
+            let singleImg = document.querySelector('#first');
+            //2 获取浏览器可视窗口的高度
+            let winH = utils.win('clientHeight');
+            //3 监听 window 的 onscroll 事件，在事件函数中计算图片是否进入浏览器的可视窗口
+
+            window.onscroll = function(){
+                //1 获取图片的自定义属性保存的图片资源路径
+                let dataSrc = singleImg.getAttribute('data-src');
+                //2 获取当前页面滚动条卷去的高度
+                let winScrollTop = utils.win('scrollTop');
+                //3 获取图片的上外边框距离页面顶部的距离
+                let imgOffsetTop = utils.offset(singleImg).top;
+                //4 判断图片是否进入浏览器的可视窗口
+                if(imgOffsetTop - winH -winScrollTop <=0){
+                    //满足这个条件说明图片即将或者已经进入了可视窗口，此时给 img 的 src 赋值
+                    //4.1 动态创建 img 
+                    let newImg = document.createElement('img');
+                    //4.2 尝试加载
+                    newImg.src = dataSrc;
+                    //4.3 监听临时图片的 onload 事件，如果加载成功会触发这个事件
+                    newImg.onload = function(){
+                        singleImg.src = dataSrc;
+                        newImg = null; //手动释放内存
+                    }
+                }
+            }
+        </script>
+    </body>
+</html>
