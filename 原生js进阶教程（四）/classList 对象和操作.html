@@ -1,0 +1,47 @@
+<html>
+    <head>
+        <style>
+            .hide{
+                display: none;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="box"  id="box">元素自带 classList 属性，值是一个类数组对象，里面包含了该元素全部的类名</div>
+        <button class="btn primary one two three" id="btn">按钮</button>
+        <script>
+            let bin = document.getElementById('btn');
+            let box = document.getElementById('box');
+            console.log(bot.classList)
+            //classList 对象
+            /*
+                DOMTokenList(5)[
+                0:"btn"
+                1:"primary"
+                2:"one"
+                3:"two"4:"three"
+                length: 5
+                value:"btn primary one two three"__proto__:DOMTokenList
+                ]
+            */
+        </script>
+        <script>
+            //classList还有对应的类名的添加、删除、切换等方法
+            //增加类名
+            // ele.classList.add(class1,class2)
+            btn.classList.add('six','seven','eight');
+            console.log(btn.classList);
+
+            //移除类名
+            // ele.classList.remove()
+            btn.classList.remove("one");
+            console.log(btn.classList);
+
+            //切换类名（如果之前有就移除，如果之前没有就添加）
+            // ele.classList.toggle('class1')
+            btn.onclick = function(){
+                box.classList.toggle('hide');
+            };
+        </script>
+    </body>
+</html>
