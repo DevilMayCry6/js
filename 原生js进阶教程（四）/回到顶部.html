@@ -1,0 +1,79 @@
+<html>
+    <head>
+        <style>
+            *{
+                margin:0;
+                padding: 0;
+            }
+            #box{
+                height: 5000px;
+                background: -webkit-linear-gradient(top left,red,blue,green,orange);
+            }
+            .btn{
+                position: fixed;
+                bottom: 50px;
+                right: 50px;
+                width: 80px;
+                height: 80px;
+                line-height: 80px;
+                text-align: center;
+                border-radius: 50%;
+                cursor: pointer;
+                user-select: none;
+                background-color: #fff;
+                color: #ddd;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="box"></div>
+        <div class="btn" id="btn">上去</div>
+        <script>
+            //方案一
+            const{css,win} = window.utils;
+            let btn = document.getElementById('btn');
+
+            //直接将页面的 scrollTop 设为 0
+            btn.onclick = function(){
+                win('scrollTop',0)
+            }
+        </script>
+        <script>
+            //方案2：缓慢的回去-指定时间
+            let isRun = false;
+            btn.onclick = function(){
+                if(isRun)return;
+                //2.1固定时间上去 例如1s
+                let top = win('scrollTop');
+                let speed = top/1000;//速度 1000ms = 1s
+                let time = 0;//纪录运动时长
+                isRun = true;
+                let timer = setInterval(()=>{
+                    time +=50;
+                    if(time >= 1000){
+                        time = 1000;
+                        clearInterval(timer);
+                        isRun = false;
+                    } 
+                    top = top - time * speed;
+                    win('scrollTop',top);
+                },50)
+            };
+        </script>
+        <script>
+            //3 缓慢回去 - 指定步长
+            btn.onclick = function(){
+                clearInterval(this.timer);//防止动画累加，要清除动画
+                this.timer = setInterval(()=>{
+                    let top = win('scrollTop');
+                    top -= 20;
+                    if(top <= 0){
+                        t = 0;
+                        clearInterval(this.timer);
+                    }
+                    win('scrollTop',top);
+                },10)
+            };
+        </script>
+    </body>
+</html>
