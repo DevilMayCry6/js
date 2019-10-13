@@ -1,0 +1,28 @@
+<html>
+    <body>
+        <p>定时器：设定一个定时器，并且设置了等待时间，等时间到了，浏览器会把定时器的回调函数执行了</p>
+        <p>定时器是挂载在 window 上的方法</p>
+        <p>浏览器中常用的定时器</p>
+        <script>
+            // 1 window.setTimeout(callback,timeInterval)到时间后执行一次，也称为超时调用
+            //callback:到达时间后需要执行的方法（设定定时器时传入的第一个参数只是函数定义，并不是函数执行，真正执行是在时间到了以后，浏览器其执行这个函数）
+            //timerInterval:时间间隔
+            let n = 0;
+            setTimeout(()=>{
+                n++;
+                console.log(n);
+            },1000);
+
+            //2 window.setInterval(callback,timeInterval)每隔一定时间就会执行一次，也称为间歇调用
+            //callback:到达时间后需要执行的函数
+            //timerInterval:时间间隔
+
+
+            //3 setTimeout和setInterval方法都会返回一个定时器ID,是一个数字；
+
+            //4 清除定时器
+            //clearTimeout 和 clearInterval: 这两个方法可以清除指定的定时器;
+            //一旦定时器被清除，不管这个定时器是否发挥过作用（回调函数是否执行过），里面的回调函数都会停止执行;
+        </script>
+    </body>
+</html>
