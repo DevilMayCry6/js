@@ -1,0 +1,78 @@
+<html>
+    <body>
+        <script>
+            // Effect 运动方式
+            const Effect ={
+                Linear: function (curTime,begin,change,duration){
+                    return change / duration * curTime + begin;
+                }
+            };
+
+            function animate({ele,target ={},duration = 2000,after}){
+                //1 参数校验
+                if(!ele || ele.nodeType !==1){
+                    throw TypeError('ele is not a DOM ELEMENT')
+                }
+
+                //2 准备动画需要的参数
+                const{css} = window.utils;
+
+                //2.1 根据 target 中传入的属性，计算这些属性的起始位置以及这些属性的运动距离
+                let begin = {};
+                let change = {};
+
+                //遍历 target 对象
+                for (let k in target){
+                    if(target.hasOwnProperty(k)){
+                        begin[k] = css(ele,k);//用css方法获取元素的起始位置
+                        change[k] = target[k] - begin[k];//获取元素运动的路程
+                    }
+                }
+
+                //2.2 纪录当前时间
+                let time = 0;
+
+                //2.3 设置 interval
+                let interval = 16;
+
+                //3 创建动画定时器
+                ele.timer && clearInterval(ele.timer);//每次开始新的动画时停止上一次的动画
+                ele.timer = setInterval(()=>{
+                    time += interval;
+
+                    if(time > duration){
+                        css(ele,target);
+                        clearInterval(ele.timer);
+                        //调用钩子函数
+                        if(typeof after === 'function'){
+                            after.call(ele);//让 after 执行，并且把 after 中的 this 修改为 ele
+                        }
+                        return;
+                    }
+                    let curState = {};
+                    //计算当前元素的位置
+                    for(let k in target){
+                        if(target.hasOwnProperty(k)){
+                            curState[k] = Effect.Linear(time,begin[k],change[k],duration)
+                        }
+                    }
+                    //把当前元素的相应的属性设置为当前状态
+                    css(ele,curState);
+                },interval)
+            }
+
+            //调用：
+            animate({
+                ele:box,
+                target:{
+                    left:800,
+                    top:500
+                },
+                duration:2000,
+                after:function(){
+                    alert('终于跑完了')
+                }
+            });
+        </script>
+    </body>
+</html>
