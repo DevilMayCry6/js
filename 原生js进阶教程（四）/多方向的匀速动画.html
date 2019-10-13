@@ -1,0 +1,57 @@
+<html>
+    <body>
+        <p>让页面的 div 在 2s 内运动到的 left 值是 850，top 值是 500 的位置</p>
+        <p>多方向的匀速动画即元素的多个js属性同时变化</p>
+        <script>
+            const{css} = window.utils;
+
+            //过渡时间 2000
+            let duration = 2000;
+
+            //目标值
+            let beginLeft = css(box,'left');
+            let beginTop = css(box,'top');
+
+            //获取起始位置
+            let beginLeft = css(box,'left');
+            let beginTop = css(box,'top');
+
+            //获取总路程
+            let changeLeft = targetLeft - beginLeft;
+            let changeTop = targetTop - beginTop;
+
+            //纪录时间
+            let time = 0;
+
+            //定时器执行间隔
+            const interval = 16;
+
+            let timerId = setInterval(()=>{
+                time += interval;
+
+                //动画结束条件判断
+                if(time >= duration){
+                    css(box,{
+                        left:targetLeft,
+                        top:targetTop
+                    });
+                    clearInterval(timerId);
+                    return;
+                }
+
+                //计算当前时刻元素 left 和 top 的值
+                let curLeft = liner(time,beginLeft,changeLeft,duration);
+                let curTop = liner(time,beginTop,changeTop,duration);
+                css(box,{
+                    left:curLeft,
+                    top:curTop
+                })
+            },interval);
+
+            function liner(curTime,begin,change,duration){
+                //计算匀速运动，元素某一时刻的位置
+                return (change/duration)*curTime + begin; 
+            }
+        </script>
+    </body>
+</html>
