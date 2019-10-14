@@ -1,0 +1,51 @@
+<html>
+    <body>
+        <p>把一个函数 A 当做实参传递给另一个函数 B ，在函数 B 执行的时候，在需要的地方就会把 A 执行，我们把这种机制称为“回调函数机制”;</p>
+        <p>回调函数的特点</p>
+        <p>1 根据需求回调函数可以被执行 N 次</p>
+        <p>2 不仅可以把回调函数执行，还可以给传递的回调函数传递实参，这样在回调函数中设置形参（或者使用ARG）接收即可</p>
+        <p>3 还可以改变回调函数中的 this 指向</p>
+        <p>4 可以在宿主函数（它在哪里执行，它的宿主函数就是谁）中接收回调函数执行的返回结果</p>
+        <script>
+            //p 传递一个匿名函数：
+            let fn = (callback) =>{
+                //callback
+                //callback && callback.call(obj,100,200);
+                //typeof callback ==='function' ? callback():null;
+                let res = callback(10,20);
+                console.log(res);
+            }
+
+            fn(function(n,m){
+                console.log(this,n,m);
+                return n + m;
+            });
+            //此时 function(n,m){...}就是回调函数 它是被当成实参传递给 fn 函数的。fn就是其宿主函数
+        </script>
+        <script>
+            //传递一个函数名：
+            function goo(n,m){
+                return n+m;
+            }
+            fn(goo);//此时 goo 就是回调函数
+        </script>
+        <p>常见的内置的回调函数</p>
+        <p>1 定时器</p>
+        <p>2 数组 sort 方法</p>
+        <p>3 数组 forEach</p>
+        <p>4 数组 map 方法</p>
+        <script>
+            //实现一个 forEach 方法
+            let forEach = (iteratorable,callback) =>{
+                for(let i = 0; i< iteratorable.length;i++){
+                    callback(iteratorable[i],i);
+                }
+            };
+
+            let ary = [1,2,3];
+            forEach(ary,function(item,index){
+                console.log(item,index)
+            })
+        </script>
+    </body>
+</html>
