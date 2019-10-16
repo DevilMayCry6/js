@@ -1,0 +1,44 @@
+<html>
+    <body>
+        <h5>jQ选择器是用来获取元素对象或者元素集合</h5>
+        <h4>一 基本选择器</h4>
+        <p>id选择器 #ID</p>
+        <p>class 类名选择器 .className</p>
+        <p>标签名选择器 p ul li div</p>
+        <script>
+            let idEg = $('#tabBox');
+            let classEg = $('.tabBox');
+            let tagNameEg = $('ul');
+        </script>
+        <h4>二 层级选择器：根据 html 层级关系获取元素</h4>
+        <p>2.1 后代选择器 #tabBox div(获取 id 为 tabBox 后代中所有的 div)</p>
+        <p>2.2 子级选择器 #tabBox > div(获取 id 为 tabBox 所有子级 div)</p>
+        <p>2.3 兄弟选择器 #tabBox + div 获取 id 为 tabBox 【紧邻】的下一个兄弟 div</p>
+        <p>2.4 获取所有的弟弟 #tabBox ~</p>
+        <script>
+            console.log($('#tanBox li'));
+            console.log($('#tabBox > div'));
+            console.log($('#tabBox + p'));
+            console.log($('#tabBox ~ p'));
+        </script>
+        <h4>三 过滤选择器</h4>
+        <p>3.1 :first 获取第一个</p>
+        <p>3.2 :last 获取最后一个</p>
+        <p>3.3 :odd 获取索引为奇数的</p>
+        <p>3.4 :even 获取索引为偶数的</p>
+        <p>3.5 :not() 除了 xxx 的都获取， :not(first)除了第一个</p>
+        <p>3.6 :eq(index)获取索引为 index 的</p>
+        <p>3.7 :gt(index)获取比指定索引大的</p>
+        <p>3.8 :lt(index)获取比指定索引小的</p>
+        <script>
+            console.log($('.header li:first'));
+            console.log($('.header li:last'));
+            console.log($('header li:odd'));
+            console.log($('.header li:even'));
+            console.log($('.header li:not(odd)'));
+            console.log($('.header li:eq(1)'));
+            console.log($('.header li:gt(1)'));
+            console.log($('.header li:lit(2)'));
+        </script>
+    </body>
+</html>
