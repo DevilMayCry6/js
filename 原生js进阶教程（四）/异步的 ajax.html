@@ -1,0 +1,58 @@
+<html>
+    <body>
+        <script>
+            let val = null;
+            let xhr = new XMLHttpRequest();
+            xhr.open("GET",'js/1.js','true');
+            xhr.onreadystatechange = function(){
+                if(xhr.readyState === 4 && xhr.status === 200){
+                    val = xhr.responseText;
+                }
+            };
+            xhr.send();
+            console.log(val);//如果使用异步的AJAX 请求，不等 AJAX 彻底完成，就把 VAL 输出，此时的结果是 null;
+            //为什么？ 因为 console.log(val)是同等任务，此时，AJAX 是异步任务，异步任务的执行晚于 console.log(val) 同步任务，就是说在打印 val 时，ajax 还没执行完，所以 val 的值还是 null 
+
+            //该怎么办
+            //1 使用回调函数
+            function ajax(callback){
+                let xhr = new XMLHttpRequest();
+                xhr.open('GET','js/1.js',true);
+                xhr.onreadystatechange = function(){
+                    if(xhr.readyState === 4 && xhr.status === 200){
+                        callback(xhr.responseText);
+                    }
+                };
+                xhr.send(null);
+            }
+
+            function getData(data){
+                console.log(data);
+            }
+            ajax(getData);
+
+            // 2 使用 Promise 解决
+            let p = new Promise((resolve,reject) =>{
+                let xhr = new XMLHttpRequest();
+                xhr.open('GET','js/1.js',true);
+                xhr.onreadystatechange = function(){
+                    if(xhr.readyState === 4 && xhr.status === 200){
+                        //成功
+                        let val = xhr.responseText;
+                        resolve(val);
+                    }
+                    if(xhr.status === 4 && xhr.status !== 200){
+                        //失败
+                        reject('完蛋');
+                    }
+                };
+                xhr.send();
+            });
+            p.then((data)=>{
+                console.log(data)
+            },(err)=>{
+                console.log(err)
+            });
+        </script>
+    </body>
+</html>
