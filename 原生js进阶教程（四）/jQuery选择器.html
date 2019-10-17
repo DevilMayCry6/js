@@ -1,4 +1,7 @@
 <html>
+    <head>
+        <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    </head>
     <body>
         <h5>jQ选择器是用来获取元素对象或者元素集合</h5>
         <h4>一 基本选择器</h4>
@@ -33,12 +36,40 @@
         <script>
             console.log($('.header li:first'));
             console.log($('.header li:last'));
-            console.log($('header li:odd'));
+            console.log($('.header li:odd'));
             console.log($('.header li:even'));
             console.log($('.header li:not(odd)'));
             console.log($('.header li:eq(1)'));
             console.log($('.header li:gt(1)'));
-            console.log($('.header li:lit(2)'));
+            console.log($('.header li:lt(2)'));
         </script>
+        <p>jQuery 对象</p>
+        <p>我们通过 $() 方法获取都是 jQuery 对象，都是 jQuery 的一个实例 <br>
+                每个 jQ 对象是一个类数组对象，其中有索引的表示获取的元素对象（原生对象），属性 length 表示本次获取到的元素个数</p>
+        <p>用 jQ 获取元素对象或者元素集合，不管能不能获取到都会返回一个对象，而原生 js 方法如果获取不到会返回 null。<br>
+            如果想判断 jQ 是否获取到元素了，应该判断 jQ 对象的 length 属性，如果为 0，表示没有获取到。</p>
+        <script>
+            $(document).ready(function(){
+                $("li:odd").css("color","red")
+            })
+        </script>
+        <div id="tabBox">
+            <ul>
+                <li class="tabBox">1</li>
+                <li>2</li>
+            </ul>
+
+        </div>
+        <div class="header">
+            <ul>
+                <li>1111111</li>
+                <li>22222</li>
+                <li>333333</li>
+                <li>444</li>
+                <li>55</li>
+                <li>65555</li>
+            </ul>
+        </div>
+        
     </body>
 </html>
