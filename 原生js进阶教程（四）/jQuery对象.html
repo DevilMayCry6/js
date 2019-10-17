@@ -1,0 +1,29 @@
+<html>
+    <body>
+        <p>我们通过$()方法获取都是jQuery对象，都是 jQuery的一个实例; <br>
+        每个 jQ 对象是一个类数组对象，其中有索用的表示获取的元素对象（原生对象），属性 length 表示本次获取到的元素个数</p>
+        <code>
+            [
+                0:p
+                context:document
+                length:1
+                prevObject: m.fn.init[document,context:document]
+                selector:"#contextFilter p:contains("js")"
+                __proto__:Object(0)
+            ]
+        </code>
+        <p>用 jQ 获取元素对象或者元素集合，不管能不能获取都会返回一个对象，而原生 js 方法如果获取不到会返回 null。 <br>
+        如果想判断 jQ 是否获取到元素了，应该判断 jQ 对象的 length 属性，如果为 0 ，表示没有获取到</p>
+        <p>1 原生 JS 对象转 jQ 对象：把原生对象作为一个参数传递给 $()方法 => $(原生js 元素对象)</p>
+        <script>
+            let tabBox = document.getElementById('tabBox');
+            console.log(tabBox);
+            console.log($(tabBox));
+        </script>
+        <p>2 jQ 对象转原生对象：jQ 对象的里面的索引对应的都是原生对象，可以使用[索引]或者 get(索引)获取</p>
+        <script>
+            console.log($('#tabBox li')[0]);
+            console.log($('#tabBox li').get(0));
+        </script>
+    </body>
+</html>
