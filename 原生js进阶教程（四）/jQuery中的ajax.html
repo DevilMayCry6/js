@@ -1,0 +1,20 @@
+<html>
+    <body>
+        <script>
+            $.ajax({
+                url:" ", //接口地址
+                method:"GET",//http method
+                dataType:'json', //数据类型为 JSON
+                async: false, // 异步与否，默认异步
+                cache: false, //是否设置缓存 true 表示缓存， false 表示不缓存; 一般设为 false
+                success:function(result){ //如果请求成功执行的操作
+                    console.log(result);
+                },
+                error:function(err){ //如果失败，需要进行的操作
+                    console.log(err);
+                }
+            });
+        </script>
+        <p>$.ajax() 是通过 $ 调用的，说明ajax方法是定义在 jQuery 自身上的，而 css,html,animate等都是定义在 jQ 原型上的</p>
+    </body>
+</html>
