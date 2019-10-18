@@ -1,0 +1,112 @@
+<html>
+    <head>
+        <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+        <script>
+            $(function($){
+                //1 获取元素
+                let $tabList = $('.header li'),
+                $divList = $('.tabBox div');
+
+                // 2 绑定点击事件
+                $tabList.click(function(){
+                    let index = $(this).index();//获取当前点击的li 的索引
+                    //为点击的li增加类名 active 并且把其兄弟元素的 active 类名移除
+                    $(this).addClass('active').siblings().removeClass('active');
+                    //通过被点击 li 的索引，找到对应的 div ，为其增加 active ，并且移除其兄弟元素的 active 类名
+                    $divList.eq(index).addClass('active').siblings().removeClass('active');
+                })
+            });
+
+            //DOMContentLoaded
+            // $(function($){
+            //     //等效于 DOMContentLoaded 事件，表示文档的 HTML 结构加载完成，然后再执行这里面的代码，同时把 jq 当做参数传递进来
+            //     //这里写我们自己的代码
+            // })
+        </script>
+        <style>
+            .tabBox{
+                margin:20px auto;
+                width: 650px;
+            }
+            .tabBox ul {
+                box-sizing: border-box;
+                border:1px solid black;
+            }
+            .tabBox ul > li{
+                box-sizing: border-box;
+                float:left;
+                width: 200px;
+                border-right: 1px solid black;
+                font-size: 16px;
+                text-align: center;
+                line-height: 40px;
+                cursor: pointer;
+            }
+            .tabBox ul li:nth-last-child(1){
+                border-right: none;
+            }
+            .tabBox ul > li.active{
+                background: yellow;
+            }
+            .tabBox div{
+                display: none;
+                font-size: 20px;
+                line-height: 200px;
+                border: 1px solid black;
+                text-align: center;
+            }
+            .tabBox div.active{
+                display: block;
+            }
+            .animate{
+                height: 100px;
+                text-align: center;
+                background: greenyellow;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="tabBox" id="tabBox">
+            <ul class="header clearfix">
+                <li class="active">新闻</li>
+                <li>电影</li>
+                <li>音乐</li>
+            </ul>
+            <div class="active">
+                <p>链式调用、原理</p> 
+                <p>jQuery的链式调用</p>
+                <p>$(this).addClass('active').siblings()removeClass('active)</p>
+                <p>jQuery很多方法可以实现链式调用，原理是因为在其方法内部 return this，而 this 是 jq 的实例2，所以可以继续调用 jq 原型上的方法 <br>
+                但是要注意很多方法最后 return 的不是 this 而是一个具体的值，如 width() 方法返回一个数字，就不能继续调用方法</p>
+            </div>
+            <div>电影2</div>
+            <div>音乐2</div>
+        </div>
+        <script>
+            //链式调用示例
+            let obj = {
+                init(num){
+                    this.num = num;
+                    return this
+                },
+                add(x){
+                    this.num += x;
+                    return this;
+                },
+                multiple(t){
+                    this.num += t;
+                    return this;
+                },
+                div(d){
+                    this.num /=d;
+                    return this;
+                },
+                getVal(){
+                    return this.num
+                }
+            };
+            console.log(obj.init(3).add(9).multiple(4).div(4));//
+            console.log(obj.init(3).add(9).multiple(4).getVal().div());//Uncaught TypeError: obj.init(...).add(...).multiple(...).getVal(...).div is not a function 【因为getVal返回的是一个数字，不是 this 了 ，所以后面不能继续调用 div 方法】
+        </script>
+    </body>
+</html>
