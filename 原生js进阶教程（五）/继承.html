@@ -1,0 +1,225 @@
+<html>
+    <body>
+        <h4>一 js中的继承方式：</h4>
+        <ul>
+            <li>继承 子类继承父类</li>
+            <li>封装 为实例添加方法、为原型增加方法</li>
+            <li>多态 （重写、重载）</li>
+        </ul>
+        <p>继承：两个类A B,想让B类的实例使用Ａ类上的属性和方法，就需要让Ｂ类继承A类，我们称B类为子类，A类为父类（超类）</p>
+        <!-- <script>
+            function Super(){
+            }
+            function A(){}
+            A.prototype.say = function(){
+                console.log('hello World');
+            }
+            let b= new B(); 
+            // b 是 B 的实例，想使用A类的属性和方法
+            console.log(b,say); //undefined
+            //为什么是undefined   对象.属性名 先看自己是否有着私有属性，如果私有属性没有，就去实例所属类的原型查找公有的属性和方法，如果原型上也没有，就根据原型对象的__proto__一直找到Object基类的原型上为止，如果还没有就返回undefined;
+            //现在需要b可以使用A类的say方法，现在就需要继承；
+        </script>
+        <h5>1.1 原型链继承</h5>
+        <li>原型继承：将子类B的原型对象重写成父类A的一个实例</li>
+        <code>B.prototype = new A();
+            把父类共有属性和私有属性变成子类的公有属性
+        </code>
+        <script>
+            function A(){
+            }
+            A.prototype.age = 19;
+            A.prototype.say = function(){
+                console.log('来自A类原型的say方法')
+            };
+            function B(){}
+            B.prototype = new A(); //把B类的原型改写成一个A类的实例
+            let b = new B();
+            console.log(b); //__proto__:A
+            console.log(b.__proto__);//__proto__:Object
+            console.log(b.age);//19
+            console.log(b.say);//f(){console.log('来自A类原型的say方法')}
+        </script> -->
+        <p>把B的原型改写成A类的一个实例，此时通过 b.age 访问 b 的age属性，首先在私有属性中查找，私有属性中没有age属性，<br>
+        接着去b所属类的原型(B.prototype)上查找，此时原型对象的A的实例对象，在原型对象也没有age属性，通过原型对象的proto就找到了 A.prototype上,A的prototype上有age属性</p>
+        <ul>
+            <li>原型继承是把子类公有的属性和私有的属性都变成了子类私有的属性</li>
+            <li>缺点：改写子列的原型对象，会导致子类原型对象上的constructor属性被改写，需要重新指定继承后的 constructor</li>
+        </ul>
+        <h5>1.2借用构造函数继承</h5>
+        <p>借用构造函数：把父类当做普通函数，在子类的函数体中call执行父类的函数</p>
+        <!-- <script>
+            function A(){
+                this.a ='aa';
+                this.say = function(){
+                    console.log('A say');
+                }
+            }
+            A.prototype.public = 'public';
+            function B(){
+                A.call(this); //this 是 B 类的一个实例，A.call(this) 的意思是把A 中的 this 就改成 B 的实例（而在 B 的够着函数中 this 就是 B 的实例）这样在A 中通过 this.xxx = xxx 的方法添加的属性都会添加到B的实例身上
+            }
+            let b = new B();
+            console.log(b); //B{a:"aa",say:f}
+            let b2 = new B();
+            console.log(b2.say === b.say);//false
+        </script>
+        <p>借用构造函数继承：</p>
+        <ul>
+            <li>把父类当做普通函数，在子类的函数体里面，通过call 方法执行 A.call(this)</li>
+            <li>call方法是用来修改this指向的，这样一来就把A 中的this 修改成了b的实例;在函数A 中通过了this.xxx = xxx 添加的属性都添加到了B的实例身上</li>
+            <li>特点：自能把父类的私有属性和方法继承为子类的私有属性和方法</li>
+        </ul>
+        <hr>
+        <h5>1.3 组合继承</h5>
+        <p>组合继承：原型链继承 + 借用够着函数继承</p>
+        <ul>
+            <li>原型链继承：把父类私有的和共有的继承为子类公有的;</li>
+            <li>借用构造函数继承：把父类私有的继承为子类私有的</li>
+        </ul> -->
+        <!-- <script>
+            function A(){
+                this.a = '私有的'
+            }
+            A.prototype.text = '公有';
+            A.prototype.say = function(){
+                console.log('A公有的say方法')
+            };
+            function B(){
+                A.call(this); //借用构造函数继承，继承父类私有
+            }
+            B.prototype = new A();//原型链继承，继承父类私有和公有的属性
+            B.prototype.constructor = B;
+            let b = new B();
+            console.log(b.text);//公有
+            console.log(b.a);//私有的
+        </script> -->
+        <p>组合继承也并非没有缺点，组合继承会父类的私有继承两次，一份在借用构造函数继承时成为私有的，而另一份是在原型继承时成为公有的</p>
+        <hr>
+        <h5>1.4原型式链接</h5>
+        <p>原型式继承：把父类的公有属性继承为子类的公有属性</p>
+        <p>创建一个新的对象，并且新对象的proto指向A.prototype,最后把这个新对象作为B类的原型</p>
+        
+        <!-- <script>
+            // 创建一个对象，并且对象的proto 指向obj
+            // Object.create(obj);
+
+            //原型式继承示例
+            function A(){
+                this.private = 'private私有';
+            }
+            A.prototype.public = 'public公有';
+            function B(){}
+            B.prototype = Object.create(A.prototype);//创建一个指定原型的对象 创建一个对象，并且这个对象的__proto__ 指向A.prototype
+            B.prototype.constructor = B; //原型式继承同样是修改B类原型的指向，所以需要重新指定构造函数
+            let b = new B();
+            console.log(b.public);//public公有
+        </script> -->
+        <hr>
+        <h5>1.5 寄生组合式继承</h5>
+        <p>寄生组合式继承：原型式继承+借用构造函数继承</p>
+        <!-- <script>
+            function A(){
+                this.private = "私有属性";
+            }
+            A.prototype.public = '公有属性';
+            function B(){
+                A.call(this);//借用构造函数继承
+                this.name = 'b私有的';
+            }
+            //原型式继承：把父类原来公有的，继承为子类实例公有的
+            B.prototype = Object.create(A.prototype);
+            B.prototype.constructor =B;
+            let b = new B();//{name:"私有的",private:"私有属性"}
+            console.log(b.private);//私有属性
+            console.log(b.public)//公有属性
+        </script> -->
+        <hr>
+        <h5>1.6 冒充对象继承</h5>
+        <p>冒充对象继承：在子类的构造函数中生成一个父类的实例，把父类这个实例进行遍历，把属性都添加到子类的实例上</p>
+        <script>
+            function A(){
+                this.private = '私有属性';
+            }
+            A.prototype.public = '公有属性';
+            function B(){
+                this.name = 'B私有属性';
+                let tmp = new A();
+                for(let key in tmp){
+                    this[key] = tmp[key];
+                }
+            }
+            let b = new B();
+            console.log(b);//B{name:"B私有属性",private:"私有属性",public:"公有属性"}
+        </script>
+        <hr>
+        <h5>1.7 ES6中的类</h5>
+        <ul>
+            <li>ES5 一个函数就是一个类</li>
+            <li>E6 借鉴后端语言，增加了class关键字，创建一个类</li>
+        </ul>
+        <!-- <script>
+            //ES5
+            function Teacher(name,age,subject){
+                this.name = name;
+                this.age = age;
+                this.subject = subject;
+            }
+            Teacher.motor = "传道 授业 解惑";
+            Teacher.prototype.teacher = function(){
+                console.log(this.name + this.age);
+            };
+            let t = new Teacher('name',19,'js');
+
+            //ES6
+            class Teacher{
+                constructor(name,age,subject){
+                    //这里是通过 this.xxx = xxx 是给实例添加私有属性
+                    this.name = name;
+                    this.age = age
+                    this.subject = subject;
+                }
+                //添加公有属性
+                teach(){
+                    console.log(this.name + this.age + this.subject);
+                }
+                //添加静态方法  
+                static motor = '传道授业解惑';
+                static getMotor(){
+                    console.log('We are U');
+                }
+            }
+            let t = new Teacher('name1',18,'JS');
+            t.teach();
+            console.log(Teacher.motor);
+            Teacher.getMotor();
+        </script> -->
+        <hr>
+        <h5>ES6 继承</h5>
+        <p>ES6继承：extends关键字</p>
+        <script>
+            // class A{
+            //     constructor(name,age){
+            //         this.name = name;
+            //         this.age = age;
+            //     }
+            //     //公有方法（添加到原型上）
+            //     say(){
+            //         console.log(`$(this.name)say`);
+            //     }
+            // }
+            // //ES6继承时使用 extends 关键字实现继承
+            // class B extends A { //B 继承 A 类
+            //     constructor (x,y,forName,forAge){
+            //         //注意：在使用ES6的extends关键字之前，必须使用super();super表示父类的构造函数
+            //         super(forName,forAge);
+            //         this.x = x;
+            //         this.y = y;
+            //     }
+            // }
+            // let b = new B('x','y','name2',17)
+            // console.log(b); //B{name:"name2",age:17,x:"x",y:"y"}
+            // b.say();
+        </script>
+    </body>
+</html>
