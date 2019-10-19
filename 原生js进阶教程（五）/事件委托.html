@@ -1,0 +1,31 @@
+<html>
+    <body>
+        <ul id="list">
+            <li>点击</li>
+            <li>点击</li>
+
+        </ul>
+        <script>
+            let liList = document.querySelectorAll('#list > li');
+            for (let i=0;i<liList.length;i++){
+                liList[i].onclick = function(){
+                    alert(this.innerText);
+                }
+            }
+        </script>
+        <p>利用事件委托：把事件绑定给父级元素或者更高级元素，然后根据e.target事件源做出不同操作</p>
+        <script>
+            let list = document.querySelector('#list');
+            list.onclick = function(e){
+                let {target} = e;
+
+                //一般根据事件源的 tagName 来区分当前点击的是哪个元素
+                if(target.tagName.toLowerCase()==='li'){
+                    alert(target.innerText);
+                }
+            }
+        </script>
+        <p>循环绑定事件的效率低，而且不适用于动态绑定的数据</p>
+        <p>事件委托：利用的是事件的冒泡传播机制，给里面的每个子元素绑定相同的事件行为，把事件绑定给共同的上级元素，然后利用e.target区分具体触发事件的元素，然后做出不同的操作</p>
+    </body>
+</html>
