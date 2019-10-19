@@ -1,0 +1,23 @@
+<html>
+    <body>
+        <p>onload事件：加载成功后执行</p>
+        <p>window.onload 是页面中所有的资源（css、js、图片等）全部加载完成后才会触发</p>
+        <script>
+            window.onload = function(){
+                console.log('加载完成了')
+            };
+        </script>
+        <p>DOMContentLoaded:只要页面中的DOM结构加载完成后就可以触发</p>
+        <script>
+            document.addEventListener('DOMContentLoaded',function(){
+                console.log('DOM结构加载完成了')
+            });
+        </script>
+        <p>js是用来操作DOM的，一般需要在DOM加载结束以后以后再执行JS</p>
+        <script>
+            document.addEventListener('DOMContentLoaded',function(){
+                //把js放在这个函数中，表示DOM结构加载完成后再执行
+            });
+        </script>
+    </body>
+</html>
