@@ -1,0 +1,37 @@
+<html>
+    <head>
+        <style>
+            #box{
+                height: 100px;
+                width: 100px;
+                background: aqua;
+                position: absolute;
+                top: 0px;
+                left: 0px;
+            }
+        </style>
+    </head>
+    <body>
+        <p>所谓的鼠标跟随就是再鼠标移动的时候，不断的计算鼠标所处的位置，然后把盒子的位置设置到鼠标所处的位置</p>
+        <p>是在鼠标移动时，所以需要监听鼠标移动事件，因为盒子在整个页面中需要监听document的鼠标移动事件</p>
+        <p>在事件触发时计算鼠标的位置，把元素设置到鼠标的位置</p>
+        <div id="box">
+        </div>
+        <script>
+            let box = document.querySelector('#box');
+
+            document.onmousemove = function(e){
+                //1 获取鼠标的位置
+                let {
+                    clientX,
+                    clientY
+                }=e;
+                console.log('move',clientX,clientY);
+
+                //2 计算盒子的位置，并设置给元素
+                box.style.left = clientX - box.offsetWidth / 2 + 'px';
+                box.style.top = clientY - box.offsetHeight / 2 + 'px';
+            }
+        </script>
+    </body>
+</html>
