@@ -1,0 +1,63 @@
+<html>
+    <body>
+        <p>JS中的事件被分为DOM0级事件和DOM2级事件</p>
+        <h5>DOM0级事件</h5>
+        <div id="box" style="width: 40px; height: 20px;background: aqua;">
+            点击
+        </div>
+        <input type="button" name="" id="box1" value="点击">
+        <script>
+            //DOM0级事件绑定
+            box.onclick = function(){};
+
+            box.onclick = function(){
+                console.log('1');
+            }
+            box.onclick = function(){
+                console.log('2');
+            };
+
+            //DOM0级事件移除
+            box.onclick = null;
+        </script>
+        <li>用DOM0级事件的方式绑定，只能绑定一个事件，因为DOM0级事件是DOM元素对象的一个属性，多次赋值，这个属性只能保存的是最后被的赋值</li>
+        <li>DOM0级事件都是绑定在冒泡阶段的</li>
+        <h5>DOM2级事件：</h5>
+        <p>1 可以为同一事件绑定多个事件函数</p>
+        <p>2 可以指定绑定的在捕获阶段还是绑定在冒泡阶段</p>
+        <script>
+            //DOM2级事件绑定
+            //元素.addEventListener('事件名称',事件函数，false冒泡|true捕获)
+            box.addEventListener('click',function(){
+                console.log(1)
+            },true);
+            box.addEventListener('click',function(){
+                console.log(2)
+            },false)
+            box.addEventListener('click',function(){
+                console.log(3);
+            },false)
+
+            //移除DOM2级事件
+            // 元素.removeEventListener('事件名称',事件函数,false|true)
+        function fn1(e){
+              console.log(this);
+            }
+            //添加事件
+            box1.addEventListener('click',fn1,false);
+            //移除事件
+        //     box1.removeEventListener('click',fn1,false);
+        </script>
+        <h4>DOM0级事件和DOM2级事件绑定的区别：</h4>
+        <p>1 DOM0级事件只有冒泡阶段，DOM2级事件的第三个参数false表示冒泡，true表示捕获</p>
+        <p>2 DOM0级事件只能为一个事件绑定一个事件函数，而DOM2级事件可以绑定多个事件函数</p>
+        <h5>DOM2事件可以绑定多个事件的原因：</h5>
+        <p>DOM2级事件在绑定的时候是给每个元素的每个事件准备了一个事件池。类似一个数字，每次addEventListener()就是把事件函数放到事件池中，然后等事件触发的时候，再一个一个的把事件函数从事件池中拿出来执行一次</p>
+        <ul>
+            <li>IE低版本DOM2级事件：</li>
+            <li>绑定事件：元素.attachEvent('onclick',callback);</li>
+            <li>移除事件：元素.detachEvent('onclick',callback);</li>
+            <li>而且IE的DOM2级事件只能绑定在冒泡阶段，如果绑定多个，事件触发时，事件函数的执行顺序和绑定顺序无关;</li>
+        </ul>
+    </body>
+</html>
