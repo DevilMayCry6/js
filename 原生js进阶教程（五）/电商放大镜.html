@@ -1,0 +1,118 @@
+<html>
+    <head>
+        <style>
+            *{
+                margin: 0;
+                padding: 0;
+            }
+            .box1,.box2{
+                position: relative;
+                float: left;
+                width: 300px;
+                height: 300px;
+                border: 1px solid red;
+                margin: 50px;
+                overflow: hidden;
+            }
+            .box1 img{
+                width: 100%;
+                height: 100%;
+            }
+            .box2 img{
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 900px;
+                height: 900px;
+            }
+            .mask{
+                display: none;
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100px;
+                height: 100px;
+                background: rgba(0,0,0,.5);
+                cursor: move;
+            }
+            /* .box2{
+                display: none;
+            } */
+        </style>
+    </head>
+    <body>
+        <p>页面中有两个等大的盒子，box1中放着原图和一个可以跟随鼠标移动的小盒子mask,mask相对于box1相对定位</p>
+        <p>另一个box2放着大图，大图相对于盒子绝对定位；且大盒子overflow:hidden;大图片的尺寸等于box1的尺寸乘以想放大的倍数，如本例中放大三倍，box1宽高300，所以大图宽高900</p>
+        <p>mask的尺寸 box1的尺寸 = box2的尺寸 大图的尺寸</p>
+        <p>起始box2和mask都是隐藏的，当鼠标划入box1时，设置mask和box2的display:block</p>
+        <p>接着在box1中移动鼠标，实现带边界的鼠标跟随</p>
+        <p>因为mask占box1的比例和box2占大图的比例可视相同的。但是大图的尺寸是box2的3倍，为了保证看到的是相同的地方，box2中图片的left和top的移动距离，应该是mask和box1中移动的3倍（放大三倍）</p>
+        <div id="box1" class="box1">
+            <img src="#" alt="放大镜">
+            <div class="mask" id="mask" style="width: 100px; height: 100px;"></div>
+        </div>
+        <div id="box2" class="box2">
+            <img src="#" alt="被放大" id="bigImg">
+        </div>
+        <script>
+            let $ = sltcr =>document.querySelector(sltcr);
+            
+            //1 获取元素对象
+            let box1 = $('#box1');
+            let box2 = $('#box2');
+            let mask = $('#mask');
+            let bngImg = $('#bigImg');
+
+            //2 当鼠标划入时把mask和box2显示出来
+            box1.onmouseenter = function(){
+                box2.style.display = mask.style.display = 'block';
+            };
+            box1.onmouseleave = function(){
+                box2.style.display = mask.style.display = 'none';
+            };
+
+            // 计算mask能够在box1中移动的边界
+            let{
+                offsetLeft,
+                offsetTop,
+                clientWidth,
+                clientHeight
+            } = box1;
+            let {
+                width,
+                height
+            }   = mask.style;
+            let maxL = clientHeight - parseFloat(width);
+            let maxT = clientHeight - parseFloat(height);
+
+            //3 监听box1的鼠标移动事件
+                box1.onmousemove = function(e){
+                    //3.1 获取现在鼠标的位置并计算盒子应该出现的位置
+                    let l = e.clientX - offsetLeft - parseFloat(width) / 2;
+                    let t = e.clientY - offsetTop - parseFloat(height) / 2;
+
+                    //3.2 根据边界修正l和t
+                    if(t<0){
+                        t = 0;
+                    }
+                    if(t>maxT){
+                        t = maxT
+                    }
+                    if(l<0){
+                        l  = 0;
+                    }
+                    if(l>maxL){
+                        l = maxL;
+                    }
+
+                    //3.3 把l 和 t 设置给mask实现mas鼠标跟随
+                    mask.style.left = l+'px';
+                    mask.style.top= t + 'px';
+
+                    //3.4 设置大图left和top的值为mask移动距离的3倍
+                    bigImg.style.left = -l * 3 + 'px';
+                    bigImg.style.top =  -t * 3 + 'px';
+                }
+        </script>
+    </body>
+</html>
