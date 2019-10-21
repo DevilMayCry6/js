@@ -1,0 +1,58 @@
+<html>
+    <head>
+        <style>
+            #litBox{
+                position: absolute;
+                width: 100px;
+                height: 100px;
+                background: red;
+            }
+            #bigBox{
+                width: 300px;
+                height: 300px;
+                border: 1px solid #000;
+                margin: 50px auto;
+            }
+        </style>
+    </head>
+    <body>
+        <p>在原生的拖拽事件中，可以自定义存储数据</p>
+        <p>在拖拽的事件对象中有一个dataTransfer对象，基于这个对象可以自定义存储或者读取数据</p>
+        <p>存储：dataTransfer.setDate('key','value')</p>
+        <p>获取：dataTransfer.getData('key')</p>
+        <div id="litBox"></div>
+        <div id="bigBox"></div>
+        <script>
+            let litBox = document.getElementById('litBox');
+            let bigBox = document.getElementById('bigBox');
+
+            litBox.ondragstart = function(e){
+                //在拖拽的时候需要设置元素id
+                e.dataTransfer.setData('id',this.id);
+            };
+
+            bigBox.ondragover = function(e){
+                //在drageover中阻止默认行为，否则无法触发ondrop
+                e.preventDefault();
+            };
+
+            bigBox.ondrop = function(e){
+                let id = e.dataTransfer.getData('id');//通过e.dataTransfer对象的gerData获取被拖拽元素的id
+                console.log(id)
+            }
+
+            //此时，如果是拖拽文件到放置目标元素中，在dataTransfer.files中存储了这些文件的信息;
+            let fileBox = document.getElementById('fileBox');
+            fileBox.ondragover = function(e){
+                e.preventDefault();
+            };
+            fileBox.ondrop = function(e){
+                console.log(e.dataTransfer.files);
+                //name:带拓展名文件名
+                //size:文件大小
+                //type:'text/plain'
+                e.preventDefault();
+            };
+        </script>
+    </body>
+</html>
