@@ -1,0 +1,91 @@
+<html>
+    <head>
+        <style>
+            #litBox{
+                position: absolute;
+                width: 100px;
+                height: 100px;
+                background: red;
+            }
+            #bigBox{
+                width: 300px;
+                height: 300px;
+                border: 1px solid #000;
+                margin: 50px auto;
+            }
+            #fileBox{
+                margin: 30px auto;
+                width: 300px;
+                height: 300px;
+                border: 3px dashed #00b38a;
+                border-radius: 5px;
+                text-align:center;
+            }
+            #fileBox:before{
+                content: '+';
+                font-size: 200px;
+                text-align: center;
+                line-height:250px;
+                color:#333333;
+            }
+        </style>
+    </head>
+    <body>
+        <p>HTML原生支持拖拽，但是需要给被拖动元素设置其行内</p>
+        <div class="fileBox" id="fileBox">
+
+        </div>
+        <div id="litBox" draggable="true"></div>
+        <div id="bigBox"></div>
+        <script>
+            //原生拖拽实现也是基于原生的拖放事件
+            let litBox = document.getElementById('litBox');
+            let bigBox = document.getElementById('bigBox');
+
+            //ondragstart 开始拖拽：按下鼠标并移动鼠标就会触发
+            letBox.ondragstart = function(e){
+                console.log('start');
+                e.dataTransfer.setData('Teat',this.id);
+            };
+
+            //ondrag 拖动的过程中触发
+            letBox.ondrag = function(){
+                //拖动的过程中触发
+                console.log('dragging')
+            };
+
+            //ondragend 拖拽结束触发
+            litBox.ondragend = function(){
+                console.log('end')
+            };
+            
+
+            //以上三个都是相对于被拖动的元素
+            //以下事件都是相对于放置元素的
+
+            //ondragover 当被拖拽的元素经过bigBox时会触发bigBox的ondragover事件
+            bigBox.ondragover = function(e){
+                //当被拖拽的元素经过bigBox时会触发bigBox的ondragover事件
+                console.log('over');
+                this.style.backgroundColor = 'blue';
+                e.preventDefault();
+            };
+
+            //ondragleave当被拖拽的元素经过离开bigBox时触发
+            bigBox.ondragleave = function(){
+                //当被拖拽的元素经过离开bigBox时触发
+                this.style.backgroundColor = '';
+                console.log('leave')
+            };
+
+            //ondrop 当被拖拽的元素在bigBox上松开鼠标时触发
+            bigBox.ondrop = function(e){
+                //当被拖拽的元素在bigBox上松开鼠标时触发
+                console.log('drop');
+                console.log(e.dataTransfer.getData('Text'));
+                let id = e.dataTransfer.getData('text');
+                bigBox.appendChild(document.getElementById(id));
+            };
+        </script>
+    </body>
+</html>

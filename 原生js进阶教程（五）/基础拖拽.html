@@ -10,7 +10,7 @@
                 width: 200px;
                 height: 200px;
                 background:aqua;
-                top: 100px; left: 100px;
+                /* top: 100px; left: 100px; */
             }
             .box{
                 width: 300px;
@@ -43,41 +43,73 @@
         <div class="dragObj" id="dragObj" style="top: 100px; left: 100px;"></div>
         <div class="box" id="box"></div>
         <script>
-            // let dragObj = document.getElementById('dragObj');
+            let dragObj = document.getElementById('dragObj');
 
-            // dragObj.onmousedown = dragStart; //监听盒子的鼠标按下事件，在函数事件中赋予盒子可以被拖动的能力;
-            // dragObj.onmouseup = dragEnd;//鼠标抬起结束拖拽
+            dragObj.onmousedown = dragStart; //监听盒子的鼠标按下事件，在函数事件中赋予盒子可以被拖动的能力;
+            dragObj.onmouseup = dragEnd;//鼠标抬起结束拖拽
+            function dragStart(e){
+                //开始拖拽
+                //1 纪录盒子初始位置、鼠标按下的位置
+                this.startL = parseFloat(this.style.left);
+                this.startT = parseFloat(this.style.top);
+
+                //2 记录鼠标按下时鼠标位置
+                this.startX = e.pageX;
+                this.startY = e.pageY;
+
+                //3 赋予元素可以被拖拽的能力
+                dragObj.onmousemove = dragMove;
+            }
+            function dragMove(e){
+                //拖动：在拖动过程中不断的计算鼠标现在所处的位置相对于鼠标按下的位置移动的距离，然后加上盒子的初始位置,就是盒子现在出现的位置
+
+                //1 计算当前鼠标位置相对于鼠标按下移动的距离
+                let moveX = e.pageX - this.startX;
+                let moveY = e.pageY - this.startY;
+
+                //2 计算盒子应该出现的位置
+                let curL = this.startL + moveX;
+                let curT = this.startT + moveY;
+
+                //3 将盒子的left和top分别设置为它应该出现的值
+                this.style.left = `${curL}px`;
+                this.style.top = `${curT}px`;
+            }
+
+            function dragEnd(){
+                dragObj.onmousemove = null;
+            }
+        </script>
+        <script>
+            // let drgObj = document.getElementById('dragObj')
+
+            // dragObj.onmousedown = dragStart;
+            // dragObj.onmouseup = dragEnd;
             // function dragStart(e){
-            //     //开始拖拽
-            //     //1 纪录盒子初始位置、鼠标按下的位置
-            //     this.startL = parseFloat(this.style.left);
-            //     this.startT = parseFloat(this.style.top);
-
-            //     //2 记录鼠标按下时鼠标位置
+            //     //this.setCapture();
             //     this.startX = e.pageX;
             //     this.startY = e.pageY;
 
-            //     //3 赋予元素可以被拖拽的能力
-            //     dragObj.onmousemove = dragMove;
-            // }
-            // function dragMove(e){
-            //     //拖动：在拖动过程中不断的计算鼠标现在所处的位置相对于鼠标按下的位置移动的距离，然后加上盒子的初始位置,就是盒子现在出现的位置
+            //     this.startL = parseFloat(this.style.left);
+            //     this.startT = parseFloat(this.style.top);
 
-            //     //1 计算当前鼠标位置相对于鼠标按下移动的距离
+            //     document.onmousemove = dragMove.bind(this);
+            // }
+
+            // function dragMove(e){
             //     let moveX = e.pageX - this.startX;
             //     let moveY = e.pageY - this.startY;
 
-            //     //2 计算盒子应该出现的位置
             //     let curL = this.startL + moveX;
             //     let curT = this.startT + moveY;
 
-            //     //3 将盒子的left和top分别设置为它应该出现的值
-            //     this.style.left = `${curL}px`;
-            //     this.style.top = `${curT}px`;
+            //     this.style.left = curL + 'px';
+            //     this.style.top = curT + 'px';
             // }
-
-            // function dragEnd(){
-            //     dragObj.onmousemove = null;
+            
+            // function dragEnd(e){
+            //     //this.releaseCapture()
+            //     document.onmousemove = null;
             // }
         </script>
         <h4>解决鼠标丢失</h4>
@@ -93,37 +125,5 @@
         <h5>解决方案：</h5>
         <p>1 将元素和鼠标绑定在一起 setCapture(),当拖拽结束后再解绑 releaseCapture()【Chrome不兼容、IE和ff可以使用】</p>
         <p>2 因为鼠标不管怎么动，都出不了浏览器页面，所以把元素的mousemove和mouseup事件绑定给document;（采用事件委托的思想解决问题）</p>
-        <script>
-            let dargObj = document.getElementById('dragObj')
-
-            dragObj.onmousedown = dragStart;
-            dragObj.onmouseup = dragEnd;
-            function dragStart(e){
-                //this.setCapture();
-                this.startX = e.pageX;
-                this.startY = e.pageY;
-
-                this.startL = parseFloat(this.style.left);
-                this.startT = parseFloat(this.style.top);
-
-                document.onmousemove = dragMove.bind(this);
-            }
-
-            function dragMove(e){
-                let moveX = e.pageX - this.startX;
-                let moveY = e.pageY - this.startY;
-
-                let curL = this.startL + moveX;
-                let curT = this.startT + moveY;
-
-                this.style.left = curL + 'px';
-                this.style.top = curT + 'px';
-            }
-            
-            function dragEnd(e){
-                //this.releaseCapture()
-                document.onmousemove = null;
-            }
-        </script>
     </body>
 </html>
