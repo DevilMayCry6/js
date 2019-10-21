@@ -1,0 +1,46 @@
+<html>
+    <head>
+        <style>
+            #litBox{
+                position: absolute;
+                width: 100px;
+                height: 100px;
+                background: red;
+            }
+            #bigBox{
+                width: 300px;
+                height: 300px;
+                border: 1px solid #000;
+                margin: 50px auto;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="litBox" draggable="true"></div>
+        <div id="bigBox"></div>
+        <script>
+            //将小盒子litBox拖动到大盒子中
+
+            //原生拖拽实现也是基于原生的拖放事件
+            let litBox = document.getElementById('litBox');
+            let bigBox = document.getElementById('bigBox');
+
+            litBox.ondragstart = function(e){
+                //在拖拽的时候需要设置元素id
+                e.dataTransfer.setData('id',this.id);
+            };
+
+            bigBox.ondragover = function(e){
+                //在drageover中阻止默认行为，否则无法触发ondrop事件
+                e.preventDefault();
+            };
+            bigBox.ondrop = function(e){
+                let id = e.dataTransfer.getData('id');//通过e.dataTransfer对穿的getData获取被拖拽元素的id
+
+                let ele = document.getElementById(id);
+                this.appendChild(ele);
+                e.preventDefault();
+            }
+        </script>
+    </body>
+</html>
