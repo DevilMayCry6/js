@@ -36,6 +36,9 @@
                 <li>好久停止动画：垂直方向的动画和水平方向的不同，垂直方向上是当这个物体弹不起来的时候就该不该再进行动画了。所以我们需要一个标识符n，每次当他弹起来，我们就将这个标识符设置为0.每次触底一次，就给这个标识符++，如果这一次触底的话，n就变成1，如果弹起来n就改为0，直到盒子不能弹起来，n称为了1.下一次在执行动画时，盒子仍然没能弹起来，就继续执行，此时n已经是2了。如果是这种情况说明这个盒子弹不起来了，此时应该停止动画</li>
             </ol>
         </ol>
+        <div id="box" style="width: 100px; height: 100px; background: aquamarine;">
+
+        </div>
         <script>
             let box = document.getElementById('box');
             box.onmousedown = dragStart;
@@ -80,6 +83,44 @@
                 this.maxT = (document.documentElement.clientHeight || document.body.clientHeight) - this.offsetHeight;
                 this.flyTimer = setInterval(() =>fly.call(this),20);
                 this.flyTimer = setInterval(()=>drop.call(this),20);
+            }
+            function fly(){
+                //计算速度
+                this.hSpeed *= .98;
+                //计算此时盒子应该处于的位置
+                let l = parseFloat(this.style.left) + this.hSpeed;
+                // 过界判断，如果过界则修正，同时速度改变方向
+                if(l>this.maxL){
+                    //盒子越过右边界了
+                    l = this.maxL;
+                    this.hSpeed *= -1;
+                }
+                if(l<0){
+                    //盒子越过左边界
+                    l = 0;
+                    this.hSpeed *= -1
+                }
+                // 将修正后的位置设置给盒子
+                this.style.left = `${1}px`;
+                //当速度小到一定程度时，盒子的位置该变量就很小了，所以此时就没必要在继续动画了，因为速度有正负所以我们在判断当速度小于某个值是时候清除定时器，同时种子动画
+                if(Math.abs(this.hSpeed)<1){
+                    clearInterval(this.flyTimer);
+                }
+            }
+            function drop(){
+                if(!this.n)this.n = 0;
+                this.dropSpeed +=5;
+                this.dropSpeed *= .98;
+                let t = parseFloat(this.style.top) + this.dropSpeed;
+                if(t > this.maxT){
+                    t = this.maxT;
+                    this.dropSpeed *= -1;
+                    this.n++;
+                }else{
+                    this.n = 0
+                }
+                this.style.top = `${t}px`;
+                if(this.n>2)clearInterval(this.dropTimer);
             }
         </script>
     </body>
