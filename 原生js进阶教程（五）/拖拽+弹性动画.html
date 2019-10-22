@@ -1,0 +1,86 @@
+<html>
+    <body>
+        <p>需求：</p>
+        <ol>
+            <li>页面中的盒子可以拖拽，并且在松开鼠标左键后可以做抛物线运动弹性势能动画。如果到达右边界，则会反弹回来，到达左边界，也会反弹回来，最终停留在某一位置</li>
+            <li>如果用户拖拽时移动，那么要求盒子在水平方向上的初始速度大，反之则小</li>
+        </ol>
+        <h5>分析：</h5>
+        <ol>
+            <li>拖拽功能前面已经实现;</li>
+            <li>抛物线运动可以分解成水平方向的运动和垂直方向的运动</li>
+            <br>
+            <li>水平方向的运动</li>
+            <ol>
+                <li>出手后，盒子会有匀减速动画，想要实现匀减速，只需要给盒子的原有速度不断乘以一个小于1的数字，例如0.98,即可实现速度的指数衰减</li>
+                <li>用户拖拽时速度快，则运动的快，出手速度慢则出手速度慢。</li>
+                <li>速度是单位时间内物体运动的距离。而出手之前盒子一直处于拖拽状态，所以熟读也该在拖拽的过程中计算。这里有一点值得注意，浏览器两次mousemove事件触发之间的时间是固定的。
+                    因此我们可以把两次mousemove之间的时间作为单位时间，接下来我们可以计算出在两次mousemove时间内鼠标走过的距离，就可以作为出手的速度了</li>
+                <li>只要盒子移动就会触发mousemove事件，怎么知道取那一次的计算结果？首先在开始拖动之初就使用一个属性prevX纪录下鼠标的初始位置，
+                    然后我们移动过程中，把本次鼠标的位置e.pageX减去上一个次mousemove触发时鼠标所在的位置prevX,就是这一次移动相当于上一次移动的距离，即本次移动的速度hSpeed;接下来我们把本次鼠标停留的位置赋值给prevX,依次类推，prevX存储的就是上一次mousemove触发时鼠标停留的位置，直到松开鼠标左键时，hSpeed存储的就是上一次触发mousemove事件时移动距离，即上一次的移动速度</li>
+                <ul>
+                    <li>越界判断：</li>
+                    <li>右边界：即浏览器可视窗口的右变;盒子在这个距离内可以运动的最大距离是，即盒子的left的最大值是：浏览器可视窗口宽度-盒子是offsetWidth</li>
+                    <li>左边界：即浏览器的可视窗口的左边；即left为0</li>
+                </ul>
+                <li>多久开始动画：拖住结束，即鼠标左键抬起时触发</li>
+                <li>如何实现触界反弹：给速度乘以-1即可</li>
+                <li>好久停止动画：因为用速度乘以0.98，这个值永不为0，但是当这个值小于1时，盒子的改变小于1px,肉眼基本不可见，此时我们就可以选择清除动画</li>
+            </ol>
+            <br>
+            <li>垂直方向运动：</li>
+            <ol>
+                <li>垂直方向上是变速运动，按照常理来说，物体自由从空中下落速度是会越来越快的，所以我们的下落速度dropSpeed应该是一个越来越大的值。真实下落的物体的速度肯定是每时每刻都在变大，但是我们的动画只能是每隔一定毫秒数执行一次，所以我们每次运动时都给垂直速度加上一个值，以保证这次动画的速度大于上一次</li>
+                <li>同时因为物体在下落的过程中，由于空气阻力等因素，其速度也会衰减一部分，所以我们在下落的过程中还要给速度乘以一个小于1的数字，以模拟动能的损失</li>
+                <li>物体在垂直方向上可以运动的最大距离同样是有限的，即最小的是0，最大的也是 浏览器窗口高度-盒子的offsetHeight。同样触界后也需要反弹，反弹的实现原题同样是给速度乘以-1即可</li>
+                <li>好久停止动画：垂直方向的动画和水平方向的不同，垂直方向上是当这个物体弹不起来的时候就该不该再进行动画了。所以我们需要一个标识符n，每次当他弹起来，我们就将这个标识符设置为0.每次触底一次，就给这个标识符++，如果这一次触底的话，n就变成1，如果弹起来n就改为0，直到盒子不能弹起来，n称为了1.下一次在执行动画时，盒子仍然没能弹起来，就继续执行，此时n已经是2了。如果是这种情况说明这个盒子弹不起来了，此时应该停止动画</li>
+            </ol>
+        </ol>
+        <script>
+            let box = document.getElementById('box');
+            box.onmousedown = dragStart;
+            function dragStart(e){
+                //1 记录鼠标初始位置
+                this.startX = e.pageX;
+                this.startY = e.pageY;
+
+                //2 纪录盒子初始left 和 top 值
+                this.startL = parseFloat(this.style.left);
+                this.startT = parseFloat(this.style.top);
+
+                //3 绑定点击事件
+                this.DRAGM = dragMove.bind(this);
+                this.DRAGE = dragEnd.bind(this);
+                document.addEventListener('mousemove',this.DRAGM,false);
+                document.addEventListener('mouseup',this.DRAGE,false)
+            }
+            function dragMove(e){
+                //1 计算当前盒子应该处于的位置
+                let curL = e.pageX - this.startX + this.startL;
+                let curT = e.pageY -this.startY + this.startT;
+
+                //2 将元素设置到鼠标的位置
+                this.style.left = `${curL}px`;
+                this.style.top = `${curT}px`;
+
+                //判断初始点击时纪录初始位置，因为我们需要计算两次鼠标移动事件触之间鼠标走过的距离，所以需要纪录这个初始位置
+                if(!this.prevX)this.prevX = this.startX;
+                this.hSpeed = e.pageX - this.pageX;
+                this.prevX = e.pageX;
+
+                //设置自由落体初速度
+                this.dragSpeed = 5;
+            }
+            function dragEnd(e){
+                //移除事件
+                document.removeEventListener('mousemove',this.DRAGM,false);
+                document.removeEventListener('mouseup',this.DRAGE,false);
+                //计算盒子的边界
+                this.maxL = (document.documentElement.clientWidth || document.body.clientWidth) - this.offsetWidth;
+                this.maxT = (document.documentElement.clientHeight || document.body.clientHeight) - this.offsetHeight;
+                this.flyTimer = setInterval(() =>fly.call(this),20);
+                this.flyTimer = setInterval(()=>drop.call(this),20);
+            }
+        </script>
+    </body>
+</html>
