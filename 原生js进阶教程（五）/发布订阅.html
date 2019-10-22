@@ -1,0 +1,122 @@
+<html>
+    <body>
+        <script>
+            //发布订阅准备
+            let box = document.getElementById('box');
+
+            // box.onclick = function(){
+            //     console.log(1)
+            // };
+            // box.onclick = function(){
+            //     console.log(2)
+            // };
+            
+            function fn1(){
+                console.log(1)
+            }
+            function fn2(){
+                console.log(2)
+            }
+            function fn3(){
+                console.log(3)
+            }
+            box.addEventListener('click',fn1,false);
+            box.addEventListener('click',fn2,false);
+            box.addEventListener('click',fn3,false);
+
+            box.addEventListener('click',fn3,false);//同一个函数不能在同一个阶段、同一事件类型重复
+        </script>
+        <ol>
+            <li>DOM0级事件是给元素对象的事件属性赋值，但是一个属性只能存储一个值，多次绑定这个属性存储的就是最后一个函数</li>
+            <li>DOM2:DOM2级事件的每一个事件类型都有一个事件池（类似数字的一个东西）,我们次次addEventListener就是向这个事件池中添加一个方法，添加完并不会立即执行，而是等到触发这个事件的时候才会真正执行，而且是按照我们绑定的顺序执行</li>
+            <li>事件：元素或浏览器窗口发生的特殊的交互瞬间;事件是一个时刻，所以广义上来讲，在js中所有的时刻都可以成为事件，如5s后，动画停止后;</li>
+            <li>而事件思想就是预约这个时刻，提前准备好事件函数，当事件时刻发生时就把所有预约这个时刻的所有函数执行了</li>
+            <li>原生事件都是在点击等操作后，浏览器触发而执行监听函数;而其广义事件，我们自定义事件池，同时设置向事件池中增加事件函数以及移除函数的方法,最后在时刻到来时，我们手动执行方法，这种广义事件思想称为发布订阅模式</li>
+        </ol>
+        <p>发布订阅模式：是模拟DOM2级事件的事件池思想，在某一个时刻到来时，我们要做很多是事情（很多函数）。我们准备一个数组当做一个事件池，并且提供向事件池中加入函数的方法以及移除的方法。当时刻来临时，我们把事件池中的方法取出来挨个执行</p>
+        <p>1 订阅：订阅时刻到来，把想做的事情加入事件池</p>
+        <p>2 发布：时刻真的到来了，把事件池中的方法都执行了</p>
+        <script>
+            //准备事件池：
+            let ary = [];
+
+            function addEventListener(fn){
+                if(ary.includes(fn))return;
+                ary.push(fn)
+            }
+            function removeListener(fn){
+                //数组.filter 方法，把数组中满足条件的（回调函数返回true的项）组成一个新数组，原数组不变
+                ary = ary.filter(item => item !==fn);
+            }
+            function fire(){
+                ary.forEach(item => item())
+            }
+
+            function fn1(_this){
+                console.log(1)
+            }
+            function fn2(){
+                console.log(2)
+            }
+            function fn3(){
+                console.log(3)
+            } 
+
+            //订阅5s后的这个时刻
+            add(fn1);
+            add(fn2);
+            add(fn3);
+
+            //取消订阅
+            removeListener(fn3);
+
+            setTimeout(function(){
+                //5s后时刻来临，就把事件池中的方法都执行了
+                fire(this);
+            },5000);
+        </script>
+        <script>
+            //封装发布订阅
+            class Subscribe{
+                constructor(){
+                    this.pond = [];
+                }
+                includes (fn){
+                    //判断当前事件池是否包含某一个函数
+                    return this.pond.includes(fn);
+                }
+                addListener(fn){
+                    //不能重复添加
+                    if(!this.includes(fn))this.pond.push(fn);
+                    return this;
+                }
+                removeListener(fn){
+                    //取消订阅
+                    if(this.includes(fn)){
+                        this.pond = this.pond.filter(item => item !== fn);
+                    }
+                    return this;
+                }
+                fire(...args){
+                    //等到时刻到来时把事件池中的函数都执行了
+                    this.pond.forEach(item => item(...args));
+                }
+            }
+
+            function fn1(){
+                console.log(1)
+            }
+            function fn2(){
+                console.log(2)
+            }
+            function fn3(){
+                console.log(3)
+            }
+            let plan = new Subscribe();
+
+            plan.addListener(fn1).addListener(fn2).addListener(fn3);
+
+            setTimeout(()=>plan.fire([1,2,3]),5000);
+        </script>
+    </body>
+</html>
