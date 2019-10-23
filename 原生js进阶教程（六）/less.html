@@ -1,0 +1,121 @@
+<html>
+    <body>
+        <h4>less是什么？</h4>
+        <p>less是CSS预编译语言，类似的还有sass stylus等</p>
+        <h4>less和css的区别</h4>
+        <p>css是标记语言，不是编程语言，没有类、示例、函数、变量，开发效率低，可复用和可维护性差;</p>
+        <p>而less等预编译语言就是让css具备面向对象编程思想，有变量、有函数、有作用域，是浏览器不能识别和渲染less代码，需要我们把less代码先编译为正常css后，再交给浏览器进行解析渲染</p>
+        <h4>使用less</h4>
+        <h5>1 修改link标签的rel属性</h5>
+        <p>把link标签中的rel属性由stylesheet改为stylesheet/less</p>
+        <link rel="stylesheet/less" href="less文件">
+        <h5>2 引入编译js的文件</h5>
+        <p>开发环境编译，只需要引入编译的less的js文件即可</p>
+        <script src = 'less-2.5.3.min.js'></script>
+        <p>实际项目中我们使用webpack、gulp或者grunt等打包工具中的less编译等功能在打包的时候自动打包并且插入到页面中</p>
+        <h4>less语法</h4>
+        <style>
+            /* 原来的css2 */
+            .box{
+                width: 200px;
+                height: 200px;
+                background: skyblue;
+            }
+
+            .box a{
+                color: red;
+            }
+
+            /* 改写成less */
+            /* .box{
+                .centerPos()
+                width: 200px;
+                height: 200px;
+                background: skyblue;
+            }
+
+            a{
+                color: red;
+            } */
+            
+        </style>
+
+        <h5>1 less中变量</h5>
+        <p>less变量</p>
+        <p>存储代表值，以后再用这个值，使用这个变量即可，如果需要修改，只需要修改这个变量，那么所有用到这个变量的时候只要用到这个就改了</p>
+        <p>声明一个变量</p>
+        <p>语法：@变量名</p>
+        <style>
+            @bg-src:".../img";/*使用图片资源变迁引入 变量存储，以及拼接*/
+            @link-color:#000;/*可以使用-*/
+            @wid:200px;
+
+            /* 使用变量 */
+            a{
+                color: @link-color;
+                width:@wid;
+                background:url('@{bg-src}1.jpg')no-repeat center;
+            }
+        </style>
+        <h5>less中的嵌套语法</h5>
+        <p>1 less中使用嵌套表示层级;html代码如下</p>
+        <div class="outer">
+            <div class="inner">
+                <div class="center"><a href="" class="link"></a></div>
+            </div>
+        </div>
+        <p>less代码</p>
+        <style>
+            .outer{
+                .inner{
+                    .center{
+                        a{
+
+                        }
+                    }
+                }
+            }
+        </style>
+        <h5>在less的嵌套语法中使用&表示花括号外面的选择器后面紧跟着XX</h5>
+        <style>
+            .pub{
+                .bg{/* .pub .bg后代选择器 */
+                    
+                }
+                & > .bg{ /* .pub > .bg 子级选择器 */
+                   
+                }
+                &.bg{ /*.pub.bg交集选择器*/
+
+                }
+                &:hover{ /* .pub:hover 使用伪类 */
+
+                }
+            }
+        </style>
+        <h5>3 less嵌套会形成作用域</h5>
+        <style>
+            @width: 100px;
+            /* 嵌套语法，&使用 */
+            .pub{
+                width:200px;
+                .bg{
+                    width:@width; /*.bg最终的width使用的200px*/
+                }
+            }
+        </style>
+        <h5>4 less中使用函数</h5>
+        <p>less中可以声明函数</p>
+        <style>
+            .transition(@propety:all,@duration: .5s,@timing-function: liner,@delay: 0s){
+                transition:@argumetns;
+            }
+
+            .cc{
+                .transition; /*啥也不传时使用默认值*/
+                .transition(@duration: 1s);/* 只修改duration */
+            }
+        </style>
+        
+    </body>
+</html>
