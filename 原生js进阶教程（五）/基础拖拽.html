@@ -10,7 +10,7 @@
                 width: 200px;
                 height: 200px;
                 background:aqua;
-                /* top: 100px; left: 100px; */
+                top: 100px; left: 100px;
             }
             .box{
                 width: 300px;
@@ -40,7 +40,7 @@
                 </p>
             </ol>
         </ul>
-        <div class="dragObj" id="dragObj" style="top: 100px; left: 100px;"></div>
+        <div class="dragObj" id="dragObj"></div>
         <div class="box" id="box"></div>
         <script>
             let dragObj = document.getElementById('dragObj');
@@ -50,9 +50,12 @@
             function dragStart(e){
                 //开始拖拽
                 //1 纪录盒子初始位置、鼠标按下的位置
-                this.startL = parseFloat(this.style.left);
-                this.startT = parseFloat(this.style.top);
-
+                // this.startL = parseFloat(this.style.left);
+                // this.startT = parseFloat(this.style.top);
+                // this.startL = parseFloat( this.offsetLeft);
+                // this.startT = parseFloat(this.offsetTop);
+                this.startL = parseFloat(this.style.left||this.offsetLeft);
+                this.startT = parseFloat(this.style.top||this.offsetTop);
                 //2 记录鼠标按下时鼠标位置
                 this.startX = e.pageX;
                 this.startY = e.pageY;
