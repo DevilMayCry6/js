@@ -36,7 +36,34 @@
                 transform: rotateZ(45deg);
             }
 
+            body{
 
+            }
+            .container{
+                position: relative;
+                margin: 30px auto;
+                width: 300px;
+                height: 300px;
+                background: transparent;
+                border: 1px solid #000;
+                perspective: 2000px;/*没有视距，就没有3dx效果*/
+                transform-style: preserve-3d;/*保留元素的3d视图*/
+                transform-origin: center center;
+            }
+            .box2{
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                margin: auto;
+                z-index: 2;
+                widows: 300px;
+                height: 300px;
+                background: #00b38a;
+                transform: rotateY(45deg);
+                transform: rotateZ(15deg);
+            }
         </style>
     </head>
     <body>
@@ -53,6 +80,13 @@
             <li>transform:rotateY(deg)设置元素绕着y轴转动的角度，角度为正右侧向屏幕内转动</li>
             <li>transform:rotateZ(deg)设置元素绕着z轴转动的角度，角度为顺时针转动</li>
         </ol>
-
+        <div class="box1"></div>
+        <h5>perspective和transform-style:preserve-3d</h5>
+        <p>perspective:视距，眼镜到元素的距离（透视的概念），默认值是0，有了视距值以后才能有近大远小的效果</p>
+        <p>transform-style:preserve-3d;保留元素的3d视图，默认情况下浏览器不保留</p>
+        <p>所以为了有3d效果，一般需要我们给元素的盒子设置两个属性</p>
+        <div class="container">
+            <div class="box2"></div>
+        </div>
     </body>
 </html>
