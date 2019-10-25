@@ -7,8 +7,8 @@
                 padding: 0;
             }
             .box{
-                width: 236px;
-                height: 420px;
+                width: 50%;
+                height: 50%;
                 overflow: hidden;
             }
             .box img{
@@ -19,11 +19,40 @@
             .box img:hover{
                 transform: scale(1.1,2.2);
             }
+            
+            /* body{
+                perspective: 3000px;
+                transform-style: preserve-3d;;
+            } */
+            .box1{
+                margin: 30px auto;
+                widows: 200px;
+                height: 200px;
+                background: #00b38a;
+                transform: translate3d(-100px,100px,1000px);
+                transform: translateX(1000px);
+                transform: rotateX(45deg);
+                transform: rotateY(45deg);
+                transform: rotateZ(45deg);
+            }
+
+
         </style>
     </head>
     <body>
         <div class="box">
             <img src="img/1.jpg" alt="">
         </div>
+        <h5>3D变换</h5>
+        <ol>
+            <li>transform属性不仅可以设置2D变换，还可以设置3D变换</li>
+            <li>常见的3D变换</li>
+            <li>transform:translate3d(x,y,z)设置在x、y、z轴上的偏移距离</li>
+            <li>transform:translateZ(z)设置元素在z轴的偏移距离</li>
+            <li>transform:rotateX(deg)设置元素绕着x轴转动的角度，角度为正上边缘向屏幕内转动</li>
+            <li>transform:rotateY(deg)设置元素绕着y轴转动的角度，角度为正右侧向屏幕内转动</li>
+            <li>transform:rotateZ(deg)设置元素绕着z轴转动的角度，角度为顺时针转动</li>
+        </ol>
+
     </body>
 </html>
