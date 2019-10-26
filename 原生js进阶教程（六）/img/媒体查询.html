@@ -1,0 +1,31 @@
+<html>
+    <style>
+        @media screen and (max-width:600px){ /*当屏幕小于400时生效的样式*/
+            .box{
+                width: 400px;
+                height: 400px;
+                background: #000000;
+            }
+        }
+        @media screen and (min-width:800px){
+            .box{
+                width: 200px;
+                height: 200px;
+                background: red;
+            }
+        }
+
+        /* 更常用的是 all */
+        /* 可以使用媒体查询根据不同的情况设置不同的样式 */
+        @media all and (max-width:375px){
+            .box{
+
+            }
+        }
+        @media all and (max-width:950px){}
+    </style>
+    <body>
+        <p>媒体查询：查询不同的媒体类型，根据不同的宽度，是不同样式生效;经常应用PC端处理不同屏幕的分辨率</p>
+    </body>
+    <div class="box"></div>
+</html>
