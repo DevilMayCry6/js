@@ -1,0 +1,95 @@
+<html>
+    <head>
+        <style>
+            *{
+                margin: 0;
+                padding: 0;
+            }
+            .main{
+                width: 320px;
+                height: 560px;
+                background: url(img/cubeBg.ipg)no-repeat;
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                transform: translate(-50%,-50%);
+                -webkit-perspective: 3000px;
+                perspective: 3000px;
+            }
+            ul,li{
+                list-style: none;
+            }
+            .ul{
+                transform-style: preserve-3d;
+                /* 保留元素的3D位置 */
+                width: 255px;
+                height: 255px;
+                position: absolute;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                left: 0;
+                margin: auto;
+                animation: move 30s linear 0s infinite;
+            }
+            .ul li{
+                position: absolute;
+                width: 100%;
+                height: 100%;
+            }
+            .ul li img{
+                width: 100%;
+                height: 100%;
+            }
+            .ul li:nth-child(1){
+                transform:translateZ(-127.5px)rotateY(180deg);
+            }
+            .ul li:nth-child(2){
+                transform: translateX(-127.5px)rotateY(-90deg);
+            }
+            .ul li:nth-child(3){
+                transform: translateY(-127.5px)rotateX(90deg);
+            }
+            .ul li:nth-child(4){
+                transform: translateY(127.5px)rotateX(-90deg);
+            }
+            .ul li:nth-child(5){
+                transform: translateX(127.5px)rotateY(90deg);
+            }
+            .ul li:nth-child(6){
+                transform: translateZ(127.5px);
+            }
+            @keyframes move{
+                0%{
+                    /* transform: scale(0.6) rotateY(30deg); */
+                }
+                25%{
+                    transform: scale(0.6) rotateY(270deg);
+                }
+                50%{
+                    transform: scale(0.6)rotateX(0deg);
+                }
+                75%{
+                    transform: scale(0.6)rotateX(180deg);
+                }
+                100%{
+                    transform: scale(0.6)rotateZ(120deg);
+                }
+
+            }
+        </style>
+    </head>
+    <body>
+        <div class="main">
+            <ul class="ul">
+                <li><img src="img/cube1.png" alt=""></li>
+                <li><img src="img/cube2.png" alt=""></li>
+                <li><img src="img/cube3.png" alt=""></li>
+                <li><img src="img/cube4.png" alt=""></li>
+                <li><img src="img/cube5.png" alt=""></li>
+                <li><img src="img/cube6.png" alt=""></li>
+
+            </ul>
+        </div>
+    </body>
+</html>
