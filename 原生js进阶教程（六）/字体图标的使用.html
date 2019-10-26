@@ -1,0 +1,40 @@
+<html>
+    <body>
+        <h4>字体图标的使用</h4>
+        <p>1 下载字体图标</p>
+        <p>2 将字体图标放到项目目录中</p>
+        <p>3 使用@font-face创建字体</p>
+        <pre>
+            @font-feace{
+                font-family:"iconfont";
+                src:url("fonts/iconfont.ect"), /*IE 9*/
+                url("fonts/iconfont.woff")format("woff"),
+                url("fonts/iconfont.ttf")format("truetype"),
+                url("fonts/iconfont.svg")format('svg'); /*ios 4.1*/
+            }
+        </pre>
+        <p>4 在页面中引入这个css文件</p>
+        <pre>
+            <link rel="stylesheet" href="index.css">
+        </pre>
+        <p>5 在需要的地方使用引用图标</p>
+        <p>5.1 使用伪类</p>
+        <pre>
+            .box:before{
+                display:block;
+                content:'\f102';
+                font-family:iconfont;
+                font-size:16px;
+                color:red;
+            }
+        </pre>
+        <p>5.2 引入图标文字的css文件，使用类名引用图标</p>
+        <pre>
+            <link rel="stylesheet" href="inconfont-embedded.css">
+        </pre>
+        <p>在需要的地方给元素添加 iconfont i-图标字体名称</p>
+        <pre>
+            <div class="box icon-font i-close-s"></div>
+        </pre>
+    </body>
+</html>
