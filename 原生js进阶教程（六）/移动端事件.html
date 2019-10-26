@@ -1,0 +1,27 @@
+<html>
+    <head>
+        <p>移动端有单独的触摸事件，一般不使用click事件，因为在移动端有200ms的延迟</p>
+        <script>
+            let div = document.querySelector('#div');
+
+            // touchstart 触摸元素时触发
+            div.addEventListener('touchstart',function(e){
+                console.log('toustart');
+                console.log(e);//TouchEvent触摸事件对象
+                //在触摸事件对象中，把触摸的信息存放在touches中；
+                console.log(e.touches[0].clientX);
+            })
+
+            //touchmove在元素上滑动时触发
+            div.addEventListener('touchmove',function(e){
+                console.log(e.touches)
+            })
+
+            //touchend 当手指离开元素时触发
+            div.addEventListener('touched',function(e){
+                console.log('touchend');
+                console.log(e.changedTouches);//touchend没有e.touches ,事件信息放到了e.changedTouches属性上
+            })
+        </script>
+    </head>
+</html>
