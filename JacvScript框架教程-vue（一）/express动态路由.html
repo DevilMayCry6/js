@@ -1,0 +1,27 @@
+<html>
+    <body>
+        <p>动态路由是什么</p>
+        <p>路由中的某一部分是可以变的，这一部分需要用：标识;如果没有：这一部分就是不可以变的</p>
+        <p>动态路由的值</p>
+        <p>在express的请求对象上有一个params属性，这个属性保存了动态路由的值</p>
+        <script>
+            let express = require('express');
+            let bodyParser = require('body-parser');
+
+            let app = express();
+
+            app.use(express.static(__dirname));
+            app.use(bodyParser.json());
+
+            //动态路由：路由中的某一部分是可以变的，这一布冯需要用：标识；如果没有，这一部分是不可以变的
+
+            app.get('/order/details/:orderId',(req,res) =>{
+                console.log(req.path);// /order/details/123
+                console.log(req.params);// {orderId:'123'} 动态路由部分可以在req.params中获取，req.params 是一个对象，其中的属性是在声明路由时冒号后面的值；
+                res.send(req.params);
+            });
+
+            app.listen(8000,(req,res) => console.log(8000));
+        </script>
+    </body>
+</html>
