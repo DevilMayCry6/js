@@ -1,0 +1,57 @@
+<html>
+    <head>
+        <style>
+            *{
+                margin: 0;
+                padding: 0;
+            }
+            html{
+                font-size: 100px;
+            }
+            #box{
+                width: 3rem;
+                height: 1.5rem;
+                background: lightgreen;
+            }
+        </style>
+        <script>
+            ;(function(designWidth = 750){
+                function computedFont(){
+                    let winW = document.documentElement.clientWidth||document.body.clientWidth;
+                    document.documentElement.style.fontSize = winW/designWidth * 100 + 'px';
+                }
+                computedFont();
+                window.addEventListener('resize',computedFont)
+            })(750)
+            
+            let box = document.querySelector('#box');
+            box.addEventListener('touchstart',function(e){
+                //dom2级事件中函数this仍然是绑定当前事件的元素
+                let {touches:{0:point}} = e;
+                this.x = point.clientX;
+                this.y = point.clientY;
+                this.style.transition = 'all 0s';
+                this.style.transform = 'rotate(0)'
+            });
+            box.addEventListener('touchmove',function(e){
+                let {touches:{0:{clientX,clientY}}} = e;
+                let {x,y} = this;
+                this.moreThan30 = clientX - x>30 || clientY -y > 30;
+            });
+            box.addEventListener('touchend',function(e){
+                this.style.transition = 'all 1s';
+                if(this.moreThan30){
+                    this.style.opacity = 1;
+                }else{
+                    this.style.transform = 'rotate(540deg)'
+                }
+            })
+        </script>
+    </head>
+    <body>
+        <div id="box"></div>
+        <script>
+            
+        </script>
+    </body>
+</html>
