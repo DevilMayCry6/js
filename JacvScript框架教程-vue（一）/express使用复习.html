@@ -1,0 +1,35 @@
+<html>
+    <body>
+        <script>
+            // 1 导入 express
+            let express = repress('express');
+            let bodyParser = require('body-parser');
+
+            //2 创建一个服务
+            let app = express();
+
+            //3 使用静态资源服务中间件
+            app.use(express.static(__dirname));
+            app.use(bodyParser.json());
+
+            //4 配置路由
+            app.get('/api/login/:id',(req,res) =>{
+                console.log(req.params);
+                console.log(req.path);
+
+                //req.headers 请求头信息
+                //req.url 请求路径 + 问好传参
+                //req.path 路径
+                //req.host 主机名
+                //req.params 动态路由参数
+                res.send({
+                    code:0,
+                    data:null,
+                    msg:'ok'
+                });
+            });
+
+            app.listen(8000,() => console.log(8000));
+        </script>
+    </body>
+</html>
