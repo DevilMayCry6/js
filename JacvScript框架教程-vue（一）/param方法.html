@@ -1,0 +1,31 @@
+<html>
+    <body>
+        <p>app.param()方法用于拦截所有带有id的动态路由，可以访问请求对象 req 和响应对象 res;</p>
+        <script>
+            let express = require('express');
+            let bodyParser = require('body-parser');
+
+            let app = express();
+            
+            app.use(express.static(__dirname));
+            app.use(bodyParser.json());
+
+            //app.param 方法用于拦截所有带有id的动态路由
+            app.param('orderId',(req,res,next) =>{
+                console.log(req.params);
+                if(!/\d+/.test(req.params)){
+                    res.send('参数错误');
+                }else{
+                    next();//把控制权交给下一个拦截或者真正的路由处理函数响应
+                }
+            })
+
+            app.get('/order/detail/:orderId',(req,res,next) =>{
+                //console.log(req.params);
+                res.send(req.params)
+            });
+
+            app.listen(8000,() =>console.log(8000));
+        </script>
+    </body>
+</html>
