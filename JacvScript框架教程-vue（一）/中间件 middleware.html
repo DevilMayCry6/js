@@ -1,0 +1,33 @@
+<html>
+    <body>
+        <p>中间件：一个访问请求对象和响应对象的函数</p>
+        <p>一般中间件都是有固定功能或者实现拦截的</p>
+        <script>
+            let express = require('express');
+            let bodyParser = require('body-parser');
+
+            let app = express();
+
+            app.use(express.static(__dirname));
+            app.use(bodyParser.json());
+
+            //app.use()方法使用中间件，中间件在请求被服务器接收之后，真正被响应之前被调用
+            app.use(function(req,res,next){
+                //中间件，只要请求就会被挨个调用
+                //如果在当前中间件中没有结束请求，必须执行 next ,把控制权交给下一个中间件或者路由响应函数，否则请求一直处于挂起状态
+                req.sleep = '睡觉';
+                next();
+            });
+            app.use(function(req,res){
+                console.log(req.sleep);
+                res.send('帅');
+            });
+
+            app.get('/api/test',(req,res) =>{
+                console.log()
+            });
+
+            app.listen(8000,() => console.log('8000'));
+        </script>
+    </body>
+</html>
