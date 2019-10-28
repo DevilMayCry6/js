@@ -1,0 +1,32 @@
+<html>
+    <body>
+        <div id="app">
+            {{user.school}} <br>
+            {{user.age}}
+        </div>
+        <script>
+            let vm = new Vue({
+                el:"#app",
+                data:{
+                    user:{
+                        school:'??'
+                    }
+                }
+            });
+
+            console.log(vm);//vm 是 Vue 的实例，会把 new Vue 配置对象data中的数据代理到 vm 自身上；并且在 Vue 实例初始化时，vm 中的属性都是响应式的（都会映射到视图中，如果修改这些属性，视图中的值也会跟着改变）
+            
+            
+            //修改这些属性的方式：
+            
+            //1 修改 vm 属性上的值
+            // vm.user.school = 'vm';
+
+            //2 使用 $set()
+            vm.$set(vm.user,'school','！！')
+
+            //使用 $set 还可以向 data 对象中动态增加属性
+            vm.$set(vm.user,'age',19);
+        </script>
+    </body>
+</html>
