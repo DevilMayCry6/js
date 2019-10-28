@@ -1,0 +1,45 @@
+<!-- <html>
+    <body>
+        <p>双向数据绑定：通过 Vue 模板语法，把 Vue 中 data 里面的数据绑定到页面中；如果我们修改这个数据，页面中绑定这个数据的地方的值会跟着自动更新</p>
+        <div id="app">
+            我的电话: {{phone}} <br>
+            <input type="text" name="" id="" v-model='phone'>
+        </div>
+        <script>
+            //使用 Vue 的应用，必须设置一个根元素
+
+            let vm = new Vue({
+                el:"#app",
+                data:{
+                    phone:'123455'
+                }
+            })
+        </script>
+    </body>
+</html> -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<div id="app">
+  我的电话：{{phone}} <br>
+  <input type="text" v-model="phone">
+</div>
+
+<script src="js/vue.js"></script>
+<script src="js/3-双向数据绑定.js"></script>
+<script>
+    // 使用 Vue 的应用，必须设置一个根元素
+
+let vm = new Vue({
+  el: '#app',
+  data: {
+    phone: '16666666'
+  }
+});
+</script>
+</body>
+</html>

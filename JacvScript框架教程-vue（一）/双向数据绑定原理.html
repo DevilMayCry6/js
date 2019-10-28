@@ -1,0 +1,38 @@
+<html>
+    <head>
+        
+    </head>
+    <body>
+        <p>双向数据绑定：通过Vue模板语法，把Vue中data里面的数据绑定到页面中；如果我们修改这个数据，页面中绑定这个数据的地方的值都会跟着自动更新</p>
+        <div id="app"></div>
+        <input type="text" name="" id="input">
+        <script>
+            let obj ={
+                _name:1
+            }
+            let input = document.getElementById('input');
+            let app = document.getElementById('app');
+
+            //defineProperty 是一个函数，用来定义对象属性的特性；是 Object 的静态方法
+            Object.defineProperty(obj,'name',{
+                get(){
+                    return this._name;
+                },
+                set(val){
+                    this._name = val;
+                    app.innerHTML = this._name;
+                    // vue 使用的是发布订阅模式，vue 会收集页面中所有绑定数据的元素，这些相当于订阅了 data 里面的数据变更的事件，当数据发生变更时，会触发 set 方法，在set 方法中会把所有的使用这个属性的元素的值更新成最新的值（发布事件）
+                }
+            });
+
+            //v-model 的原理也是利用了 DOM 事件，当表单元素的值发生变化时，设置对象的属性，然后设置对象属性的时候，会触发 set 方法，在set 方法中，会去修改所有依赖这些值的地方
+            input.oninput = function(){
+                obj.name = this.value
+            }
+        </script>
+        <p>原理</p>
+        <p>vue 利用的 Object.defineProperty 这个方法遍历 data 中所有的属性，给每个属性增加了一个 setter 和 getter方法，
+            当数据发生变化的时候，会触发 setter 方法，当获取数据时，会触发 getter 方法；Object.defineProperty 在IE 8 及以下不兼容，
+        所以 vue 只能在 IE 9 以上使用 </p>
+    </body>
+</html>
