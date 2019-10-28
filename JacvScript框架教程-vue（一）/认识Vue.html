@@ -1,0 +1,54 @@
+<html>
+    <body>
+        <h5>Vue是什么：</h5>
+        <p>Vue.js是一门 MVVM 框架，框架的思路是数据映射视图；是数据驱动的，有别于我们过往的 DOM 操作开发思路</p>
+        <h5>MVC 和 MVVM</h5>
+        <p>MVC 和 MVVM 都是设计模式，是框架的开发理念</p>
+        <ol>
+            <li>MVC：M model 是数据层 V view 视图层 C controller 控制器层，控制器是连接 model 和视图的; 一般是单向数据流，通过 Controller 把数据绑定到 view 中</li>
+            <li>MVVM：M model 数据层 V view 视图层 VM view-model 视图模型层 通过视图模型把数据层和视图层联系起来，可以单向数据绑定</li>
+        </ol>
+        <p>此外，Vue 是响应式的框架；所谓响应式不是css 的响应式，而是通过修改数据，视图自动发生变化。当视图发生变化时，数据也会随着改变；这就是双向数据绑定;</p>
+
+
+        <!-- Vue 需要一个根元素 -->
+        <div id="app">
+            <div>
+                {{1 + 2}}
+            </div>
+            <div>
+                {1 && 2}
+            </div>
+            <div>
+                {{0 || 1}}
+            </div>
+            <div>
+                {{true ? 'a' : 'b'}}
+            </div>
+            <div>
+                {{product}}
+            </div>
+            <div>
+                {{user.name}}
+                {{user.age}}
+                {{user.title}}
+            </div>
+            <!-- Vue 的模板语法，moustache(小胡子)语法；支持 js 表达式，不能写语句，只能写表达式，将来在页面中显示最终表达式的结果 -->
+            <!-- 如果是变量，会从 Vue 的 data 中取到对应的属性值 -->
+        </div>
+        <script>
+            //Vue 是 vue 的构造函数，在执行函数时需要传入一个对象，对象的属性都是配置 vue 应用的
+            let vm = new Vue({
+                el:'#app',//指定 veu 应用挂载的元素
+                data:{
+                    product: 'Apple Mac Pro',
+                    user:{
+                        name:'name',
+                        age:18,
+                        title:'无'
+                    }
+                }
+            })
+        </script>
+    </body>
+</html>
