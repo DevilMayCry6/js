@@ -1,0 +1,32 @@
+<html>
+    <body>
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+        <div id="app">
+            <p v-if="seen">能看到</p>
+            <a v-bind:href="url">...</a>
+            <div @click="click1">
+                <div @click.stop="click2">
+                    click me
+                </div>
+            </div>
+        </div>
+        <script>
+            var vm = new Vue({
+                el:"#app",
+                data: {
+                    // seen:true
+                    seen:false,
+                    url:"https://learning.dcloud.io/#/?vid=6"
+                },
+                methods:{
+                    click1:function(){
+                        console.log('click1...');
+                    },
+                    click2:function(){
+                        console.log('click2...');
+                    }
+                }
+            })
+        </script>
+    </body>
+</html>
