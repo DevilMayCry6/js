@@ -1,0 +1,75 @@
+<html>
+    <head>
+        <script src="https://cdn.staticfile.org/react/16.4.0/umd/react.development.js"></script>
+        <script src="https://cdn.staticfile.org/react-dom/16.4.0/umd/react-dom.development.js"></script>
+        <script src="https://cdn.staticfile.org/babel-standalone/6.26.0/babel.min.js"></script>
+        <style>
+            .foo{
+                color: red;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="poo">
+
+        </div>
+        <script>
+            const element = <h1 className="foo">Hello world</h1>
+            ReactDOM.render(element,document.getElementById('root'));
+        </script>
+
+        <div id="example"></div>
+        <script>
+            ReactDOM.render(
+                <div>
+                    <h1>h1</h1>
+                    <p data-myattribute = "somevalue">这是一个很不错的 JavaScript 库 </p>
+                </div>
+                ,
+                document.getElementById('example')
+            );
+        </script>
+        <div id="example1"></div>
+        <script>
+            var i = 1;
+            ReactDOM.render(
+                <div>
+                    <h1>{i == 1 ? 'true!' : 'false'}</h1>
+                </div>
+                ,
+                document.getElementById('example2')
+            )
+        </script>
+        <div id="example2"></div>
+        <script>
+            var myStyle ={
+                fontSize:100,
+                color:'#FF0000'
+            };
+            ReactDOM.render(
+                <h1 style ={myStyle}>样式</h1>,
+                document.getElementById('example2')
+            );
+        </script>
+        <div id="example3"></div>
+        <script>
+            ReactDOM.render(
+                <div>
+                    <h1>注释</h1>
+                    {/*注释。。。*/}
+                </div>,
+                document.getElementById('example3')
+            )
+        </script>
+        <div id='example4'></div>
+        <script>
+            var arr =[
+                <h1> 数组 </h1>
+            ];
+            ReactDOM.render(
+                <div>{arr}</div>,
+                document.getElementById('example')
+            )
+        </script>
+    </body>
+</html>
