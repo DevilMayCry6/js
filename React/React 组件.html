@@ -1,0 +1,61 @@
+<html>
+    <body>
+        <script src="https://cdn.staticfile.org/react/16.4.0/umd/react.development.js"></script>
+        <script src="https://cdn.staticfile.org/react-dom/16.4.0/umd/react-dom.development.js"></script>
+        <script src="https://cdn.staticfile.org/babel-standalone/6.26.0/babel.min.js"></script>
+        <div id="example"></div>
+        <script>
+            // 封装一个输出 "Hello World!" 的组件，组件名为 HelloMessage
+            function HelloMessage(props){
+                return <h1>Hello World! </h1>;
+            }
+
+            const element = <HelloMessage />;
+
+            ReactDOM.render(
+                element,
+                document.getElementById('example')
+            );
+        </script>
+        <div id="example"></div>
+        <script>
+            function HelloMessage(props){
+                return <h1>Hello {props.name} !</h1>;
+            }
+
+            const element =<HelloMessage name ="Runoob"/>;
+
+            ReactDOM.render(
+                element,
+                document.getElementById('example')
+            );
+        </script>
+        <!-- 复合组件 -->
+        <div id="example"></div>
+        <script>
+            function Name(props){
+                return <h1>网站名称 : {props.name}</h1>;
+            }
+            function Url(props){
+                return <h1>网站地址 : {props.url}</h1>;
+            }
+            function Nickname(props){
+                return <h1>网站名称  : {props.nickname}</h1>;
+            }
+            function App(){
+                return (
+                    <div>
+                        <Name name ="github"/>
+                        <Url url = "https://github.com/DevilMayCry6"/>
+                        <Nickname nickname = "GITHUB"/>
+                    </div>
+                );
+            }
+
+            ReactDOM.render(
+                <App />,
+                document.getElementById('example')
+            );
+        </script>
+    </body>
+</html>
