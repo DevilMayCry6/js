@@ -1,0 +1,87 @@
+<html>
+    <body>
+        <script>
+            // window.alert(1*2);
+        </script>
+        <p id="demo">123</p>
+        <script>
+            document.getElementById('demo').innerHTML='段落已经修改'
+            document.write(Date());
+        </script>
+        <button onclick="myFunction()">点我</button>
+        <script>
+            function myFunction(){
+                document.write(Date());
+            }
+        </script>
+        <script>
+            a =1;
+            b= 2;
+            c = a+b;
+            console.log(c);
+        </script>
+        <p id="demo1"></p>
+        <script>
+            document.getElementById('demo1').innerHTML=123e3;
+        </script>
+        <p id="demo2"></p>
+        <script>
+            document.getElementById('demo2').innerHTML = "j"
+        </script>
+        <p id="demo3"></p>
+        <p id="demo4"></p>
+        <p id="demo5"></p>
+        <script>
+            var length;
+            length = 6;
+            document.getElementById('demo5').innerHTML = length;
+            document.getElementById('demo4').innerHTML = [1,2,3];
+            document.getElementById('demo3').innerHTML = 5*10;
+            var x,y,z;
+            x = 2;
+            y = 3;
+            z = 4;
+            z = (x + y) * 10;
+            a = 2/3;
+            document.getElementById('demo5').innerHTML = z;
+            document.getElementById('demo5').innerHTML = a;
+        </script>
+        <script>
+            document.write('你好\
+            世界');
+        </script>
+        <script>
+            var x =1;
+            var y = 1;
+            var z = x + y;
+            document.write(x + "<br>");
+            document.write(y + "<br>");
+            document.write(z + '<br>');
+
+            var pi = 3.14;
+            var name = "j";
+            var answer = "Yes I am!";
+            document.write(pi + "<br>");
+            document.write(name + "<br>");
+            document.write(answer + '<br>');
+        </script>
+        <p id="onclick"></p>
+        <button onclick="onclick1()">点击</button>
+        <script>
+            function onclick1(){
+                var carname = "Volvo";
+                document.getElementById("onclick").innerHTML = carname;
+            }
+        </script>
+        <button onclick="myFunction2()">点击</button>
+        <p id="demo11"></p>
+        <script>
+            function myFunction2(){
+                var y = 5;
+                var x = y+ 2;
+                var demoP = document.getElementById('demo11');
+                demoP.innerHTML = "x=" + x;
+            }
+        </script>
+    </body>
+</html>
