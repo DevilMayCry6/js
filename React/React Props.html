@@ -1,0 +1,130 @@
+<html>
+    <body>
+        <script src="https://cdn.staticfile.org/react/16.4.0/umd/react.development.js"></script>
+        <script src="https://cdn.staticfile.org/react-dom/16.4.0/umd/react-dom.development.js"></script>
+        <script src="https://cdn.staticfile.org/babel-standalone/6.26.0/babel.min.js"></script>
+        <script src="https://cdn.bootcss.com/prop-types/15.6.1/prop-types.js"></script>
+        <!-- React.Prop Types 在 React v15.5 版本后已经移到了 prop-types 库 -->
+        <div id="example"></div>
+        <script>
+            function HelloMessage(props){
+                return <h1>Hello {props.name} !</h1>
+            }
+
+            const element =<HelloMessage name ="WHO?"/>;
+
+            ReactDOM.render(
+                element,
+                document.getElementById('example')
+            )
+        </script>
+
+        <div id="example1">默认 Props</div>
+        <script>
+            //默认 Props
+            class HelloMessage extends React.Component{
+                render(){
+                    return(
+                        <h1>Hello ,{this.props.name}</h1>
+                    );
+                }
+            }
+
+            HelloMessage.defaultProps={
+                name:"WHO"
+            };
+
+            const element = <HelloMessage/>;
+
+            ReactDOM.render(
+                element,
+                document.getElementById('example1')
+            )
+        </script>
+        <div id="example2">State 和 Props</div>
+        <script>
+            //State 和 Props
+
+            class WebSite extends React.Component{
+                constructor(){
+                    super();
+
+                    this.state={
+                        name:"WHO",
+                        site:"http://www.4399.com"
+                    }
+                }
+                return(){
+                    return (
+                        <div>
+                            <Name name={this.state.name} />
+                            <Link site={this.state.site} />
+                        </div>
+                    )
+                }
+            } 
+
+            class Name extends React.Component{
+                render(){
+                    return(
+                        <h1>{this.props.name}</h1>
+                    );
+                }
+            }
+
+            class Link extends React.Component{
+                render(){
+                    return(
+                        <a href={this.props.site}>
+                            {this.props.site}
+                        </a>
+                    );
+                }
+            }
+
+            ReactDOM.render(
+                <WebSite />,
+                document.getElementById('example2')
+            );
+        </script>
+
+        <div id="example3">React 16.4</div>
+        <script>
+            var title="React Props";
+            //var title= 456;
+            class MyTitle extends React.Component{
+                render(){
+                    return(
+                        <h1>Hello,{this.props.title}</h1>
+                    );
+                }
+            }
+
+            MyTitle.propTypes={
+                title:propTypes.string
+            };
+            ReactDOM.render(
+                <MyTitle title={title} />,
+                document.getElementById('example3')
+            )
+        </script>
+        <div id="example4">React 15.4</div>
+        <script>
+            var title="React Props";
+            //var title = 123;
+            var MyTitle = React.createClass({
+                propTypes:{
+                    title:React.propTypes.string.isRequired,
+                },
+
+                render:function(){
+                    return <h1>{this.props.title}</h1>;
+                }
+            });
+            ReactDOM.render(
+                <MyTitle title={title} />,
+                document.getElementById('example')
+            )
+        </script>
+    </body>
+</html>
