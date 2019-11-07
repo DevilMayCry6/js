@@ -1,0 +1,75 @@
+<html>
+    <head>
+        <script src="https://cdn.staticfile.org/react/16.4.0/umd/react.development.js"></script>
+        <script src="https://cdn.staticfile.org/react-dom/16.4.0/umd/react-dom.development.js"></script>
+        <script src="https://cdn.staticfile.org/babel-standalone/6.26.0/babel.min.js"></script>
+    </head>
+    <body>
+        <div id="example"></div>
+        <script>
+            function FormattedDate(props){
+                return <h2>现在是 {props.date.toLocaleDateString()}</h2>;
+            }//数据自顶向下流动
+
+            class Clock extends React.Component{
+                constructor(props){
+                    super(props);
+                    this.state={date:new Date()};
+                }
+
+
+                // 将生命周期方法添加到类中
+                componentDidMount(){
+                    this.timerID = setInterval(
+                        ()=> this.tick(),
+                        1000
+                    );
+                }
+
+                componentWillUnmount(){
+                    clearInterval(this.timerID);
+                }
+
+                tick(){
+                    this.setState({
+                        date: new Date()
+                    });
+                }
+
+
+
+                render(){
+                    return (
+                        // <div>
+                        //     <h1>hello world! </h1>
+                        //     <h2>现在是 {this.state.date.toLocaleDateString()}</h2>
+                        // </div>
+                        <div>
+                            <h1>hello world</h1>
+                            <FormattedDate data={this.state.date}/>
+                        </div>
+                    )
+                }
+            }
+
+
+            //创建一个app 组件，它渲染三个Clock 
+            function App(){
+                return (
+                    <div>
+                        <Clock />
+                        <Clock />
+                        <Clock />
+                    </div>
+                );
+            }
+
+
+            ReactDOM.render(
+                // <Clock />,
+                <App />,
+                document.getElementById('example')
+            )
+        </script>
+    </body>
+</html>
